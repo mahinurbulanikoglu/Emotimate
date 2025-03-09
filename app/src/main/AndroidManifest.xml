@@ -14,7 +14,9 @@
         tools:targetApi="31">
         <activity
             android:name=".SignupActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Emotimate.SplashScreen"/>
+
         <activity
             android:name=".SigninActivity"
             android:exported="false" />

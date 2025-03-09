@@ -2,18 +2,19 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
     namespace = "com.mahinurbulanikoglu.emotimate"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.mahinurbulanikoglu.emotimate"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.9.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,22 +41,10 @@ android {
 }
 
 dependencies {
-
     // Add the dependency for the Firebase Authentication library
     // When NOT using the BoM, you must specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-auth:23.2.0")
-
-    // Also add the dependency for the Google Play services library and specify its version
-    implementation("com.google.android.gms:play-services-auth:21.3.0")
-
-    //
-    // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
-
-    // Add the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-auth")
-
+    implementation("com.google.firebase:firebase-auth:22.1.2")
+    implementation("androidx.core:core-splashscreen:1.0.0")
     // Also add the dependency for the Google Play services library and specify its version
     implementation("com.google.android.gms:play-services-auth:21.3.0")
 
