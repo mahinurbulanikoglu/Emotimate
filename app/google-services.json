@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "393226201927",
+    "project_id": "emotimate-6a03e",
+    "storage_bucket": "emotimate-6a03e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393226201927:android:7d33a34295d2f4d4cdba62",
+        "android_client_info": {
+          "package_name": "com.mahinurbulanikoglu.emotimate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYtAG8Yd7GKvZ70r_qnvaw_3ChUncPg80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
