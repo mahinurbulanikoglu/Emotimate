@@ -39,6 +39,7 @@ android {
     }
 }
 dependencies {
+
     // Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
 
