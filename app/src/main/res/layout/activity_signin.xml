@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signinresim"
+    android:background="@drawable/cannvayeni"
     tools:context=".SigninActivity">
 
 
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:hint="Type your Email"
             android:inputType="textEmailAddress" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -46,6 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/emailLayout"
         app:passwordToggleEnabled="true">
 
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passET"
 
@@ -54,6 +56,9 @@
             android:hint="Type Your Password"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
@@ -66,9 +71,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
+        app:layout_constraintVertical_bias="0.451" />
 
     <TextView
         android:id="@+id/textView"
@@ -81,5 +86,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="379dp"
+        android:layout_height="58dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
+        app:layout_constraintVertical_bias="0.419" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

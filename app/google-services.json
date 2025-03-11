@@ -12,7 +12,20 @@
           "package_name": "com.mahinurbulanikoglu.emotimate"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "393226201927-mqijkkrkcilh42nsipg0rnjic242tubu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mahinurbulanikoglu.emotimate",
+            "certificate_hash": "fb5a7245ee74a58c3f6b8dfde25f14a03256f5d2"
+          }
+        },
+        {
+          "client_id": "393226201927-gimhil8ihbv81c2f3o6su99ofpa8tsov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAYtAG8Yd7GKvZ70r_qnvaw_3ChUncPg80"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393226201927-gimhil8ihbv81c2f3o6su99ofpa8tsov.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
