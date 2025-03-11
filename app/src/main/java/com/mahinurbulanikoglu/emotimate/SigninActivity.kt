@@ -17,12 +17,16 @@ class SigninActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Thread.sleep(3000)
+        //installSplashScreen()
+
         binding = ActivitySigninBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-
         firebaseAuth = FirebaseAuth.getInstance()
+
         binding.textView.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
@@ -33,19 +37,30 @@ class SigninActivity : AppCompatActivity() {
             val pass = binding.passET.text.toString()
 
             if (email.isNotEmpty() && pass.isNotEmpty()) {
-
-                firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val intent = Intent(this, HomePageActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-
+                firebaseAuth.signInWithEmailAndPassword(email, pass)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val user = firebaseAuth.currentUser
+                            if (user != null && user.isEmailVerified) {
+                                // Kullanıcı doğrulandıysa HomePageActivity'ye yönlendir
+                                val intent = Intent(this, HomePageActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                // Kullanıcı doğrulama yapmadıysa hata mesajı göster
+                                Toast.makeText(
+                                    this,
+                                    "Please verify your email before signing in!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                firebaseAuth.signOut() // Kullanıcı çıkış yapsın
+                            }
+                        } else {
+                            Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
             } else {
                 Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
-
             }
         }
     }
@@ -53,9 +68,20 @@ class SigninActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        if(firebaseAuth.currentUser != null){
-            val intent = Intent(this, HomePageActivity::class.java)
-            startActivity(intent)
+        val user = firebaseAuth.currentUser
+        if (user != null) {
+            if (user.isEmailVerified) {
+                val intent = Intent(this, HomePageActivity::class.java)
+                startActivity(intent)
+                finish() // SigninActivity'yi kapat
+            } else {
+                Toast.makeText(
+                    this,
+                    "Please verify your email before signing in!",
+                    Toast.LENGTH_LONG
+                ).show()
+                firebaseAuth.signOut() // Kullanıcı doğrulama yapmadıysa oturumu kapat
+            }
         }
     }
 }

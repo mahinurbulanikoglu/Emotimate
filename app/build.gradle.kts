@@ -43,11 +43,12 @@ dependencies {
 
     // Add the dependency for the Firebase Authentication library
     // When NOT using the BoM, you must specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-auth:22.1.2")
+    implementation("com.google.firebase:firebase-auth:23.2.0")
 
     // Also add the dependency for the Google Play services library and specify its version
     implementation("com.google.android.gms:play-services-auth:21.3.0")
 
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
