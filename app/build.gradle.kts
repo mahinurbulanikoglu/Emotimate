@@ -53,6 +53,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
 
     // AndroidX Kütüphaneleri
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

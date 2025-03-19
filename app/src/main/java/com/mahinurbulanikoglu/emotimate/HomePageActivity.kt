@@ -35,7 +35,6 @@ class HomePageActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        binding.alinanisim.text= intent.getStringExtra("isim")
 
 
         // ŞEMA TESTLERİ OLUŞTURMA
