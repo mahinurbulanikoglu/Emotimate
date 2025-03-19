@@ -14,6 +14,8 @@ class HomePageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var sematestlerilistesi : ArrayList<sematestleri>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,5 +34,17 @@ class HomePageActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        binding.alinanisim.text= intent.getStringExtra("isim")
+
+
+        // ŞEMA TESTLERİ OLUŞTURMA
+
+        val anxiety = sematestleri("anxiety", R.drawable.emotimatefoto)
+
+        sematestlerilistesi = arrayListOf(anxiety)
     }
+
+
+
 }

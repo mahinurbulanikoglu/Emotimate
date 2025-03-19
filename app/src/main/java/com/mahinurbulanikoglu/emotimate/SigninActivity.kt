@@ -29,6 +29,11 @@ class SigninActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        binding.textView.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
+
         // Google Sign-In yapılandırması
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id)) // Firebase Console'dan gelen ID
@@ -36,6 +41,7 @@ class SigninActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+
 
         // Normal giriş butonu
         binding.button.setOnClickListener {
@@ -71,6 +77,7 @@ class SigninActivity : AppCompatActivity() {
             signInWithGoogle()
         }
     }
+
 
     private val googleSignInLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()

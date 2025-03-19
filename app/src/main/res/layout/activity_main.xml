@@ -35,7 +35,7 @@
         android:id="@+id/textView2"
         android:layout_width="179dp"
         android:layout_height="84dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="88dp"
         android:text="HOME PAGE"
         android:textAlignment="center"
         android:textColor="#0D0909"
@@ -43,6 +43,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/alinanisim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hoşgeldin "
+        tools:layout_editor_absoluteX="328dp"
+        tools:layout_editor_absoluteY="25dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

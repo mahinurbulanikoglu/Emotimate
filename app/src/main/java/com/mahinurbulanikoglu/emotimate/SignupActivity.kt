@@ -22,10 +22,7 @@ class SignupActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.textView.setOnClickListener {
-            val intent = Intent(this, SigninActivity::class.java)
-            startActivity(intent)
-        }
+
 
         binding.button.setOnClickListener {
             val email = binding.emailEt.text.toString()
@@ -57,6 +54,8 @@ class SignupActivity : AppCompatActivity() {
 
                                 // Kullanıcıyı giriş ekranına yönlendir
                                 val intent = Intent(this, SigninActivity::class.java)
+                                val kullanicigirdisi =  binding.nameEt.text.toString()
+                                intent.putExtra("isim",kullanicigirdisi)
                                 startActivity(intent)
                                 finish()
 

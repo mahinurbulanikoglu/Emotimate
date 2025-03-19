@@ -7,14 +7,12 @@
     android:background="@drawable/cannvayeni"
     tools:context=".SignupActivity">
 
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailLayout"
-
+        android:id="@+id/nameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="280dp"
         app:boxStrokeColor="@color/yellow"
         app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,9 +21,32 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEt"
+            android:id="@+id/nameEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Type Your Name"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailLayout"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="350dp"
+        app:boxStrokeColor="@color/yellow"
+        app:hintTextColor="@color/yellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:hint="Type your Email"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -34,7 +55,7 @@
         android:id="@+id/passwordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="24dp"
         app:boxStrokeColor="@color/yellow"
         app:hintTextColor="@color/yellow"
@@ -57,7 +78,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="24dp"
         app:boxStrokeColor="@color/yellow"
         app:hintTextColor="@color/yellow"
