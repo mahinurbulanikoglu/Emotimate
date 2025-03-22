@@ -43,7 +43,4 @@ class HomePageActivity : AppCompatActivity() {
 
         sematestlerilistesi = arrayListOf(anxiety)
     }
-
-
-
 }

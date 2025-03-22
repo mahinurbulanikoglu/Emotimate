@@ -10,5 +10,7 @@
     <color name="yellow">#FFC801</color>
     <color name="blue">#459DE4</color>
     <color name="red">#FF0000</color>
+    <color name="gray">#FF0000</color>
+    <color name="darker_gray">#555555</color>
 
 </resources>

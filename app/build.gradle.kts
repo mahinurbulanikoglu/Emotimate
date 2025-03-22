@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.mahinurbulanikoglu.emotimate"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -38,13 +38,16 @@ android {
         viewBinding = true
     }
 }
+
 dependencies {
 
+    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     // Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
 
     // Firebase Authentication KTX
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation(libs.androidx.constraintlayout)
 
     // Google Play Services Auth
     implementation("com.google.android.gms:play-services-auth:21.3.0")
@@ -53,7 +56,6 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
 
     // AndroidX Kütüphaneleri
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -63,10 +65,16 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     // AndroidX Credentials API
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.androidx.fragment.ktx)
+
 
     // Test Bağımlılıkları
     testImplementation(libs.junit)

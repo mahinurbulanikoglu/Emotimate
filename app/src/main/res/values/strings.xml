@@ -5,6 +5,22 @@
     <string name="title_ai">Yapay Zeka</string>
     <string name="title_psikologlar">Psikologlar</string>
     <string name="title_profil">Profil</string>
+    <string name="profile_image_desc">Profil resmi</string>
+    <string name="title_dashboard">Gösterge Paneli</string>
+    <string name="title_notifications">Bildirimler</string>
+    <string name="profile_title">Profilim</string>
+    <string name="task_description">Bu bir görev anahtarına ait açıklamadır.</string>
+
+
+    <string name="profile_description">Bu, kullanıcı profil açıklamasıdır.</string>
+    <string name="goals_title">Hedeflerim</string>
+    <string name="task_1">Görev 1</string>
+    <string name="task_2">Görev 2</string>
+    <string name="task_1_switch">Görev 1 geçişi</string>
+    <string name="task_2_switch">Görev 2 geçişi</string>
+    <string name="task1_description">Görev 1'i değiştir</string>
+    <string name="task2_description">Görev 2'yi değiştir</string>
+
     <string name="default_web_client_id">393226201927-mqijkkrkcilh42nsipg0rnjic242tubu.apps.googleusercontent.com</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -95,5 +111,7 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
