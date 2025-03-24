@@ -18,8 +18,8 @@
     <string name="task_2">Görev 2</string>
     <string name="task_1_switch">Görev 1 geçişi</string>
     <string name="task_2_switch">Görev 2 geçişi</string>
-    <string name="task1_description">Görev 1'i değiştir</string>
-    <string name="task2_description">Görev 2'yi değiştir</string>
+    <string name="task1_description">Görev biri değiştir</string>
+    <string name="task2_description">Görev ikiyi değiştir</string>
 
     <string name="default_web_client_id">393226201927-mqijkkrkcilh42nsipg0rnjic242tubu.apps.googleusercontent.com</string>
     <string name="large_text">

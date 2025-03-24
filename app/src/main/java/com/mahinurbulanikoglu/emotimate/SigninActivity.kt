@@ -54,7 +54,7 @@ class SigninActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             val user = firebaseAuth.currentUser
                             if (user != null && user.isEmailVerified) {
-                                startActivity(Intent(this, HomePageActivity::class.java))
+                                startActivity(Intent(this, MainActivity::class.java))
                                 finish()
                             } else {
                                 Toast.makeText(
@@ -103,7 +103,7 @@ class SigninActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     Toast.makeText(this, "Welcome ${user?.displayName}", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, HomePageActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
                     Toast.makeText(this, "Authentication Failed!", Toast.LENGTH_SHORT).show()
