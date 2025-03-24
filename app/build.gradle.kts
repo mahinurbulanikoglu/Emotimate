@@ -2,6 +2,12 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+
+}
+buildscript {
+    dependencies {
+        classpath("com.google.gms:google-services:4.3.10") // Güncel sürümü kullan
+    }
 }
 
 android {
@@ -65,10 +71,9 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.legacy.support.v4)
 
     // AndroidX Credentials API
     implementation(libs.androidx.credentials)

@@ -1,22 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ui.home.HomeFragment">
 
+    <!-- Üst Kısım: Bugün Nasıl Hissediyorsun -->
     <TextView
-        android:id="@+id/text_home"
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hoş Geldin"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:text="Bugün nasıl hissediyorsun?"
+        android:textAlignment="center"
+        android:textSize="16sp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:id="@+id/emoji_perfect"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:src="@drawable/ic_perfect" />
+
+        <ImageView
+            android:id="@+id/emoji_good"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:src="@drawable/ic_good"
+            android:contentDescription="İyi"/>
+
+        <ImageView
+            android:id="@+id/emoji_average"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:src="@drawable/ic_average" />
+
+        <ImageView
+            android:id="@+id/emoji_neutral"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:src="@drawable/ic_neutral" />
+
+        <ImageView
+            android:id="@+id/emoji_bad"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:src="@drawable/ic_bad" />
+
+    </LinearLayout>
+
+    <!-- Kategoriler İçin RecyclerView -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Meditasyon Sesleri"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="Önerilen Filmler"
+        android:textSize="16sp"
+        android:layout_marginVertical="16dp"
+        android:textStyle="bold" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="Makaleler"
+        android:textSize="16sp"
+        android:layout_marginVertical="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="Kitaplar"
+        android:textSize="16sp"
+        android:layout_marginVertical="16dp"
+        android:textStyle="bold" />
+</LinearLayout>
