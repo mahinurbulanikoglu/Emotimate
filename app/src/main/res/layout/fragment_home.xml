@@ -19,7 +19,7 @@
         android:paddingBottom="8dp" />
 
     <TextView
-        android:layout_width="411dp"
+        android:layout_width="378dp"
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
         android:text="Bugün nasıl hissediyorsun?"
@@ -33,43 +33,117 @@
         android:gravity="center"
         android:paddingBottom="16dp">
 
-        <ImageView
-            android:id="@+id/emoji_perfect"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="16dp"
-            android:src="@drawable/ic_perfect" />
+        <!-- Mükemmel -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <ImageView
-            android:id="@+id/emoji_good"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="16dp"
-            android:src="@drawable/ic_good"
-            android:contentDescription="İyi"/>
+            <ImageView
+                android:id="@+id/emoji_perfect"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_perfect" />
 
-        <ImageView
-            android:id="@+id/emoji_average"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="16dp"
-            android:src="@drawable/ic_average" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mükemmel"
+                android:textSize="14sp"
+                android:gravity="center"/>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/emoji_neutral"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="16dp"
-            android:src="@drawable/ic_neutral" />
+        <!-- İyi -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginStart="16dp">
 
-        <ImageView
-            android:id="@+id/emoji_bad"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="16dp"
-            android:src="@drawable/ic_bad" />
+            <ImageView
+                android:id="@+id/emoji_good"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_good" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="İyi"
+                android:textSize="14sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Orta -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginStart="16dp">
+
+            <ImageView
+                android:id="@+id/emoji_average"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_average" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orta"
+                android:textSize="14sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Nötr -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginStart="16dp">
+
+            <ImageView
+                android:id="@+id/emoji_neutral"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_neutral" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nötr"
+                android:textSize="14sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Kötü -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginStart="16dp">
+
+            <ImageView
+                android:id="@+id/emoji_bad"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_bad" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kötü"
+                android:textSize="14sp"
+                android:gravity="center"/>
+        </LinearLayout>
 
     </LinearLayout>
+
 
     <!-- Kategoriler İçin RecyclerView -->
     <TextView
@@ -84,7 +158,6 @@
         android:layout_marginTop="16dp"/>
 
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,7 +166,6 @@
         android:textSize="16sp"
         android:layout_marginVertical="16dp"
         android:textStyle="bold" />
-
 
 
     <TextView
