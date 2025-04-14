@@ -49,6 +49,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation(libs.androidx.constraintlayout)
 
+    // ✅ Firestore Eklendi
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
     // Google Play Services Auth
     implementation("com.google.android.gms:play-services-auth:21.3.0")
 
@@ -65,6 +68,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
+    implementation ("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("com.google.android.material:material:1.9.0")

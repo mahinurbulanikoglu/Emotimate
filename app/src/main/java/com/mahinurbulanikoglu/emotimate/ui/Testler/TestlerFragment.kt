@@ -28,9 +28,6 @@ class TestlerFragment : Fragment() {
         val root: View = binding.root
 
 
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-
-        }
         return root
     }
 

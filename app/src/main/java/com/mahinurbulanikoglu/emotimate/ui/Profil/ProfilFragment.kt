@@ -29,9 +29,7 @@ class ProfilFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.profileTitle
-        profilViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
         return root
     }
 

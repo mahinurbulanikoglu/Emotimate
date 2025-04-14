@@ -1,188 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".ui.home.HomeFragment">
-
-    <!-- Üst Kısım: Bugün Nasıl Hissediyorsun -->
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hoş Geldin"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingBottom="8dp" />
-
-    <TextView
-        android:layout_width="378dp"
-        android:layout_height="wrap_content"
-        android:paddingBottom="12dp"
-        android:text="Bugün nasıl hissediyorsun?"
-        android:textAlignment="center"
-        android:textSize="16sp" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingBottom="16dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- Mükemmel -->
-        <LinearLayout
+        <!-- Hoşgeldin -->
+        <TextView
+            android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:text="Hoş Geldin"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
 
-            <ImageView
-                android:id="@+id/emoji_perfect"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_perfect" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mükemmel"
-                android:textSize="14sp"
-                android:gravity="center"/>
-        </LinearLayout>
-
-        <!-- İyi -->
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvMotivation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:text="Motivasyon yazısı burada görünecek"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:padding="16dp"
+            android:textColor="@color/purple_700"
+            android:visibility="gone"
+            />
+
+        <!-- Soru -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:text="Bugün nasıl hissediyorsun?"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Duygu Kartları -->
+        <LinearLayout
+            android:id="@+id/emotionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginStart="16dp">
+            android:paddingBottom="16dp"
+            android:weightSum="5">
 
-            <ImageView
-                android:id="@+id/emoji_good"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_good" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Örnek Kart -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPerfect"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="İyi"
-                android:textSize="14sp"
-                android:gravity="center"/>
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/emoji_perfect"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_perfect" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mükemmel"
+                        android:textSize="14sp"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Diğer duygular için aynı yapıyı kopyalayabilirsin, sadece id ve yazıları değiştir -->
+            <!-- Örnek olarak aşağıya bir tane daha ekleyeyim: -->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardGood"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/emoji_good"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_good" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="İyi"
+                        android:textSize="14sp"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- Örnek Kart -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardAverage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/emoji_average"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_average" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ortalama"
+                        android:textSize="14sp"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- Örnek Kart -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardNeutral"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/emoji_neutral"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_neutral" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nötr"
+                        android:textSize="14sp"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- Örnek Kart -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardBad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/emoji_bad"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_bad" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="kötü"
+                        android:textSize="14sp"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Diğer 3 duyguyu (Orta, Nötr, Kötü) buraya ekle -->
+
         </LinearLayout>
 
-        <!-- Orta -->
-        <LinearLayout
+
+
+
+        <!-- Yorum alanı, sadece seçim sonrası gösterilecek -->
+        <EditText
+            android:id="@+id/editNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Eklemek istediğin bir şey var mı?"
+            android:visibility="gone"
+            android:minHeight="80dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="16dp">
+            android:text="Kaydet"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:backgroundTint="#4682B4"
+            android:textColor="@android:color/white" />
 
-            <ImageView
-                android:id="@+id/emoji_average"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_average" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Orta"
-                android:textSize="14sp"
-                android:gravity="center"/>
-        </LinearLayout>
-
-        <!-- Nötr -->
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <!-- Diğer bölümler (Meditasyon, Filmler...) burada devam edecek -->
+        <!-- Kategoriler İçin RecyclerView -->
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="16dp">
+            android:text="Meditasyon Sesleri"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"/>
 
-            <ImageView
-                android:id="@+id/emoji_neutral"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_neutral" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nötr"
-                android:textSize="14sp"
-                android:gravity="center"/>
-        </LinearLayout>
-
-        <!-- Kötü -->
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="16dp">
+            android:paddingTop="16dp"
+            android:text="Önerilen Filmler"
+            android:textSize="16sp"
+            android:layout_marginVertical="16dp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/emoji_bad"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_bad" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kötü"
-                android:textSize="14sp"
-                android:gravity="center"/>
-        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="Makaleler"
+            android:textSize="16sp"
+            android:layout_marginVertical="16dp"
+            android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="Kitaplar"
+            android:textSize="16sp"
+            android:layout_marginVertical="16dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-
-    <!-- Kategoriler İçin RecyclerView -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Meditasyon Sesleri"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:paddingTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"/>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:text="Önerilen Filmler"
-        android:textSize="16sp"
-        android:layout_marginVertical="16dp"
-        android:textStyle="bold" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:text="Makaleler"
-        android:textSize="16sp"
-        android:layout_marginVertical="16dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:text="Kitaplar"
-        android:textSize="16sp"
-        android:layout_marginVertical="16dp"
-        android:textStyle="bold" />
-</LinearLayout>
+</ScrollView>
