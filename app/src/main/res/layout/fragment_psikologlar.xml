@@ -1,15 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:background="#FFFFFF">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Psikologlar"
-        android:textSize="24sp"
-        android:textColor="@android:color/black" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</LinearLayout>
+        <!-- Başlık -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Psikologlar"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:paddingBottom="16dp" />
+
+        <!-- Psikolog Kartları -->
+        <!-- Her bir psikolog için benzer yapıyı kullanabilirsiniz -->
+        <!-- Örnek: -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzm. Kl. Psk. İlknur Çalışkan Köse"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Klinik Psikoloji"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'İlknur Hanım, profesyonel yaklaşımıyla bana çok yardımcı oldu.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+        <!-- Psikolog 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzm. Kl. Psk. Ezgi Özdemir"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Yetişkin ve Ergen Psikoterapisi"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'Ezgi Hanım, empatik yaklaşımıyla süreci çok kolaylaştırdı.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+
+        <!-- Psikolog 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Psk. Merve Demircioğlu"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Psikoloji, Aile Danışmanlığı"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'Merve Hanım, sorunlarımı anlamamda büyük destek sağladı.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+
+        <!-- Psikolog 4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Psk. Nur Tiryaki Sadıkoğlu"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Psikoloji"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'Nur Hanım, profesyonel yaklaşımıyla bana çok yardımcı oldu.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+
+        <!-- Psikolog 5 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzm. Kl. Psk. Eda Karakaya"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Bireysel terapi, anksiyete, depresyon"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'Eda Hanım sayesinde kendimi daha iyi tanıdım ve sorunlarımla başa çıkmayı öğrendim.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+
+        <!-- Psikolog 6 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Psk. Mustafa Güral"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Aile danışmanlığı, bireysel terapi"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'Mustafa Bey'in yaklaşımı çok profesyonel ve samimi.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+
+        <!-- Psikolog 7 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Psk. İzzet Kayacan"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Bireysel terapi, stres yönetimi"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'İzzet Bey ile seanslarım çok verimli geçti.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+
+        <!-- Psikolog 8 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzm. Kl. Psk. Ezgi Buse Mutlu"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Bireysel terapi, çocuk ve ergen psikolojisi"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'Ezgi Hanım'ın çocuklara yaklaşımı çok etkileyici.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+
+        <!-- Psikolog 9 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E0F7FA"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzm. Kl. Psk. İlknur Çalışkan"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uzmanlık Alanları: Bireysel terapi, anksiyete, depresyon"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danışan Yorumu: 'İlknur Hanım sayesinde kendimi daha iyi hissediyorum.'"
+                android:textSize="14sp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+        <!-- Diğer psikolog kartlarını buraya ekleyin -->
+
+    </LinearLayout>
+</ScrollView>
