@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
 
 
+
     // Test Bağımlılıkları
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
