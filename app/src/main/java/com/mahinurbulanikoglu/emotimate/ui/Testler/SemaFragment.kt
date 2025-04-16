@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView.Recycler
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
-import com.mahinurbulanikoglu.emotimate.model.ShemaCategoryAdapter
+import com.mahinurbulanikoglu.emotimate.model.SchemaCategory
+import com.mahinurbulanikoglu.emotimate.model.SchemaCategoryAdapter
 
 class SemaFragment : Fragment() {
 
-    private lateinit var recyclerView: Recycler
-    private lateinit var adapter: ShemaCategoryAdapter.SchemaCategoryAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: SchemaCategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
