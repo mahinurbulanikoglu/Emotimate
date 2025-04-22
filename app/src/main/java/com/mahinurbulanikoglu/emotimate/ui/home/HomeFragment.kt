@@ -2,25 +2,55 @@ package com.mahinurbulanikoglu.emotimate.ui.home
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mahinurbulanikoglu.emotimate.R
 import com.mahinurbulanikoglu.emotimate.databinding.FragmentHomeBinding
+import com.mahinurbulanikoglu.emotimate.model.ContentItem
+import com.mahinurbulanikoglu.emotimate.model.ContentType
+import com.mahinurbulanikoglu.emotimate.model.meditationItems
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: MeditationViewModel by activityViewModels()
+
     private var selectedMood: String? = null
     private lateinit var db: FirebaseFirestore
+
+    // RecyclerView ve Adapter için değişkenler
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ContentAdapter
+    //private lateinit var items: List<ContentItem>
+
+    val meditationItems = listOf(
+        ContentItem(
+            title = "Yağmur Meditasyonu",
+            imageResId = R.drawable.emotimatefoto,
+            audioResId = R.raw.rain_meditation_music,
+            contentType = ContentType.MEDITATION
+        ),
+        ContentItem(
+            title = "Dalga Sesi Meditasyonu",
+            imageResId = R.drawable.emotimatefoto,
+            audioResId = R.raw.rain_meditation_music,
+            contentType = ContentType.MEDITATION
+        )
+    )
 
     private val motivationMap = mapOf(
         "Mükemmel" to listOf(
@@ -65,13 +95,17 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
         db = FirebaseFirestore.getInstance()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerView = view.findViewById(R.id.recyclerView)
+        // LayoutManager ekleme
+        recyclerView.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // Duygu kartları tıklama işlemleri
         binding.cardPerfect.setOnClickListener { onMoodSelected("Mükemmel", binding.cardPerfect) }
@@ -80,7 +114,7 @@ class HomeFragment : Fragment() {
         binding.cardNeutral.setOnClickListener { onMoodSelected("Nötr", binding.cardNeutral) }
         binding.cardBad.setOnClickListener { onMoodSelected("Kötü", binding.cardBad) }
 
-        // Kaydet butonu tıklama işlemi
+        // Kaydet butonu
         binding.btnSave.setOnClickListener {
             selectedMood?.let { mood ->
                 val comment = binding.editNote.text.toString()
@@ -88,9 +122,33 @@ class HomeFragment : Fragment() {
             }
         }
 
+        // Meditasyon listesi ayarı
 
-        return root
+        val adapter = ContentAdapter(meditationItems) { selectedItem ->
+            if (selectedItem.contentType == ContentType.MEDITATION) {
+                viewModel.selectMeditation(selectedItem)
+
+                // SafeArgs ile Navigation geçişi yapıyoruz
+                val action = HomeFragmentDirections.actionHomeToMeditationDetail(
+                    meditationItem = selectedItem,
+                    title = selectedItem.title,
+                    audioResId = selectedItem.audioResId ?: -1, // Eğer null ise -1 gönder
+                    imageResId = selectedItem.imageResId
+                )
+                findNavController().navigate(action)
+            }
+        }
+        binding.recyclerView.adapter = adapter
+
+        // RecyclerView'e veri yüklenip yüklenmediğini kontrol etme
+        Log.d("HomeFragment", "RecyclerView Items: ${meditationItems.size}")
+        adapter.notifyDataSetChanged()
     }
+
+
+
+
+
 
     private fun onMoodSelected(mood: String, selectedCard: CardView) {
         resetCardColors()
@@ -101,8 +159,6 @@ class HomeFragment : Fragment() {
         binding.tvMotivation.visibility = View.VISIBLE
 
         selectedMood = mood
-
-        // 🟡 Motivasyon yazısı göster
         showMotivation(mood)
     }
 
@@ -111,8 +167,6 @@ class HomeFragment : Fragment() {
         val randomMessage = messages?.random() ?: "Bugün nasılsın?"
         binding.tvMotivation.text = randomMessage
     }
-
-
 
     private fun resetCardColors() {
         val defaultColor = Color.WHITE
@@ -148,7 +202,6 @@ class HomeFragment : Fragment() {
         binding.btnSave.visibility = View.GONE
         selectedMood = null
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

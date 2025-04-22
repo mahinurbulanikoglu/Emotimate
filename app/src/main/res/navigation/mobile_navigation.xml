@@ -8,7 +8,41 @@
         android:id="@+id/navigation_home"
         android:name="com.mahinurbulanikoglu.emotimate.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+    <action
+        android:id="@+id/action_home_to_meditationDetail"
+        app:destination="@id/meditationDetailFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/meditationDetailFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.home.MeditationDetailFragment"
+        android:label="Meditation Detail"
+        tools:layout="@layout/fragment_meditation_detail">
+
+
+        <argument
+            android:name="meditationItem"
+            app:argType="com.mahinurbulanikoglu.emotimate.model.ContentItem" />
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+        <argument
+            android:name="audioResId"
+            app:argType="integer" />
+
+        <argument
+            android:name="imageResId"
+            app:argType="integer" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/navigation_testler"

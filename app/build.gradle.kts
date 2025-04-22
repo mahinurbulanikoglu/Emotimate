@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.androidx.navigation.safeargs)
 }
 
 android {
@@ -74,15 +76,23 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+
+
     // AndroidX Credentials API
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.ui.android)
 
 
     // Test Bağımlılıkları
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Animasyonlar için
+
+    implementation(libs.lottie)
 }
 
