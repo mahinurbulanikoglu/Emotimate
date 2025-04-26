@@ -39,14 +39,14 @@ class HomeFragment : Fragment() {
 
     val meditationItems = listOf(
         ContentItem(
-            title = "Yağmur Meditasyonu",
-            imageResId = R.drawable.emotimatefoto,
+            title = "Yağmur Sesi",
+            imageResId = R.drawable.rain,
             audioResId = R.raw.rain_meditation_music,
             contentType = ContentType.MEDITATION
         ),
         ContentItem(
-            title = "Dalga Sesi Meditasyonu",
-            imageResId = R.drawable.emotimatefoto,
+            title = "Dalga Sesi",
+            imageResId = R.drawable.meditation,
             audioResId = R.raw.rain_meditation_music,
             contentType = ContentType.MEDITATION
         )

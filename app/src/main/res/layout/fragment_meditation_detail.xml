@@ -14,7 +14,7 @@
     <ImageView
         android:id="@+id/imageMeditation"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="300dp"
         android:layout_marginTop="30dp"
         android:contentDescription="Meditasyon Görseli"
         android:scaleType="centerCrop"
@@ -31,48 +31,52 @@
         android:text="Meditasyon Başlığı"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/lottieView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageMeditation" />
 
     <!-- Oynat/Durdur Butonu -->
+
+    <!-- SeekBar -->
+
     <ImageButton
         android:id="@+id/btnPlayPause"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="61dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="80dp"
         android:background="@android:color/transparent"
         android:contentDescription="Play Button"
         android:src="@drawable/ic_play"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textMeditationTitle"
         app:tint="@color/black" />
 
-    <!-- SeekBar -->
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="100dp"
         android:progress="0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnPlayPause" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btnPlayPause" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageMeditation"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/anim_meditation"
-        app:layout_constraintTop_toBottomOf="@id/seekBar">
+        app:lottie_rawRes="@raw/anim_meditation">
 
     </com.airbnb.lottie.LottieAnimationView>
 
