@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
 import android.util.Log
 
-
 class SchemaTestAdapter(
     private val questionList: List<SchemaQuestion>
 ) : RecyclerView.Adapter<SchemaTestAdapter.QuestionViewHolder>() {
 
-    class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val questionText: TextView = itemView.findViewById(R.id.questionText)
         val radioGroup: RadioGroup = itemView.findViewById(R.id.radioGroup)
     }
@@ -27,13 +26,15 @@ class SchemaTestAdapter(
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val question = questionList[position]
-        Log.d("Adapter", "Soru: ${question.questionText}")
-        Log.d("AdapterKontrol", "Soru: ${question.questionText}")
-        Log.d("TestlerFragment", "Soru sayısı: ${questionList.size}")
+
+        Log.d("SchemaTestAdapter", "Soru: ${question.questionText}")
+
         holder.questionText.text = question.questionText
 
+        // RadioGroup önce eski dinleyiciden temizleniyor
         holder.radioGroup.setOnCheckedChangeListener(null)
 
+        // Seçili olanı işaretle
         when (question.selectedScore) {
             1 -> holder.radioGroup.check(R.id.radio1)
             2 -> holder.radioGroup.check(R.id.radio2)
@@ -44,6 +45,7 @@ class SchemaTestAdapter(
             else -> holder.radioGroup.clearCheck()
         }
 
+        // Radio seçildiğinde skor kaydediliyor
         holder.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             question.selectedScore = when (checkedId) {
                 R.id.radio1 -> 1

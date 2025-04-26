@@ -19,7 +19,7 @@ class KusurlulukTestiFragment : Fragment() {private lateinit var questionList: L
         savedInstanceState: Bundle?
     ): View? {
         // Fragment için XML layout dosyasını bağla
-        return inflater.inflate(R.layout.fragment_testler, container, false)
+        return inflater.inflate(R.layout.fragment_kusurluluk_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
