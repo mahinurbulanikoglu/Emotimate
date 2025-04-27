@@ -11,7 +11,6 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
-
     <fragment
         android:id="@+id/navigation_ai"
         android:name="com.mahinurbulanikoglu.emotimate.ui.ai.aiFragment"
@@ -30,16 +29,17 @@
         android:label="Profil"
         tools:layout="@layout/fragment_profile_page" />
 
-    <!-- Testler içi Navigasyon (ekstra eklenenler) -->
+    <!-- Testler Fragment -->
     <fragment
-        android:id="@+id/testlerFragment"
+        android:id="@+id/navigation_testler"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.TestlerFragment"
-        android:label="TestlerFragment">
+        android:label="Testler">
         <action
             android:id="@+id/action_testlerFragment_to_semaFragment"
             app:destination="@id/semaFragment" />
     </fragment>
 
+    <!-- Şema Fragment -->
     <fragment
         android:id="@+id/semaFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.SemaFragment"
@@ -50,10 +50,10 @@
             app:destination="@id/kusurlulukTestiFragment" />
     </fragment>
 
+    <!-- Kusurluluk Testi Fragment -->
     <fragment
         android:id="@+id/kusurlulukTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.KusurlulukTestiFragment"
         android:label="Kusurluluk Testi"
         tools:layout="@layout/fragment_kusurluluk_testi" />
-
 </navigation>

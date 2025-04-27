@@ -38,6 +38,7 @@ class SemaFragment : Fragment() {
             when (category.title) {
                 "Kusurluluk / Utanç" -> {
                     findNavController().navigate(R.id.action_semaFragment_to_kusurlulukTestiFragment)
+
                 }
             }
         }
