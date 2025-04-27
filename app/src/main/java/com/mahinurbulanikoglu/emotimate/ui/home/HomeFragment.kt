@@ -21,7 +21,9 @@ import com.mahinurbulanikoglu.emotimate.databinding.FragmentHomeBinding
 import com.mahinurbulanikoglu.emotimate.model.ContentItem
 import com.mahinurbulanikoglu.emotimate.model.ContentType
 import com.mahinurbulanikoglu.emotimate.model.meditationItems
-
+import com.mahinurbulanikoglu.emotimate.model.movieItems
+import com.mahinurbulanikoglu.emotimate.model.articleItems
+import com.mahinurbulanikoglu.emotimate.model.bookItems
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -35,22 +37,8 @@ class HomeFragment : Fragment() {
     // RecyclerView ve Adapter için değişkenler
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ContentAdapter
-    //private lateinit var items: List<ContentItem>
+    private lateinit var items: List<ContentItem>
 
-    val meditationItems = listOf(
-        ContentItem(
-            title = "Yağmur Sesi",
-            imageResId = R.drawable.rain,
-            audioResId = R.raw.rain_meditation_music,
-            contentType = ContentType.MEDITATION
-        ),
-        ContentItem(
-            title = "Dalga Sesi",
-            imageResId = R.drawable.meditation,
-            audioResId = R.raw.rain_meditation_music,
-            contentType = ContentType.MEDITATION
-        )
-    )
 
     private val motivationMap = mapOf(
         "Mükemmel" to listOf(
@@ -90,6 +78,7 @@ class HomeFragment : Fragment() {
         )
     )
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -103,9 +92,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById(R.id.recyclerView)
-        // LayoutManager ekleme
-        recyclerView.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        // Kategorilere ait RecyclerView'leri başlat
+        val recyclerViewMeditations = view.findViewById<RecyclerView>(R.id.recyclerViewMeditations)
+        val recyclerViewMovies = view.findViewById<RecyclerView>(R.id.recyclerViewMovies)
+        val recyclerViewArticles = view.findViewById<RecyclerView>(R.id.recyclerViewArticles)
+        val recyclerViewBooks = view.findViewById<RecyclerView>(R.id.recyclerViewBooks)
+
+        // LayoutManager ve Adapter atamaları
+        recyclerViewMeditations.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewMovies.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewArticles.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewBooks.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // Duygu kartları tıklama işlemleri
         binding.cardPerfect.setOnClickListener { onMoodSelected("Mükemmel", binding.cardPerfect) }
@@ -122,32 +119,48 @@ class HomeFragment : Fragment() {
             }
         }
 
-        // Meditasyon listesi ayarı
-
-        val adapter = ContentAdapter(meditationItems) { selectedItem ->
-            if (selectedItem.contentType == ContentType.MEDITATION) {
-                viewModel.selectMeditation(selectedItem)
-
-                // SafeArgs ile Navigation geçişi yapıyoruz
-                val action = HomeFragmentDirections.actionHomeToMeditationDetail(
-                    meditationItem = selectedItem,
-                    title = selectedItem.title,
-                    audioResId = selectedItem.audioResId ?: -1, // Eğer null ise -1 gönder
-                    imageResId = selectedItem.imageResId
-                )
-                findNavController().navigate(action)
-            }
+        val meditationAdapter = ContentAdapter(meditationItems) { selectedItem ->
+            viewModel.selectMeditation(selectedItem)
+            navigateToDetail(selectedItem)
         }
-        binding.recyclerView.adapter = adapter
+        binding.recyclerViewMeditations.adapter = meditationAdapter
 
-        // RecyclerView'e veri yüklenip yüklenmediğini kontrol etme
-        Log.d("HomeFragment", "RecyclerView Items: ${meditationItems.size}")
-        adapter.notifyDataSetChanged()
+        val movieAdapter = ContentAdapter(movieItems) { selectedItem ->
+            viewModel.selectMeditation(selectedItem)
+            navigateToDetail(selectedItem)
+        }
+        binding.recyclerViewMovies.adapter = movieAdapter
+
+        val articleAdapter = ContentAdapter(articleItems) { selectedItem ->
+            viewModel.selectMeditation(selectedItem)
+            navigateToDetail(selectedItem)
+        }
+        binding.recyclerViewArticles.adapter = articleAdapter
+
+        val bookAdapter = ContentAdapter(bookItems) { selectedItem ->
+            viewModel.selectMeditation(selectedItem)
+            navigateToDetail(selectedItem)
+        }
+        binding.recyclerViewBooks.adapter = bookAdapter
+
+
+        binding.recyclerViewMeditations.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerViewMovies.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerViewArticles.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerViewBooks.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
     }
 
 
-
-
+    private fun navigateToDetail(selectedItem: ContentItem) {
+        val action = HomeFragmentDirections.actionHomeToMeditationDetail(
+            meditationItem = selectedItem,
+            title = selectedItem.title,
+            audioResId = selectedItem.audioResId ?: -1,
+            imageResId = selectedItem.imageResId
+        )
+        findNavController().navigate(action)
+    }
 
 
     private fun onMoodSelected(mood: String, selectedCard: CardView) {

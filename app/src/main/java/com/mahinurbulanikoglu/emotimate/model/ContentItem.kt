@@ -24,14 +24,59 @@ data class ContentItem(
 val meditationItems = listOf(
     ContentItem(
         title = "Yağmur Meditasyonu",
-        imageResId = R.drawable.emotimatefoto,
+        imageResId = R.drawable.rain,
         audioResId = R.raw.rain_meditation_music,
         contentType = ContentType.MEDITATION
     ),
     ContentItem(
         title = "Dalga Sesi Meditasyonu",
-        imageResId = R.drawable.emotimatefoto,
+        imageResId = R.drawable.meditation,
         audioResId = R.raw.rain_meditation_music,
         contentType = ContentType.MEDITATION
     ),
+
+)
+val movieItems = listOf(
+    ContentItem(
+        title = "Başlangıç",
+        imageResId = R.drawable.rain,
+        contentType = ContentType.MOVIE,
+        description = "Bilim kurgu filmi"
+    ),
+    ContentItem(
+        title = "Interstellar",
+        imageResId = R.drawable.rain,
+        contentType = ContentType.MOVIE,
+        description = "Uzay ve zaman yolculuğu"
+    )
+)
+
+val articleItems = listOf(
+    ContentItem(
+        title = "Mindfulness Üzerine",
+        imageResId = R.drawable.rain,
+        contentType = ContentType.ARTICLE,
+        description = "Zihni anda tutmak"
+    ),
+    ContentItem(
+        title = "Stres Yönetimi",
+        imageResId = R.drawable.rain,
+        contentType = ContentType.ARTICLE,
+        description = "Stresi azaltmanın yolları"
+    )
+)
+
+val bookItems = listOf(
+    ContentItem(
+        title = "Savaşçı",
+        imageResId = R.drawable.rain,
+        contentType = ContentType.BOOK,
+        description = "Kişisel gelişim kitabı"
+    ),
+    ContentItem(
+        title = "Düşün ve Zenginleş",
+        imageResId = R.drawable.rain,
+        contentType = ContentType.BOOK,
+        description = "Başarı kitabı"
+    )
 )

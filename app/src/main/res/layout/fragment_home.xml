@@ -217,8 +217,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Diğer 3 duyguyu (Orta, Nötr, Kötü) buraya ekle -->
-
         </LinearLayout>
 
 
@@ -273,7 +271,7 @@
         <!--BURASI SONRADAN EKLENEN YERRRRRRRRRRRRRRRRRR  YUKARISII-->
 
 
-
+        <!-- 🔵 Meditasyonlar -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -286,15 +284,14 @@
             android:layout_marginTop="16dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewMeditations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:clipToPadding="false"
-            android:scrollbars="vertical"
             />
 
-
+        <!-- 🔵 Filmler -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -304,7 +301,13 @@
             android:layout_marginVertical="16dp"
             android:textStyle="bold" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"/>
 
+        <!-- 🔵 Makaleler -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -314,6 +317,13 @@
             android:layout_marginVertical="16dp"
             android:textStyle="bold" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewArticles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 🔵 Kitaplar -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -322,6 +332,13 @@
             android:textSize="16sp"
             android:layout_marginVertical="16dp"
             android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewBooks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:scrollbars="vertical"/>
     </LinearLayout>
 
 </ScrollView>
