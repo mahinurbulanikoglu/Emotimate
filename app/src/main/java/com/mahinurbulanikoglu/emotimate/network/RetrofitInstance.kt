@@ -4,14 +4,24 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
+    private const val OPEN_LIBRARY_BASE_URL = "https://openlibrary.org/"
+    private const val TMDB_BASE_URL = "https://api.themoviedb.org/3/"
 
-    private const val BASE_URL = "https://openlibrary.org/"  // API'nin gerçek URL'si
+    private val openLibraryRetrofit = Retrofit.Builder()
+        .baseUrl(OPEN_LIBRARY_BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val tmdbRetrofit = Retrofit.Builder()
+        .baseUrl(TMDB_BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     val apiService: ApiService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
+        openLibraryRetrofit.create(ApiService::class.java)
+    }
+
+    val tmdbApiService: TMDbApiService by lazy {
+        tmdbRetrofit.create(TMDbApiService::class.java)
     }
 }

@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.home
+package com.mahinurbulanikoglu.emotimate.ui.home.detail
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -12,6 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.mahinurbulanikoglu.emotimate.databinding.FragmentMeditationDetailBinding
 import com.mahinurbulanikoglu.emotimate.R
+import com.mahinurbulanikoglu.emotimate.ui.home.detail.MeditationDetailFragmentArgs
+import com.mahinurbulanikoglu.emotimate.ui.home.MeditationViewModel
 
 class MeditationDetailFragment : Fragment() {
 

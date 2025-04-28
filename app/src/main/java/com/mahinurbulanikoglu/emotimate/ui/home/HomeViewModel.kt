@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mahinurbulanikoglu.emotimate.model.Book
 import com.mahinurbulanikoglu.emotimate.model.Movie
+import com.mahinurbulanikoglu.emotimate.model.MovieResponse
 import com.mahinurbulanikoglu.emotimate.network.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +20,8 @@ class HomeViewModel : ViewModel() {
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>> = _movies
 
+    private val TMDB_API_KEY = "07c763c609b7b92f0f8c7577d53c5581"
+
     fun fetchBooks() {
         val isbnList = listOf(
             "ISBN:6059692478", // seninle başlamadı
@@ -26,15 +29,13 @@ class HomeViewModel : ViewModel() {
             "ISBN:6056950484"  // iyi hisssetmek
         )
 
-        val bibkeys = isbnList.joinToString(",") // Virgülle birleştiriyoruz
+        val bibkeys = isbnList.joinToString(",")
 
-        //APİ çağrısı yapılıyor
         RetrofitInstance.apiService.getBookInfo(bibkeys)
             .enqueue(object : Callback<Map<String, Book>> {
                 override fun onResponse(call: Call<Map<String, Book>>, response: Response<Map<String, Book>>) {
                     if (response.isSuccessful) {
                         Log.d("HomeViewModel", "Books fetched: ${response.body()}")
-                        //Gelen veriden Book listesini çıkartıyoruz
                         val bookList = response.body()?.values?.toList() ?: emptyList()
                         _books.value = bookList
                     }
@@ -47,16 +48,26 @@ class HomeViewModel : ViewModel() {
     }
 
     fun fetchMovies() {
-        RetrofitInstance.apiService.getMovies().enqueue(object : Callback<List<Movie>> {
-            override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
-                if (response.isSuccessful) {
-                    _movies.value = response.body()
-                }
-            }
+        val movieTitles = listOf("Soul", "Little Miss Sunshine")
+        val allMovies = mutableListOf<Movie>()
 
-            override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
-                // Hata durumunda yapılacak işlemler
-            }
-        })
+        movieTitles.forEach { title ->
+            RetrofitInstance.tmdbApiService.searchMovies(TMDB_API_KEY, title)
+                .enqueue(object : Callback<MovieResponse> {
+                    override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                        if (response.isSuccessful) {
+                            val movies = response.body()?.results?.firstOrNull()
+                            movies?.let { allMovies.add(it) }
+                            if (allMovies.size == movieTitles.size) {
+                                _movies.value = allMovies
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                        Log.e("HomeViewModel", "Movie API call failed: ${t.message}")
+                    }
+                })
+        }
     }
 }

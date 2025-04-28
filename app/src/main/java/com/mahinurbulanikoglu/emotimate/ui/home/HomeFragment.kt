@@ -27,6 +27,7 @@ import com.mahinurbulanikoglu.emotimate.model.articleItems
 
 import com.mahinurbulanikoglu.emotimate.network.RetrofitInstance
 import com.mahinurbulanikoglu.emotimate.ui.home.adapter.BookAdapter
+import com.mahinurbulanikoglu.emotimate.ui.home.adapter.MovieAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -92,22 +93,36 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         db = FirebaseFirestore.getInstance()
 
-        val bookAdapter = BookAdapter()
+        val bookAdapter = BookAdapter { selectedBook ->
+            val action = HomeFragmentDirections.actionHomeToBookDetail(selectedBook)
+            findNavController().navigate(action)
+        }
         binding.recyclerViewBooks.adapter = bookAdapter
 
         return binding.root
     }
     private fun setupRecyclerView() {
-        // --- Book Adapter'ı başlatıyoruz ---
-        bookAdapter = BookAdapter()
+        // Book Adapter
+        bookAdapter = BookAdapter { selectedBook ->
+            val action = HomeFragmentDirections.actionHomeToBookDetail(selectedBook)
+            findNavController().navigate(action)
+        }
         binding.recyclerViewBooks.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = bookAdapter
         }
 
-        // --- Movie Adapter (ContentAdapter kullanıyoruz burada) ---
+        // Movie Adapter
+        movieAdapter = MovieAdapter { selectedMovie ->
+            val action = HomeFragmentDirections.actionHomeToMovieDetail(selectedMovie)
+            findNavController().navigate(action)
+        }
+        binding.recyclerViewMovies.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = movieAdapter
+        }
 
-        // --- Meditations ve Articles ---
+        // Meditations and Articles
         binding.recyclerViewMeditations.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = ContentAdapter(meditationItems) { selectedItem ->
@@ -131,26 +146,34 @@ class HomeFragment : Fragment() {
     private fun observeBooks() {
         homeViewModel.books.observe(viewLifecycleOwner) { books ->
             books?.let {
-                bookAdapter.submitList(it) // ✅ Gelen listeyi adapter'a veriyoruz
+                bookAdapter.submitList(it)
             }
         }
     }
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-            setupMoodCards() // --> Mood kartlarına tıklamaları ekledik.
-            setupRecyclerView() // ✅ RecyclerView kurulumu
-            observeBooks()      // ✅ Kitapları gözlemleme
-            homeViewModel.fetchBooks() // ✅ Kitapları çekiyoruz
-
-
-            binding.btnSave.setOnClickListener {
-                selectedMood?.let { mood ->
-                    val comment = binding.editNote.text.toString()
-                    saveMoodToFirestore(mood, comment)
-                }
+    private fun observeMovies() {
+        homeViewModel.movies.observe(viewLifecycleOwner) { movies ->
+            movies?.let {
+                movieAdapter.submitList(it)
             }
         }
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupMoodCards()
+        setupRecyclerView()
+        observeBooks()
+        observeMovies()
+        homeViewModel.fetchBooks()
+        homeViewModel.fetchMovies()
+
+        binding.btnSave.setOnClickListener {
+            selectedMood?.let { mood ->
+                val comment = binding.editNote.text.toString()
+                saveMoodToFirestore(mood, comment)
+            }
+        }
+    }
 
     private fun setupMoodCards() {
         binding.cardPerfect.setOnClickListener { onMoodSelected("Mükemmel", binding.cardPerfect) }

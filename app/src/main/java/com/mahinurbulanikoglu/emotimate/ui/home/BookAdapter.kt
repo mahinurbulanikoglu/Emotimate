@@ -1,4 +1,3 @@
-// BookAdapter.kt
 package com.mahinurbulanikoglu.emotimate.ui.home.adapter
 
 import android.view.LayoutInflater
@@ -9,7 +8,7 @@ import com.mahinurbulanikoglu.emotimate.model.Book
 import com.mahinurbulanikoglu.emotimate.databinding.ItemBookBinding
 import com.bumptech.glide.Glide
 
-class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+class BookAdapter(private val onClick: (Book) -> Unit) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     private var bookList: List<Book> = emptyList()
 
@@ -26,20 +25,18 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = bookList[position]
         holder.bind(book)
-
+        holder.itemView.setOnClickListener { onClick(book) }
     }
 
     override fun getItemCount(): Int = bookList.size
 
     class BookViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(book: Book) {
             binding.title.text = book.title
-            //binding.authors.text = book.authors.joinToString(", ")
             binding.description.text = book.description
             Glide.with(binding.root.context)
-                .load(book.cover.medium)
+                .load(book.cover?.medium)
                 .into(binding.coverImage)
         }
     }
-}
+} 

@@ -1,24 +1,22 @@
 package com.mahinurbulanikoglu.emotimate.model
 
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import com.mahinurbulanikoglu.emotimate.R
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Movie(
+    val id: Int,
     val title: String,
-    val director: String,
-    val description: String,
-    val imageUrl: String
-)
-val movieItems = listOf(
-    ContentItem(
-        title = "Başlangıç",
-        imageResId = R.drawable.rain,
-        contentType = ContentType.MOVIE,
-        description = "Bilim kurgu filmi"
-    ),
-    ContentItem(
-        title = "Interstellar",
-        imageResId = R.drawable.rain,
-        contentType = ContentType.MOVIE,
-        description = "Uzay ve zaman yolculuğu"
-    )
+    val overview: String,
+    @SerializedName("poster_path")
+    val posterPath: String?,
+    @SerializedName("release_date")
+    val releaseDate: String,
+    @SerializedName("vote_average")
+    val voteAverage: Double
+) : Parcelable
+data class MovieResponse(
+    val results: List<Movie>
 )

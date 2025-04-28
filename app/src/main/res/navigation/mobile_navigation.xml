@@ -10,21 +10,26 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
 
-    <action
-        android:id="@+id/action_home_to_meditationDetail"
-        app:destination="@id/meditationDetailFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_home_to_meditationDetail"
+            app:destination="@id/meditationDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_home_to_bookDetail"
+            app:destination="@id/bookDetailFragment" />
+        <action
+            android:id="@+id/action_home_to_movieDetail"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/meditationDetailFragment"
-        android:name="com.mahinurbulanikoglu.emotimate.ui.home.MeditationDetailFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.home.detail.MeditationDetailFragment"
         android:label="Meditation Detail"
         tools:layout="@layout/fragment_meditation_detail">
-
 
         <argument
             android:name="meditationItem"
@@ -43,6 +48,27 @@
             app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/bookDetailFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.detail.BookDetailFragment"
+        android:label="Kitap Detayı"
+        tools:layout="@layout/fragment_book_detail">
+
+        <argument
+            android:name="book"
+            app:argType="com.mahinurbulanikoglu.emotimate.model.Book" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.detail.MovieDetailFragment"
+        android:label="Film Detayı"
+        tools:layout="@layout/fragment_movie_detail">
+
+        <argument
+            android:name="movie"
+            app:argType="com.mahinurbulanikoglu.emotimate.model.Movie" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_testler"
