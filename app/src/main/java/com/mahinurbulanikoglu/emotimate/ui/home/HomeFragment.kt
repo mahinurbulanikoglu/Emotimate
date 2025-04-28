@@ -18,27 +18,32 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mahinurbulanikoglu.emotimate.R
 import com.mahinurbulanikoglu.emotimate.databinding.FragmentHomeBinding
+import com.mahinurbulanikoglu.emotimate.model.Book
 import com.mahinurbulanikoglu.emotimate.model.ContentItem
 import com.mahinurbulanikoglu.emotimate.model.ContentType
 import com.mahinurbulanikoglu.emotimate.model.meditationItems
-import com.mahinurbulanikoglu.emotimate.model.movieItems
+
 import com.mahinurbulanikoglu.emotimate.model.articleItems
-import com.mahinurbulanikoglu.emotimate.model.bookItems
+
+import com.mahinurbulanikoglu.emotimate.network.RetrofitInstance
+import com.mahinurbulanikoglu.emotimate.ui.home.adapter.BookAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private val homeViewModel: HomeViewModel by activityViewModels()
     private val viewModel: MeditationViewModel by activityViewModels()
-
-    private var selectedMood: String? = null
     private lateinit var db: FirebaseFirestore
 
-    // RecyclerView ve Adapter için değişkenler
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ContentAdapter
-    private lateinit var items: List<ContentItem>
+    private lateinit var bookAdapter: BookAdapter
+    private lateinit var movieAdapter: MovieAdapter
 
+    private var selectedMood: String? = null
 
     private val motivationMap = mapOf(
         "Mükemmel" to listOf(
@@ -86,82 +91,74 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         db = FirebaseFirestore.getInstance()
+
+        val bookAdapter = BookAdapter()
+        binding.recyclerViewBooks.adapter = bookAdapter
+
         return binding.root
     }
+    private fun setupRecyclerView() {
+        // --- Book Adapter'ı başlatıyoruz ---
+        bookAdapter = BookAdapter()
+        binding.recyclerViewBooks.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = bookAdapter
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // --- Movie Adapter (ContentAdapter kullanıyoruz burada) ---
+
+        // --- Meditations ve Articles ---
+        binding.recyclerViewMeditations.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = ContentAdapter(meditationItems) { selectedItem ->
+                viewModel.selectMeditation(selectedItem)
+                navigateToDetail(selectedItem)
+            }
+        }
+
+        binding.recyclerViewArticles.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = ContentAdapter(articleItems) { selectedItem ->
+                viewModel.selectMeditation(selectedItem)
+                navigateToDetail(selectedItem)
+            }
+        }
+
+        // --- Books ContentAdapter (Sabit kitap listesi için ayrı) ---
+        // Eğer istersen burayı da dinamik yapmak için HomeViewModel üzerinden verebiliriz.
+    }
+
+    private fun observeBooks() {
+        homeViewModel.books.observe(viewLifecycleOwner) { books ->
+            books?.let {
+                bookAdapter.submitList(it) // ✅ Gelen listeyi adapter'a veriyoruz
+            }
+        }
+    }
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Kategorilere ait RecyclerView'leri başlat
-        val recyclerViewMeditations = view.findViewById<RecyclerView>(R.id.recyclerViewMeditations)
-        val recyclerViewMovies = view.findViewById<RecyclerView>(R.id.recyclerViewMovies)
-        val recyclerViewArticles = view.findViewById<RecyclerView>(R.id.recyclerViewArticles)
-        val recyclerViewBooks = view.findViewById<RecyclerView>(R.id.recyclerViewBooks)
+            setupMoodCards() // --> Mood kartlarına tıklamaları ekledik.
+            setupRecyclerView() // ✅ RecyclerView kurulumu
+            observeBooks()      // ✅ Kitapları gözlemleme
+            homeViewModel.fetchBooks() // ✅ Kitapları çekiyoruz
 
-        // LayoutManager ve Adapter atamaları
-        recyclerViewMeditations.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewMovies.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewArticles.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewBooks.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        // Duygu kartları tıklama işlemleri
+            binding.btnSave.setOnClickListener {
+                selectedMood?.let { mood ->
+                    val comment = binding.editNote.text.toString()
+                    saveMoodToFirestore(mood, comment)
+                }
+            }
+        }
+
+    private fun setupMoodCards() {
         binding.cardPerfect.setOnClickListener { onMoodSelected("Mükemmel", binding.cardPerfect) }
         binding.cardGood.setOnClickListener { onMoodSelected("İyi", binding.cardGood) }
         binding.cardAverage.setOnClickListener { onMoodSelected("Ortalama", binding.cardAverage) }
         binding.cardNeutral.setOnClickListener { onMoodSelected("Nötr", binding.cardNeutral) }
         binding.cardBad.setOnClickListener { onMoodSelected("Kötü", binding.cardBad) }
-
-        // Kaydet butonu
-        binding.btnSave.setOnClickListener {
-            selectedMood?.let { mood ->
-                val comment = binding.editNote.text.toString()
-                saveMoodToFirestore(mood, comment)
-            }
-        }
-
-        val meditationAdapter = ContentAdapter(meditationItems) { selectedItem ->
-            viewModel.selectMeditation(selectedItem)
-            navigateToDetail(selectedItem)
-        }
-        binding.recyclerViewMeditations.adapter = meditationAdapter
-
-        val movieAdapter = ContentAdapter(movieItems) { selectedItem ->
-            viewModel.selectMeditation(selectedItem)
-            navigateToDetail(selectedItem)
-        }
-        binding.recyclerViewMovies.adapter = movieAdapter
-
-        val articleAdapter = ContentAdapter(articleItems) { selectedItem ->
-            viewModel.selectMeditation(selectedItem)
-            navigateToDetail(selectedItem)
-        }
-        binding.recyclerViewArticles.adapter = articleAdapter
-
-        val bookAdapter = ContentAdapter(bookItems) { selectedItem ->
-            viewModel.selectMeditation(selectedItem)
-            navigateToDetail(selectedItem)
-        }
-        binding.recyclerViewBooks.adapter = bookAdapter
-
-
-        binding.recyclerViewMeditations.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewMovies.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewArticles.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewBooks.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
     }
-
-
-    private fun navigateToDetail(selectedItem: ContentItem) {
-        val action = HomeFragmentDirections.actionHomeToMeditationDetail(
-            meditationItem = selectedItem,
-            title = selectedItem.title,
-            audioResId = selectedItem.audioResId ?: -1,
-            imageResId = selectedItem.imageResId
-        )
-        findNavController().navigate(action)
-    }
-
 
     private fun onMoodSelected(mood: String, selectedCard: CardView) {
         resetCardColors()
@@ -208,12 +205,23 @@ class HomeFragment : Fragment() {
             }
     }
 
+
     private fun resetUI() {
         resetCardColors()
         binding.editNote.setText("")
         binding.editNote.visibility = View.GONE
         binding.btnSave.visibility = View.GONE
         selectedMood = null
+    }
+
+    private fun navigateToDetail(selectedItem: ContentItem) {
+        val action = HomeFragmentDirections.actionHomeToMeditationDetail(
+            meditationItem = selectedItem,
+            title = selectedItem.title,
+            audioResId = selectedItem.audioResId ?: -1,
+            imageResId = selectedItem.imageResId
+        )
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

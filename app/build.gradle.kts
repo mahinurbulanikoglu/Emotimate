@@ -85,14 +85,21 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.ui.android)
 
-
     // Test Bağımlılıkları
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Animasyonlar için
-
     implementation(libs.lottie)
+
+    //Retrofit, Gson, okkhttp
+    implementation(libs.retrofit)
+    implementation(libs.gsonConverter)
+    implementation(libs.okhttp)
+
+    //glide
+    implementation(libs.glide)
+    annotationProcessor(libs.glideCompiler)
 }
 

@@ -21,6 +21,7 @@ data class ContentItem(
 ) : Parcelable
 
 
+
 val meditationItems = listOf(
     ContentItem(
         title = "Yağmur Meditasyonu",
@@ -36,20 +37,7 @@ val meditationItems = listOf(
     ),
 
 )
-val movieItems = listOf(
-    ContentItem(
-        title = "Başlangıç",
-        imageResId = R.drawable.rain,
-        contentType = ContentType.MOVIE,
-        description = "Bilim kurgu filmi"
-    ),
-    ContentItem(
-        title = "Interstellar",
-        imageResId = R.drawable.rain,
-        contentType = ContentType.MOVIE,
-        description = "Uzay ve zaman yolculuğu"
-    )
-)
+
 
 val articleItems = listOf(
     ContentItem(
@@ -66,17 +54,5 @@ val articleItems = listOf(
     )
 )
 
-val bookItems = listOf(
-    ContentItem(
-        title = "Savaşçı",
-        imageResId = R.drawable.rain,
-        contentType = ContentType.BOOK,
-        description = "Kişisel gelişim kitabı"
-    ),
-    ContentItem(
-        title = "Düşün ve Zenginleş",
-        imageResId = R.drawable.rain,
-        contentType = ContentType.BOOK,
-        description = "Başarı kitabı"
-    )
-)
+
+
