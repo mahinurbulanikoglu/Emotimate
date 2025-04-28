@@ -24,15 +24,33 @@ data class ContentItem(
 
 val meditationItems = listOf(
     ContentItem(
-        title = "Yağmur Meditasyonu",
-        imageResId = R.drawable.rain,
-        audioResId = R.raw.rain_meditation_music,
+        title = "Mindfulness Of Body And Breath",
+        imageResId = R.drawable.mindfulnessimage,
+        audioResId = R.raw.meditation1,
         contentType = ContentType.MEDITATION
     ),
     ContentItem(
-        title = "Dalga Sesi Meditasyonu",
-        imageResId = R.drawable.meditation,
-        audioResId = R.raw.rain_meditation_music,
+        title = "The Body Scan",
+        imageResId = R.drawable.mindfulnessimage,
+        audioResId = R.raw.meditation2,
+        contentType = ContentType.MEDITATION
+    ),
+    ContentItem(
+        title = "Mindful Movement",
+        imageResId = R.drawable.mindfulnessimage,
+        audioResId = R.raw.meditation3,
+        contentType = ContentType.MEDITATION
+    ),
+    ContentItem(
+        title = "Breath And Body",
+        imageResId = R.drawable.mindfulnessimage,
+        audioResId = R.raw.meditation4,
+        contentType = ContentType.MEDITATION
+    ),
+    ContentItem(
+        title = "Sounds And Thoughts",
+        imageResId = R.drawable.mindfulnessimage,
+        audioResId = R.raw.meditation5,
         contentType = ContentType.MEDITATION
     ),
 

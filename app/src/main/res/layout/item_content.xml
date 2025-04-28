@@ -21,7 +21,7 @@
             android:layout_height="140dp"
             android:scaleType="centerCrop"
             android:contentDescription="İçerik görseli"
-            android:src="@drawable/rain" />
+            android:src="@drawable/mindfulnessimage" />
 
         <TextView
             android:id="@+id/textTitle"
