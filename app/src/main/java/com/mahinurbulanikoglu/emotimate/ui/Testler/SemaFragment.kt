@@ -29,16 +29,19 @@ class SemaFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerViewSchemaCategories)
 
+        // İki test kategorisini listeye ekle
         val categories = listOf(
-            SchemaCategory("Kusurluluk / Utanç")
-            // Diğer testleri buraya eklersin
+            SchemaCategory("Kusurluluk / Utanç"),
+            SchemaCategory("Terkedilme")  // Yeni eklenen kategori
         )
 
         adapter = SchemaCategoryAdapter(categories) { category ->
             when (category.title) {
                 "Kusurluluk / Utanç" -> {
                     findNavController().navigate(R.id.action_semaFragment_to_kusurlulukTestiFragment)
-
+                }
+                "Terkedilme" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_terkedilmeTestiFragment)
                 }
             }
         }

@@ -21,9 +21,9 @@ class TestlerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Şema Testleri butonuna tıklama işlevi
         view.findViewById<Button>(R.id.btnSchemaTests).setOnClickListener {
-            // Güvenli navController kullanımı
-            findNavController().navigate(R.id.action_testlerFragment_to_semaFragment)
+            findNavController().navigate(R.id.action_navigation_testler_to_semaFragment)
         }
     }
 }

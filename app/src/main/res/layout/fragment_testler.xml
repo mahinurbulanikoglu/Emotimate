@@ -5,14 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnSchemaTests"
-        android:layout_width="0dp"
+    <!-- Test butonları için bir LinearLayout -->
+    <LinearLayout
+        android:id="@+id/btnGroupContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Şema Testleri"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp">
+
+        <!-- Şema Testleri Butonu -->
+        <Button
+            android:id="@+id/btnSchemaTests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Şema Testleri"/>
+
+        <!-- Diğer Test Grupları Eklenebilir -->
+        <Button
+            android:id="@+id/btnAnotherTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diğer Test Grubu"/>
+
+        <!-- İhtiyaca göre başka test butonları eklenebilir -->
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
