@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.mahinurbulanikoglu.emotimate.model.Article
 import com.mahinurbulanikoglu.emotimate.model.ArticleResponse
 import com.mahinurbulanikoglu.emotimate.model.Book
+import com.mahinurbulanikoglu.emotimate.model.ContentItem
 import com.mahinurbulanikoglu.emotimate.model.Movie
 import com.mahinurbulanikoglu.emotimate.model.MovieResponse
 import com.mahinurbulanikoglu.emotimate.network.RetrofitInstance
@@ -24,6 +25,17 @@ class HomeViewModel : ViewModel() {
 
     private val _articles = MutableLiveData<List<Article>>()
     val articles: LiveData<List<Article>> = _articles
+
+    private val _selectedMeditation = MutableLiveData<ContentItem>()
+    val selectedMeditation: LiveData<ContentItem> = _selectedMeditation
+
+    private val _meditationDuration = MutableLiveData<String>()
+    val meditationDuration: LiveData<String> = _meditationDuration
+
+    fun selectMeditation(item: ContentItem) {
+        _selectedMeditation.value = item
+        _meditationDuration.value = "10:00"
+    }
 
     private val TMDB_API_KEY = "07c763c609b7b92f0f8c7577d53c5581"
 
@@ -56,14 +68,19 @@ class HomeViewModel : ViewModel() {
             .enqueue(object : Callback<ArticleResponse> {
                 override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
                     if (response.isSuccessful) {
-                        Log.d("HomeViewModel", "Articles fetched: ${response.body()}")
                         val articleList = response.body()?.resultList?.result ?: emptyList()
+                        Log.d("HomeViewModel", "Makaleler başarıyla getirildi. Makale sayısı: ${articleList.size}")
+                        articleList.forEachIndexed { index, article ->
+                            Log.d("HomeViewModel", "Makale ${index + 1}: ${article.title}")
+                        }
                         _articles.value = articleList
+                    } else {
+                        Log.e("HomeViewModel", "API yanıtı başarısız: ${response.code()}")
                     }
                 }
 
                 override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
-                    Log.e("HomeViewModel", "Article API çağrısı başarısız: ${t.message}")
+                    Log.e("HomeViewModel", "Makale API çağrısı başarısız: ${t.message}")
                 }
             })
     }

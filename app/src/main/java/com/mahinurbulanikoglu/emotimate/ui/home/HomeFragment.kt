@@ -21,15 +21,12 @@ import com.mahinurbulanikoglu.emotimate.databinding.FragmentHomeBinding
 import com.mahinurbulanikoglu.emotimate.model.Article
 import com.mahinurbulanikoglu.emotimate.model.Book
 import com.mahinurbulanikoglu.emotimate.model.ContentItem
-import com.mahinurbulanikoglu.emotimate.model.ContentType
 import com.mahinurbulanikoglu.emotimate.model.meditationItems
-
-import com.mahinurbulanikoglu.emotimate.model.articleItems
-
 import com.mahinurbulanikoglu.emotimate.network.RetrofitInstance
 import com.mahinurbulanikoglu.emotimate.ui.home.adapter.ArticleAdapter
 import com.mahinurbulanikoglu.emotimate.ui.home.adapter.BookAdapter
 import com.mahinurbulanikoglu.emotimate.ui.home.adapter.MovieAdapter
+import com.mahinurbulanikoglu.emotimate.ui.home.adapter.MeditationAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,7 +37,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by activityViewModels()
-    private val viewModel: MeditationViewModel by activityViewModels()
     private lateinit var db: FirebaseFirestore
 
     private lateinit var bookAdapter: BookAdapter
@@ -138,8 +134,7 @@ class HomeFragment : Fragment() {
         // Meditations
         binding.recyclerViewMeditations.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = ContentAdapter(meditationItems) { selectedItem ->
-                viewModel.selectMeditation(selectedItem)
+            adapter = MeditationAdapter(meditationItems) { selectedItem ->
                 navigateToDetail(selectedItem)
             }
         }

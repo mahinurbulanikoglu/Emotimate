@@ -3,7 +3,6 @@ package com.mahinurbulanikoglu.emotimate.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mahinurbulanikoglu.emotimate.R
 import com.mahinurbulanikoglu.emotimate.model.Book
 import com.mahinurbulanikoglu.emotimate.databinding.ItemBookBinding
 import com.bumptech.glide.Glide

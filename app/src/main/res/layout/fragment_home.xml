@@ -247,28 +247,6 @@
         <!-- Diğer bölümler (Meditasyon, Filmler...) burada devam edecek -->
         <!-- Kategoriler İçin RecyclerView -->
 
-<!--BURASI SONRADAN EKLENEN YERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/homeFragmentRoot"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
-
-            <TextView
-                android:id="@+id/tvHomeTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="Önerilen İçerikler"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--BURASI SONRADAN EKLENEN YERRRRRRRRRRRRRRRRRR  YUKARISII-->
 
 
         <!-- 🔵 Meditasyonlar -->
@@ -314,7 +292,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
-            android:text="Kitaplar"
+            android:text="Önerilen Kitaplar"
             android:textSize="16sp"
             android:layout_marginVertical="16dp"
             android:textStyle="bold" />
@@ -331,7 +309,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
-            android:text="Makaleler"
+            android:text="Önerilen Makaleler"
             android:textSize="16sp"
             android:layout_marginVertical="16dp"
             android:textStyle="bold" />

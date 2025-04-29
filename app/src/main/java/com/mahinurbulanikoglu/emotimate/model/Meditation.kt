@@ -5,10 +5,7 @@ import com.mahinurbulanikoglu.emotimate.R
 import kotlinx.parcelize.Parcelize
 
 enum class ContentType {
-    MEDITATION,
-    BOOK,
-    MOVIE,
-    ARTICLE
+    MEDITATION
 }
 
 @Parcelize
@@ -56,21 +53,6 @@ val meditationItems = listOf(
 
 )
 
-
-val articleItems = listOf(
-    ContentItem(
-        title = "Mindfulness Üzerine",
-        imageResId = R.drawable.rain,
-        contentType = ContentType.ARTICLE,
-        description = "Zihni anda tutmak"
-    ),
-    ContentItem(
-        title = "Stres Yönetimi",
-        imageResId = R.drawable.rain,
-        contentType = ContentType.ARTICLE,
-        description = "Stresi azaltmanın yolları"
-    )
-)
 
 
 

@@ -1,6 +1,5 @@
 package com.mahinurbulanikoglu.emotimate.ui.home.detail
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,21 +11,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.mahinurbulanikoglu.emotimate.databinding.FragmentMeditationDetailBinding
 import com.mahinurbulanikoglu.emotimate.R
-import com.mahinurbulanikoglu.emotimate.ui.home.detail.MeditationDetailFragmentArgs
-import com.mahinurbulanikoglu.emotimate.ui.home.MeditationViewModel
+import com.mahinurbulanikoglu.emotimate.service.MediaManager
+import com.mahinurbulanikoglu.emotimate.ui.home.HomeViewModel
+import java.util.concurrent.TimeUnit
 
 class MeditationDetailFragment : Fragment() {
 
     private var _binding: FragmentMeditationDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MeditationViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
+    private lateinit var mediaManager: MediaManager
 
-    private var mediaPlayer: MediaPlayer? = null
-    private var handler: Handler? = null
-    private var isPlaying = false
-
-    // SafeArgs kullanarak gelen argümanları almak
     private val args: MeditationDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -40,57 +36,50 @@ class MeditationDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // SafeArgs ile gelen verileri alıyoruz
+        mediaManager = MediaManager.getInstance(requireContext())
+
         val meditationItem = args.meditationItem
         binding.imageMeditation.setImageResource(meditationItem.imageResId)
         binding.textMeditationTitle.text = meditationItem.title
 
-        meditationItem.audioResId?.let {
-            mediaPlayer = MediaPlayer.create(requireContext(), it)
+        meditationItem.audioResId?.let { audioResId ->
+            mediaManager.initializeMediaPlayer(audioResId)
+            setupMediaPlayerControls()
+            observeMediaPlayerState()
         }
 
         binding.btnPlayPause.setOnClickListener {
-            togglePlayback()
+            mediaManager.togglePlayback()
         }
 
         setupSeekBar()
     }
 
-    private fun togglePlayback() {
-        if (mediaPlayer == null) return
-
-        if (mediaPlayer!!.isPlaying) {
-            mediaPlayer!!.pause()
-            isPlaying = false
-            binding.btnPlayPause.setImageResource(R.drawable.ic_play)
-        } else {
-            mediaPlayer!!.start()
-            isPlaying = true
-            binding.btnPlayPause.setImageResource(R.drawable.pause)
-            updateSeekBar()
+    private fun setupMediaPlayerControls() {
+        mediaManager.duration.observe(viewLifecycleOwner) { duration ->
+            binding.seekBar.max = duration
+            binding.tvDuration.text = formatTime(duration.toLong())
         }
     }
 
-    private fun updateSeekBar() {
-        handler = Handler(Looper.getMainLooper())
-        handler?.postDelayed(object : Runnable {
-            override fun run() {
-                mediaPlayer?.let {
-                    binding.seekBar.max = it.duration
-                    binding.seekBar.progress = it.currentPosition
-                    if (it.isPlaying) {
-                        handler?.postDelayed(this, 250)
-                    }
-                }
-            }
-        }, 0)
+    private fun observeMediaPlayerState() {
+        mediaManager.isPlaying.observe(viewLifecycleOwner) { isPlaying ->
+            binding.btnPlayPause.setImageResource(
+                if (isPlaying) R.drawable.pause else R.drawable.ic_play
+            )
+        }
+
+        mediaManager.currentPosition.observe(viewLifecycleOwner) { position ->
+            binding.seekBar.progress = position
+            binding.tvCurrentTime.text = formatTime(position.toLong())
+        }
     }
 
     private fun setupSeekBar() {
         binding.seekBar.setOnSeekBarChangeListener(object : android.widget.SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: android.widget.SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser && mediaPlayer != null) {
-                    mediaPlayer!!.seekTo(progress)
+                if (fromUser) {
+                    mediaManager.seekTo(progress)
                 }
             }
             override fun onStartTrackingTouch(seekBar: android.widget.SeekBar?) {}
@@ -98,21 +87,21 @@ class MeditationDetailFragment : Fragment() {
         })
     }
 
-    private fun stopOtherSounds() {
-        // Bu projede tek ses oynatılıyor, eğer başka servisler varsa burada durdurulur.
+    private fun formatTime(milliseconds: Long): String {
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(milliseconds)
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(milliseconds) -
+                TimeUnit.MINUTES.toSeconds(minutes)
+        return String.format("%02d:%02d", minutes, seconds)
     }
 
     override fun onPause() {
         super.onPause()
-        mediaPlayer?.pause()
-        binding.btnPlayPause.setImageResource(R.drawable.ic_play)
+        mediaManager.releaseMediaPlayer()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        handler?.removeCallbacksAndMessages(null)
-        mediaPlayer?.release()
-        mediaPlayer = null
+        mediaManager.releaseMediaPlayer()
         _binding = null
     }
 }
