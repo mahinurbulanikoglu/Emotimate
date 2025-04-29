@@ -33,7 +33,7 @@ class BookAdapter(private val onClick: (Book) -> Unit) : RecyclerView.Adapter<Bo
     class BookViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(book: Book) {
             binding.title.text = book.title
-            binding.description.text = book.description
+            binding.authors.text = book.authors?.joinToString(", ") { it.name ?: "" } ?: ""
             Glide.with(binding.root.context)
                 .load(book.cover?.medium)
                 .into(binding.coverImage)

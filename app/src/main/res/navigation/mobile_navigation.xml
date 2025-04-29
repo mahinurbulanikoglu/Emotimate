@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_home_to_movieDetail"
             app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_home_to_articleDetail"
+            app:destination="@id/articleDetailFragment" />
     </fragment>
 
     <fragment
@@ -68,6 +71,17 @@
         <argument
             android:name="movie"
             app:argType="com.mahinurbulanikoglu.emotimate.model.Movie" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.detail.ArticleDetailFragment"
+        android:label="Makale Detayı"
+        tools:layout="@layout/fragment_article_detail">
+
+        <argument
+            android:name="article"
+            app:argType="com.mahinurbulanikoglu.emotimate.model.Article" />
     </fragment>
 
     <fragment

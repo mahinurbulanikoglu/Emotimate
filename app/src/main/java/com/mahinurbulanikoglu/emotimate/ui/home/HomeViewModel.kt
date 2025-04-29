@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mahinurbulanikoglu.emotimate.model.Article
+import com.mahinurbulanikoglu.emotimate.model.ArticleResponse
 import com.mahinurbulanikoglu.emotimate.model.Book
 import com.mahinurbulanikoglu.emotimate.model.Movie
 import com.mahinurbulanikoglu.emotimate.model.MovieResponse
@@ -19,6 +21,9 @@ class HomeViewModel : ViewModel() {
 
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>> = _movies
+
+    private val _articles = MutableLiveData<List<Article>>()
+    val articles: LiveData<List<Article>> = _articles
 
     private val TMDB_API_KEY = "07c763c609b7b92f0f8c7577d53c5581"
 
@@ -46,6 +51,23 @@ class HomeViewModel : ViewModel() {
                 }
             })
     }
+    fun fetchArticles() {
+        RetrofitInstance.europePmcApiService.searchArticles("cognitive behavioral therapy")
+            .enqueue(object : Callback<ArticleResponse> {
+                override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
+                    if (response.isSuccessful) {
+                        Log.d("HomeViewModel", "Articles fetched: ${response.body()}")
+                        val articleList = response.body()?.resultList?.result ?: emptyList()
+                        _articles.value = articleList
+                    }
+                }
+
+                override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
+                    Log.e("HomeViewModel", "Article API çağrısı başarısız: ${t.message}")
+                }
+            })
+    }
+
 
     fun fetchMovies() {
         val movieTitles = listOf("Soul", "Little Miss Sunshine")

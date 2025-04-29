@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mahinurbulanikoglu.emotimate.R
 import com.mahinurbulanikoglu.emotimate.databinding.FragmentHomeBinding
+import com.mahinurbulanikoglu.emotimate.model.Article
 import com.mahinurbulanikoglu.emotimate.model.Book
 import com.mahinurbulanikoglu.emotimate.model.ContentItem
 import com.mahinurbulanikoglu.emotimate.model.ContentType
@@ -26,6 +27,7 @@ import com.mahinurbulanikoglu.emotimate.model.meditationItems
 import com.mahinurbulanikoglu.emotimate.model.articleItems
 
 import com.mahinurbulanikoglu.emotimate.network.RetrofitInstance
+import com.mahinurbulanikoglu.emotimate.ui.home.adapter.ArticleAdapter
 import com.mahinurbulanikoglu.emotimate.ui.home.adapter.BookAdapter
 import com.mahinurbulanikoglu.emotimate.ui.home.adapter.MovieAdapter
 import retrofit2.Call
@@ -43,6 +45,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var bookAdapter: BookAdapter
     private lateinit var movieAdapter: MovieAdapter
+    private lateinit var articleAdapter: ArticleAdapter
 
     private var selectedMood: String? = null
 
@@ -122,7 +125,17 @@ class HomeFragment : Fragment() {
             adapter = movieAdapter
         }
 
-        // Meditations and Articles
+        // Article Adapter
+        articleAdapter = ArticleAdapter { selectedArticle ->
+            val action = HomeFragmentDirections.actionHomeToArticleDetail(selectedArticle)
+            findNavController().navigate(action)
+        }
+        binding.recyclerViewArticles.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = articleAdapter
+        }
+
+        // Meditations
         binding.recyclerViewMeditations.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = ContentAdapter(meditationItems) { selectedItem ->
@@ -130,17 +143,6 @@ class HomeFragment : Fragment() {
                 navigateToDetail(selectedItem)
             }
         }
-
-        binding.recyclerViewArticles.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = ContentAdapter(articleItems) { selectedItem ->
-                viewModel.selectMeditation(selectedItem)
-                navigateToDetail(selectedItem)
-            }
-        }
-
-        // --- Books ContentAdapter (Sabit kitap listesi için ayrı) ---
-        // Eğer istersen burayı da dinamik yapmak için HomeViewModel üzerinden verebiliriz.
     }
 
     private fun observeBooks() {
@@ -157,6 +159,13 @@ class HomeFragment : Fragment() {
             }
         }
     }
+    private fun observeArticles() {
+        homeViewModel.articles.observe(viewLifecycleOwner) { articles ->
+            articles?.let {
+                articleAdapter.submitList(it)
+            }
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -164,8 +173,10 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         observeBooks()
         observeMovies()
+        observeArticles()
         homeViewModel.fetchBooks()
         homeViewModel.fetchMovies()
+        homeViewModel.fetchArticles()
 
         binding.btnSave.setOnClickListener {
             selectedMood?.let { mood ->
