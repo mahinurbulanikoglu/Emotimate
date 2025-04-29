@@ -58,6 +58,9 @@ class SchemaTestAdapter(
             }
         }
     }
+    override fun getItemCount(): Int {
+        Log.d("SchemaTestAdapter", "getItemCount: ${questionList.size}")
+        return questionList.size
+    }
 
-    override fun getItemCount(): Int = questionList.size
 }
