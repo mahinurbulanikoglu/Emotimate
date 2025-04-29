@@ -29,10 +29,18 @@ class SemaFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerViewSchemaCategories)
 
-        // İki test kategorisini listeye ekle
         val categories = listOf(
             SchemaCategory("Kusurluluk / Utanç"),
-            SchemaCategory("Terkedilme")  // Yeni eklenen kategori
+            SchemaCategory("Terkedilme"),
+            SchemaCategory("Bağımlılık"),
+            SchemaCategory("Duygusal Yoksunluk"),
+            SchemaCategory("Sosyal İzolasyon / Yabancılık"),
+            SchemaCategory("Kendini Feda"),
+            SchemaCategory("Boyun Eğicilik"),
+            SchemaCategory("Duygusal Bastırma"),
+            SchemaCategory("Karamsarlık / Felaketçilik"),
+            SchemaCategory("Başarısızlık"),
+            SchemaCategory("Haklılık") // yeni test
         )
 
         adapter = SchemaCategoryAdapter(categories) { category ->
@@ -42,6 +50,33 @@ class SemaFragment : Fragment() {
                 }
                 "Terkedilme" -> {
                     findNavController().navigate(R.id.action_semaFragment_to_terkedilmeTestiFragment)
+                }
+                "Bağımlılık" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_bagimlilikTestiFragment)
+                }
+                "Duygusal Yoksunluk" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_duygusalYoksunlukTestiFragment)
+                }
+                "Sosyal İzolasyon / Yabancılık" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_sosyalIzolasyonTestiFragment)
+                }
+                "Kendini Feda" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_kendiniFedaTestiFragment)
+                }
+                "Boyun Eğicilik" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_boyunEgicilikTestiFragment)
+                }
+                "Duygusal Bastırma" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_duygusalBastirmaTestiFragment)
+                }
+                "Karamsarlık / Felaketçilik" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_karamsarlikTestiFragment)
+                }
+                "Başarısızlık" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_basarisizlikTestiFragment)
+                }
+                "Haklılık" -> {
+                    findNavController().navigate(R.id.action_semaFragment_to_haklilikTestiFragment)
                 }
             }
         }
