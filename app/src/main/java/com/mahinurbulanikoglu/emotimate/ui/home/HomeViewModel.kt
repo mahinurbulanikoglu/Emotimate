@@ -64,30 +64,56 @@ class HomeViewModel : ViewModel() {
             })
     }
     fun fetchArticles() {
-        RetrofitInstance.europePmcApiService.searchArticles("cognitive behavioral therapy")
-            .enqueue(object : Callback<ArticleResponse> {
-                override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
-                    if (response.isSuccessful) {
-                        val articleList = response.body()?.resultList?.result ?: emptyList()
-                        Log.d("HomeViewModel", "Makaleler başarıyla getirildi. Makale sayısı: ${articleList.size}")
-                        articleList.forEachIndexed { index, article ->
-                            Log.d("HomeViewModel", "Makale ${index + 1}: ${article.title}")
-                        }
-                        _articles.value = articleList
-                    } else {
-                        Log.e("HomeViewModel", "API yanıtı başarısız: ${response.code()}")
-                    }
-                }
+        val articleDois = listOf(
+            "10.1007/s11019-021-10049-w", // Parviainen et al. (2021)
+            "10.2196/16222", // Powell (2019)
+            "10.2196/32939", // Chew et al. (2022)
+            "10.2196/27850", // Xu et al. (2021)
+            "10.2196/12887", // Palanica et al. (2019)
+            "10.2196/mental.7785", // Fitzpatrick et al. (2017)
+            "10.2196/jmir.7662", // Rost et al. (2017)
+            "10.2196/jmir.8630" // McCall et al. (2018)
+        )
 
-                override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
-                    Log.e("HomeViewModel", "Makale API çağrısı başarısız: ${t.message}")
-                }
-            })
+        val allArticles = mutableListOf<Article>()
+        var completedRequests = 0
+
+        articleDois.forEach { doi ->
+            RetrofitInstance.europePmcApiService.searchArticles("doi:$doi")
+                .enqueue(object : Callback<ArticleResponse> {
+                    override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
+                        if (response.isSuccessful) {
+                            val article = response.body()?.resultList?.result?.firstOrNull()
+                            article?.let { allArticles.add(it) }
+                        }
+                        completedRequests++
+                        if (completedRequests == articleDois.size) {
+                            _articles.value = allArticles
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
+                        Log.e("HomeViewModel", "Makale API çağrısı başarısız: ${t.message}")
+                        completedRequests++
+                        if (completedRequests == articleDois.size) {
+                            _articles.value = allArticles
+                        }
+                    }
+                })
+        }
     }
 
 
     fun fetchMovies() {
-        val movieTitles = listOf("Soul", "Little Miss Sunshine")
+        val movieTitles = listOf(
+            "Soul",
+            "Little Miss Sunshine",
+            "Palm Springs",
+            "The Mitchells vs the Machines",
+            "The Greatest Showman",
+            "Perfect Days",
+            "CODA"
+        )
         val allMovies = mutableListOf<Movie>()
 
         movieTitles.forEach { title ->

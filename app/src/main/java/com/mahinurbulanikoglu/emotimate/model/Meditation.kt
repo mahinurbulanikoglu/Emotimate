@@ -5,7 +5,9 @@ import com.mahinurbulanikoglu.emotimate.R
 import kotlinx.parcelize.Parcelize
 
 enum class ContentType {
-    MEDITATION
+    MEDITATION,
+    BREATHİNG,
+    RELAXING_MUSIC
 }
 
 @Parcelize
@@ -50,9 +52,55 @@ val meditationItems = listOf(
         audioResId = R.raw.meditation5,
         contentType = ContentType.MEDITATION
     ),
-
 )
 
+val breathingItems = listOf(
+    ContentItem(
+        title = "Nefes Meditasyonu 5 Dakika",
+        imageResId = R.drawable.resim,
+        audioResId = R.raw.meditasyon_1nefes_meditasyonu_5_dakika,
+        contentType = ContentType.BREATHİNG
+    ),
+    ContentItem(
+        title = "Nefes Meditasyonu 20 Dakika",
+        imageResId = R.drawable.mindfulness,
+        audioResId = R.raw.meditasyon_2nefes_meditasyonu_20_dakika,
+        contentType = ContentType.BREATHİNG
+    ),
 
+    ContentItem(
+        title = "Nefes Meditasyonu 20 Dakika(Yönlendirmesiz)",
+        imageResId = R.drawable.rain,
+        audioResId = R.raw.meditasyon_3nefes_meditasyonu_20_dakika_yonlendirmesiz,
+        contentType = ContentType.BREATHİNG
+    ),
+    ContentItem(
+        title = "Beden Tarama",
+        imageResId = R.drawable.meditation,
+        audioResId = R.raw.meditasyon_4beden_tarama,
+        contentType = ContentType.BREATHİNG
+    ),
+)
+
+val relaxingMusicItems = listOf(
+    ContentItem(
+        title = "İçsel Yolculuk",
+        imageResId = R.drawable.sunset,
+        audioResId = R.raw.the_inner_calling,
+        contentType = ContentType.RELAXING_MUSIC
+    ),
+    ContentItem(
+        title = "Sakinliğin Derinliği",
+        imageResId = R.drawable.ocean,
+        audioResId = R.raw.our_peaceful_ocean,
+        contentType = ContentType.RELAXING_MUSIC
+    ),
+    ContentItem(
+        title = "Doğanın Derinliklerinde",
+        imageResId = R.drawable.island,
+        audioResId = R.raw.deep_into_nature,
+        contentType = ContentType.RELAXING_MUSIC
+    ),
+)
 
 

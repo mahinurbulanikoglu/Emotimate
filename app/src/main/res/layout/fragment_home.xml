@@ -36,193 +36,192 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:text="Bugün nasıl hissediyorsun?"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="Bugün\nnasıl hissediyorsun?"
+            android:textAlignment="textStart"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"/>
 
         <!-- Duygu Kartları -->
-        <LinearLayout
-            android:id="@+id/emotionContainer"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingBottom="16dp"
-            android:weightSum="5">
+            android:scrollbars="none"
+            android:layout_marginBottom="16dp">
 
-            <!-- Örnek Kart -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardPerfect"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/emotionContainer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
+                <!-- Mükemmel -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardPerfect"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/emoji_perfect"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_perfect" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mükemmel"
-                        android:textSize="14sp"
-                        android:gravity="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:id="@+id/emoji_perfect"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_perfect"
+                            android:layout_marginEnd="8dp"/>
 
-            <!-- Diğer duygular için aynı yapıyı kopyalayabilirsin, sadece id ve yazıları değiştir -->
-            <!-- Örnek olarak aşağıya bir tane daha ekleyeyim: -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mükemmel"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardGood"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                <!-- İyi -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardGood"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="4dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:padding="16dp">
 
-                    <ImageView
-                        android:id="@+id/emoji_good"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_good" />
+                        <ImageView
+                            android:id="@+id/emoji_good"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_good"
+                            android:layout_marginEnd="8dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="İyi"
-                        android:textSize="14sp"
-                        android:gravity="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="İyi"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
+                <!-- Ortalama -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardAverage"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="4dp">
 
-            <!-- Örnek Kart -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardAverage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:padding="16dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
+                        <ImageView
+                            android:id="@+id/emoji_average"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_average"
+                            android:layout_marginEnd="8dp"/>
 
-                    <ImageView
-                        android:id="@+id/emoji_average"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_average" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ortalama"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ortalama"
-                        android:textSize="14sp"
-                        android:gravity="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                <!-- Nötr -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardNeutral"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="4dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:padding="16dp">
 
-            <!-- Örnek Kart -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardNeutral"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                        <ImageView
+                            android:id="@+id/emoji_neutral"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_neutral"
+                            android:layout_marginEnd="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nötr"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                    <ImageView
-                        android:id="@+id/emoji_neutral"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_neutral" />
+                <!-- Kötü -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBad"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nötr"
-                        android:textSize="14sp"
-                        android:gravity="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:padding="16dp">
 
+                        <ImageView
+                            android:id="@+id/emoji_bad"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_bad"
+                            android:layout_marginEnd="8dp"/>
 
-            <!-- Örnek Kart -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardBad"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kötü"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
+            </LinearLayout>
+        </HorizontalScrollView>
 
-                    <ImageView
-                        android:id="@+id/emoji_bad"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_bad" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="kötü"
-                        android:textSize="14sp"
-                        android:gravity="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-
-
-
-        <!-- Yorum alanı, sadece seçim sonrası gösterilecek -->
+        <!-- Yorum alanı -->
         <EditText
             android:id="@+id/editNote"
             android:layout_width="match_parent"
@@ -232,6 +231,7 @@
             android:minHeight="80dp"
             android:background="@drawable/rounded_edittext"
             android:padding="12dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp" />
 
         <Button
@@ -241,13 +241,12 @@
             android:text="Kaydet"
             android:visibility="gone"
             android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="#4682B4"
             android:textColor="@android:color/white" />
 
         <!-- Diğer bölümler (Meditasyon, Filmler...) burada devam edecek -->
         <!-- Kategoriler İçin RecyclerView -->
-
-
 
         <!-- 🔵 Meditasyonlar -->
         <TextView
@@ -255,27 +254,65 @@
             android:layout_height="wrap_content"
             android:text="Meditasyon Sesleri"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:paddingTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="16dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMeditations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             android:clipToPadding="false"
-            />
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
 
+        <TextView
+            android:id="@+id/breathingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Farkındalık Sanatı"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewBreathing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+
+        <!-- 🔵 Rahatlatıcı Müzikler -->
+        <TextView
+            android:id="@+id/relaxingMusicTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rahatlatıcı Müzikler"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewRelaxingMusic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
         <!-- 🔵 Filmler -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:text="Önerilen Filmler"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_marginVertical="16dp"
             android:textStyle="bold" />
 
@@ -285,15 +322,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"/>
 
-
-
         <!-- 🔵 Kitaplar -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
-            android:text="Önerilen Kitaplar"
-            android:textSize="16sp"
+            android:text="Kitaplar"
+            android:textSize="20sp"
             android:layout_marginVertical="16dp"
             android:textStyle="bold" />
 
@@ -309,8 +344,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
-            android:text="Önerilen Makaleler"
-            android:textSize="16sp"
+            android:text="Makaleler"
+            android:textSize="20sp"
             android:layout_marginVertical="16dp"
             android:textStyle="bold" />
 

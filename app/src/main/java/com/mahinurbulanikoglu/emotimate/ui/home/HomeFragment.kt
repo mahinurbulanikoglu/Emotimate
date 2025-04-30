@@ -18,6 +18,8 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mahinurbulanikoglu.emotimate.R
 import com.mahinurbulanikoglu.emotimate.databinding.FragmentHomeBinding
+import com.mahinurbulanikoglu.emotimate.model.relaxingMusicItems
+import com.mahinurbulanikoglu.emotimate.model.breathingItems
 import com.mahinurbulanikoglu.emotimate.model.Article
 import com.mahinurbulanikoglu.emotimate.model.Book
 import com.mahinurbulanikoglu.emotimate.model.ContentItem
@@ -135,6 +137,22 @@ class HomeFragment : Fragment() {
         binding.recyclerViewMeditations.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = MeditationAdapter(meditationItems) { selectedItem ->
+                navigateToDetail(selectedItem)
+            }
+        }
+
+        // Breathing Exercises
+        binding.recyclerViewBreathing.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = MeditationAdapter(breathingItems) { selectedItem ->
+                navigateToDetail(selectedItem)
+            }
+        }
+
+        // Relaxing Music
+        binding.recyclerViewRelaxingMusic.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = MeditationAdapter(relaxingMusicItems) { selectedItem ->
                 navigateToDetail(selectedItem)
             }
         }
