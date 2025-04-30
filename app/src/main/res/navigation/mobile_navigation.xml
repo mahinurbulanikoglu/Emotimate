@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/navigation_home">
 
-
     <!-- Ana Menü Fragmentları -->
     <fragment
         android:id="@+id/navigation_home"
@@ -38,6 +37,9 @@
         <action
             android:id="@+id/action_navigation_testler_to_semaFragment"
             app:destination="@id/semaFragment" />
+        <action
+            android:id="@+id/action_navigation_testler_to_depresyonAnksiyeteFragment"
+            app:destination="@id/depresyonAnksiyeteFragment" />
     </fragment>
 
     <!-- Şema Fragment -->
@@ -81,7 +83,22 @@
             app:destination="@id/haklilikTestiFragment" />
     </fragment>
 
-    <!-- Kusurluluk Testi Fragment -->
+    <!-- Depresyon Anksiyete -->
+    <fragment
+        android:id="@+id/depresyonAnksiyeteFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.DepresyonAnksiyeteFragment"
+        android:label="Depresyon ve Anksiyete Ölçekleri"
+        tools:layout="@layout/fragment_depresyon_anksiyete">
+        <action
+            android:id="@+id/action_depresyonAnksiyeteFragment_to_beckDepresyonOlcegiFragment"
+            app:destination="@id/beckDepresyonOlcegiFragment" />
+        <action
+            android:id="@+id/action_depresyonAnksiyeteFragment_to_beckAnksiyeteOlcegiFragment"
+            app:destination="@id/beckAnksiyeteOlcegiFragment" />
+        <!-- Diğer testler için actionlar buraya eklenebilir -->
+    </fragment>
+
+    <!-- Şema Test Fragmentleri -->
     <fragment
         android:id="@+id/kusurlulukTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.KusurlulukTestiFragment"
@@ -93,50 +110,70 @@
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.TerkedilmeTestiFragment"
         android:label="Terk Edilme Testi"
         tools:layout="@layout/fragment_terkedilme_testi" />
+
     <fragment
         android:id="@+id/bagimlilikTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.BagimlilikTestiFragment"
         android:label="Bağımlılık Testi"
         tools:layout="@layout/fragment_bagimlilik_testi" />
+
     <fragment
         android:id="@+id/duygusalYoksunlukTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.DuygusalYoksunlukTestiFragment"
         android:label="Duygusal Yoksunluk Testi"
         tools:layout="@layout/fragment_duygusal_yoksunluk_testi" />
+
     <fragment
         android:id="@+id/sosyalIzolasyonTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.SosyalIzolasyonTestiFragment"
         android:label="Sosyal İzolasyon / Yabancılık Testi"
         tools:layout="@layout/fragment_sosyal_izolasyon_testi" />
+
     <fragment
         android:id="@+id/kendiniFedaTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.KendiniFedaTestiFragment"
         android:label="Kendini Feda Testi"
         tools:layout="@layout/fragment_kendini_feda_testi" />
+
     <fragment
         android:id="@+id/boyunEgicilikTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.BoyunEgicilikTestiFragment"
         android:label="Boyun Eğicilik Testi"
         tools:layout="@layout/fragment_boyun_egicilik_testi" />
+
     <fragment
         android:id="@+id/duygusalBastirmaTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.DuygusalBastirmaTestiFragment"
         android:label="Duygusal Bastırma Testi"
         tools:layout="@layout/fragment_duygusal_bastirma_testi" />
+
     <fragment
         android:id="@+id/karamsarlikTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.KaramsarlikTestiFragment"
         android:label="Karamsarlık / Felaketçilik Testi"
         tools:layout="@layout/fragment_karamsarlik_testi" />
+
     <fragment
         android:id="@+id/basarisizlikTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.BasarisizlikTestiFragment"
         android:label="Başarısızlık Testi"
         tools:layout="@layout/fragment_basarisizlik_testi" />
+
     <fragment
         android:id="@+id/haklilikTestiFragment"
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.HaklilikTestiFragment"
         android:label="Haklılık Testi"
         tools:layout="@layout/fragment_haklilik_testi" />
+
+    <fragment
+        android:id="@+id/beckDepresyonOlcegiFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.BeckDepresyonOlcegiFragment"
+        android:label="Beck Depresyon Ölçeği"
+        tools:layout="@layout/fragment_beck_depresyon_olcegi" />
+    <fragment
+        android:id="@+id/beckAnksiyeteOlcegiFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.BeckAnksiyeteOlcegiFragment"
+        android:label="Beck Anksiyete Ölçeği"
+        tools:layout="@layout/fragment_beck_anksiyete_olcegi" />
 
 </navigation>

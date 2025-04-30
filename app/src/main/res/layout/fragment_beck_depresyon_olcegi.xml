@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewInstructions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Aşağıda depresyonla ilgili duygularınızı, düşüncelerinizi ve davranışlarınızı tarif eden 21 adet soru grubu bulunmaktadır. Her maddede, son bir hafta içinde hissettiğiniz duygularla ne kadar örtüştüğünü değerlendirin.\n\nAşağıdaki puanlama sistemini kullanarak sizi en iyi yansıtan seçeneği işaretleyin:\n\n0 puan: Bu duyguyu hiç hissetmedim.\n1 puan: Bu duyguyu az hissettim.\n2 puan: Bu duyguyu oldukça sık hissettim.\n3 puan: Bu duyguyu çok yoğun ve sürekli hissettim."
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/questionsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewInstructions"
+        app:layout_constraintBottom_toTopOf="@id/submitTestButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"
+        android:contentDescription="Depresyon testi soruları listesi"/>
+
+    <Button
+        android:id="@+id/submitTestButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Testi Gönder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

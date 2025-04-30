@@ -25,5 +25,9 @@ class TestlerFragment : Fragment() {
         view.findViewById<Button>(R.id.btnSchemaTests).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_testler_to_semaFragment)
         }
+        // Depresyon ve Anksiyete Ölçekleri butonuna tıklama işlevi
+        view.findViewById<Button>(R.id.btnDepresyonAnksiyete).setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_testler_to_depresyonAnksiyeteFragment)
+        }
     }
 }

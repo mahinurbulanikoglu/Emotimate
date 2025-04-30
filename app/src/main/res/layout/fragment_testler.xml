@@ -5,32 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Test butonları için bir LinearLayout -->
-    <LinearLayout
-        android:id="@+id/btnGroupContainer"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btnSchemaTests"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:text="Şema Testleri"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp">
+        android:layout_marginTop="32dp"/>
 
-        <!-- Şema Testleri Butonu -->
-        <Button
-            android:id="@+id/btnSchemaTests"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Şema Testleri"/>
-
-        <!-- Diğer Test Grupları Eklenebilir -->
-        <Button
-            android:id="@+id/btnAnotherTest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Diğer Test Grubu"/>
-
-        <!-- İhtiyaca göre başka test butonları eklenebilir -->
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/btnDepresyonAnksiyete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Depresyon ve Anksiyete Ölçekleri"
+        app:layout_constraintTop_toBottomOf="@id/btnSchemaTests"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
