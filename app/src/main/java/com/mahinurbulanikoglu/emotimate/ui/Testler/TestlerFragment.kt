@@ -29,5 +29,8 @@ class TestlerFragment : Fragment() {
         view.findViewById<Button>(R.id.btnDepresyonAnksiyete).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_testler_to_depresyonAnksiyeteFragment)
         }
+        view.findViewById<Button>(R.id.btnDuyguRuhHali).setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_testler_to_duyguRuhHaliFragment)
+        }
     }
 }

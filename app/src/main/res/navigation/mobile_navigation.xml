@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_navigation_testler_to_depresyonAnksiyeteFragment"
             app:destination="@id/depresyonAnksiyeteFragment" />
+        <action
+            android:id="@+id/action_navigation_testler_to_duyguRuhHaliFragment"
+            app:destination="@id/duyguRuhHaliFragment" />
     </fragment>
 
     <!-- Şema Fragment -->
@@ -96,6 +99,19 @@
             android:id="@+id/action_depresyonAnksiyeteFragment_to_beckAnksiyeteOlcegiFragment"
             app:destination="@id/beckAnksiyeteOlcegiFragment" />
         <!-- Diğer testler için actionlar buraya eklenebilir -->
+    </fragment>
+
+    <fragment
+        android:id="@+id/duyguRuhHaliFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.DuyguRuhHaliFragment"
+        android:label="Duygu ve Ruh Hali Ölçekleri"
+        tools:layout="@layout/fragment_duygu_ruh_hali">
+        <action
+            android:id="@+id/action_duyguRuhHaliFragment_to_panasFragment"
+            app:destination="@id/panasFragment" />
+        <action
+            android:id="@+id/action_duyguRuhHaliFragment_to_pomsFragment"
+            app:destination="@id/pomsFragment" />
     </fragment>
 
     <!-- Şema Test Fragmentleri -->
@@ -175,5 +191,16 @@
         android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.BeckAnksiyeteOlcegiFragment"
         android:label="Beck Anksiyete Ölçeği"
         tools:layout="@layout/fragment_beck_anksiyete_olcegi" />
+    <fragment
+        android:id="@+id/panasFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.Testler.PanasFragment"
+        android:label="Pozitif ve Negatif Duygu Ölçeği (PANAS)"
+        tools:layout="@layout/fragment_panas" />
+
+    <fragment
+        android:id="@+id/pomsFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.testler.PomsFragment"
+        android:label="Ruh Hali Profili Ölçeği (POMS)"
+        tools:layout="@layout/fragment_poms" />
 
 </navigation>
