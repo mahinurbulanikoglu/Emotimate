@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_navigation_testler_to_duyguRuhHaliFragment"
             app:destination="@id/duyguRuhHaliFragment" />
+        <action
+            android:id="@+id/action_navigation_testler_to_dikkatDurtusellikFragment"
+            app:destination="@id/dikkatDurtusellikFragment" />
     </fragment>
 
     <!-- Şema Fragment -->
@@ -112,6 +115,16 @@
         <action
             android:id="@+id/action_duyguRuhHaliFragment_to_pomsFragment"
             app:destination="@id/pomsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dikkatDurtusellikFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.testler.DikkatDurtusellikFragment"
+        android:label="Dikkat ve Dürtüsellik Testleri"
+        tools:layout="@layout/fragment_dikkat_durtusellik">
+        <action
+            android:id="@+id/action_dikkatDurtusellikFragment_to_asrsFragment"
+            app:destination="@id/asrsFragment" />
     </fragment>
 
     <!-- Şema Test Fragmentleri -->
@@ -202,5 +215,11 @@
         android:name="com.mahinurbulanikoglu.emotimate.ui.testler.PomsFragment"
         android:label="Ruh Hali Profili Ölçeği (POMS)"
         tools:layout="@layout/fragment_poms" />
+
+    <fragment
+        android:id="@+id/asrsFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.testler.AsrsFragment"
+        android:label="Yetişkin Dikkat Eksikliği ve Hiperaktivite Bozukluğu (ASRS)"
+        tools:layout="@layout/fragment_asrs" />
 
 </navigation>

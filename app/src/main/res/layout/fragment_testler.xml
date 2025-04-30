@@ -34,4 +34,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnDikkatDurtusellik"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dikkat ve Dürtüsellik Testleri"
+        app:layout_constraintTop_toBottomOf="@id/btnDuyguRuhHali"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

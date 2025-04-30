@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/asrsInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aşağıda, son 6 ay içinde sizi ne sıklıkla rahatsız eden bazı durumlar yer almaktadır. Her maddeyi dikkatlice okuyun ve belirtilen durumun sizin için ne sıklıkla geçerli olduğunu işaretleyin."
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:paddingBottom="12dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/asrsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="12dp"
+        android:contentDescription="ASRS soruları listesi" />
+
+    <Button
+        android:id="@+id/btnAsrsSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Testi Gönder"/>
+</LinearLayout>

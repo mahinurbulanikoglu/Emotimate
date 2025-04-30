@@ -32,5 +32,8 @@ class TestlerFragment : Fragment() {
         view.findViewById<Button>(R.id.btnDuyguRuhHali).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_testler_to_duyguRuhHaliFragment)
         }
+        view.findViewById<Button>(R.id.btnDikkatDurtusellik).setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_testler_to_dikkatDurtusellikFragment)
+        }
     }
 }
