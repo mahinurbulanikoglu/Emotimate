@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/instructionsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aşağıda sizi tanımlayan çeşitli ifadeler bulunmaktadır. Lütfen her ifadeyi dikkatlice okuyunuz ve sizin kişiliğinizi ne derece yansıttığını belirtiniz. Cevaplarınızda doğru ya da yanlış yoktur. Kendinizi nasıl görüyorsanız öyle cevaplayınız.\n\n1: Kesinlikle katılmıyorum\n2: Katılmıyorum\n3: Kararsızım / Kısmen katılıyorum\n4: Katılıyorum\n5: Kesinlikle katılıyorum"
+            android:textSize="15sp"
+            android:paddingBottom="8dp"
+            android:contentDescription="Kişilik testi talimatları" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            android:contentDescription="Kişilik testi soruları" />
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bitir"
+            android:contentDescription="Testi bitir ve sonucu göster" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

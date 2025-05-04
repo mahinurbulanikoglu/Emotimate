@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_navigation_testler_to_travmaFragment"
             app:destination="@id/travmaFragment" />
+        <action
+            android:id="@+id/action_navigation_testler_to_kisilikTestleriFragment"
+            app:destination="@id/kisilikTestleriFragment" />
 
     </fragment>
 
@@ -139,6 +142,16 @@
         <action
             android:id="@+id/action_travmaFragment_to_pcl5Fragment"
             app:destination="@id/tssbFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/kisilikTestleriFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.kisilik.KisilikTestiFragment"
+        android:label="Kişilik Testleri"
+        tools:layout="@layout/fragment_kisilik_testi">
+        <action
+            android:id="@+id/action_kisilikTestleriFragment_to_kisilikTestiFragment"
+            app:destination="@id/kisilikTestiFragment" />
     </fragment>
 
     <!-- Şema Test Fragmentleri -->
@@ -242,5 +255,11 @@
         android:name="com.mahinurbulanikoglu.emotimate.ui.testler.TssbFragment"
         android:label="TSSB Testi"
         tools:layout="@layout/fragment_tssb" />
+
+    <fragment
+        android:id="@+id/kisilikTestiFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.kisilik.KisilikTestiFragment"
+        android:label="Beş Faktör Kişilik Envanteri"
+        tools:layout="@layout/fragment_kisilik_testi" />
 
 </navigation>

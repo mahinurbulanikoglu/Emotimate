@@ -38,5 +38,8 @@ class TestlerFragment : Fragment() {
         view.findViewById<Button>(R.id.btnTravma).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_testler_to_travmaFragment)
         }
+        view.findViewById<Button>(R.id.btnKisilikTestleri).setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_testler_to_kisilikTestleriFragment)
+        }
     }
 }
