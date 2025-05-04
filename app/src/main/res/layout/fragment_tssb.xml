@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/instructionsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aşağıdaki maddeler, yakın zamanda yaşadığınız stresli veya travmatik bir olayla ilgili yaşayabileceğiniz sorunları tanımlar. Lütfen son bir ay içinde bu sorunları ne sıklıkla yaşadığınızı belirtiniz. Her madde için aşağıdaki 0–4 ölçeğini kullanınız:\n\n0 = Hiçbir zaman\n1 = Nadiren\n2 = Bazen\n3 = Sık sık\n4 = Çok sık"
+        android:textSize="15sp"
+        android:paddingBottom="8dp"
+        android:contentDescription="Test talimatları" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="8dp"
+        android:contentDescription="TSSB soruları listesi" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bitir"
+        android:contentDescription="Testi bitir ve sonucu göster" />
+</LinearLayout>

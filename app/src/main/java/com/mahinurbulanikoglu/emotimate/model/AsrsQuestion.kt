@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.testler
+package com.mahinurbulanikoglu.emotimate.model
 
 data class AsrsQuestion(
     val questionText: String,

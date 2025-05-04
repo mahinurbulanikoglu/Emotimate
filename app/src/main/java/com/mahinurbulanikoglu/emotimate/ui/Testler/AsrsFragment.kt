@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
+import com.mahinurbulanikoglu.emotimate.model.AsrsQuestion
 
 class AsrsFragment : Fragment() {
 
@@ -27,24 +28,24 @@ class AsrsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         questionList = listOf(
-            AsrsQuestion("Detaylara dikkat etmeden hatalar yapar mısınız?"),
-            AsrsQuestion("Bir görevi sürdürürken dikkatinizin kolayca dağılması olur mu?"),
-            AsrsQuestion("Kendinizi bir konuşmayı dinlerken zihinsel olarak başka yerlere kaymış şekilde bulur musunuz?"),
-            AsrsQuestion("Bir görevi tamamlamakta organize olamamak sizi zorlar mı?"),
-            AsrsQuestion("Zamanı etkili kullanamayıp işler birikiyor mu?"),
-            AsrsQuestion("Bir görevi tamamlamak için çaba göstermeniz gereken işlerden kaçınır veya erteler misiniz?"),
-            AsrsQuestion("Uzun süre oturmanız gereken durumlarda kıpırdanır veya yer değiştirir misiniz?"),
-            AsrsQuestion("Hareketsiz kalmanız gereken zamanlarda kendinizi huzursuz hisseder misiniz?"),
-            AsrsQuestion("Sizi dinleyen birinin sözünü keser ya da tamamlamaya çalışır mısınız?"),
-            AsrsQuestion("İnsanların sözünü keser ya da onların sırasını almaya çalışır mısınız?"),
-            AsrsQuestion("Sorular tamamlanmadan cevabını vermeye başlar mısınız?"),
-            AsrsQuestion("Rutin işleri sürdürmekte zorlanır mısınız?"),
-            AsrsQuestion("Hatırlamanız gereken eşyaları (anahtar, cüzdan, telefon vb.) sık sık kaybeder misiniz?"),
-            AsrsQuestion("Size sıkıcı veya tekrarlayıcı gelen işleri yaparken dikkatiniz kolayca dağılır mı?"),
-            AsrsQuestion("Aynı anda birden fazla şey yaparken zorlanır mısınız?"),
-            AsrsQuestion("Hedeflerinizi sürdürmek için gerekli olan işleri tamamlamakta sıkıntı yaşar mısınız?"),
-            AsrsQuestion("Sosyal ortamlarda konuşmaları bölerek dikkat dağıttığınız olur mu?"),
-            AsrsQuestion("Dikkatinizi sürdürmenizi gerektiren durumlarda zorlanır mısınız?")
+            AsrsQuestion("Görevler üzerinde dikkatini sürdürmekte ne sıklıkla zorluk çekersiniz?"),
+            AsrsQuestion("Yapmanız gereken işleri düzenlemekte ne sıklıkla zorluk yaşarsınız?"),
+            AsrsQuestion("Yoğun zihinsel çaba gerektiren bir işe başlamakta ne sıklıkla zorlanırsınız?"),
+            AsrsQuestion("Uzun süre oturmanız gereken bir durumda, kıpırdanmak veya yerinizde duramamak gibi bir durumla ne sıklıkla karşılaşırsınız?"),
+            AsrsQuestion("Başkalarının sözünü kesmek ya da onların konuşmasını yarıda kesmek gibi davranışları ne sıklıkla gösterirsiniz?"),
+            AsrsQuestion("Sıklıkla eşyalarınızı kaybeder misiniz? (anahtar, gözlük, telefon, vs.)"),
+            AsrsQuestion("Detaylara dikkat etmeyip dikkatsizlikten dolayı hatalar yapmak."),
+            AsrsQuestion("Konuşulanları dinlemekte zorluk çekmek, dalıp gitmek."),
+            AsrsQuestion("Verilen talimatları tam uygulayamamak veya tamamlamadan bırakmak."),
+            AsrsQuestion("Zaman yönetiminde başarısızlık, işleri ertelemek."),
+            AsrsQuestion("Sık sık dikkat dağıtan uyaranlara kapılmak."),
+            AsrsQuestion("Günlük aktivitelerde unutkanlık yaşamak."),
+            AsrsQuestion("Sabırsızlıkla sırada beklemekte zorlanmak."),
+            AsrsQuestion("Sık sık düşünmeden hareket etmek."),
+            AsrsQuestion("Konuşmaları veya faaliyetleri bölen şekilde davranmak."),
+            AsrsQuestion("Huzursuzluk veya yerinde duramama hissi."),
+            AsrsQuestion("Aşırı konuşkan olma."),
+            AsrsQuestion("Durmadan hareket etme isteği (motor takılmış gibi hissetme).")
         )
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.asrsRecyclerView)

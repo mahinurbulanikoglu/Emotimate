@@ -46,6 +46,10 @@
         <action
             android:id="@+id/action_navigation_testler_to_dikkatDurtusellikFragment"
             app:destination="@id/dikkatDurtusellikFragment" />
+        <action
+            android:id="@+id/action_navigation_testler_to_travmaFragment"
+            app:destination="@id/travmaFragment" />
+
     </fragment>
 
     <!-- Şema Fragment -->
@@ -125,6 +129,16 @@
         <action
             android:id="@+id/action_dikkatDurtusellikFragment_to_asrsFragment"
             app:destination="@id/asrsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/travmaFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.testler.TravmaFragment"
+        android:label="Travma Sonrası Stres Bozukluğu"
+        tools:layout="@layout/fragment_travma">
+        <action
+            android:id="@+id/action_travmaFragment_to_pcl5Fragment"
+            app:destination="@id/tssbFragment" />
     </fragment>
 
     <!-- Şema Test Fragmentleri -->
@@ -221,5 +235,12 @@
         android:name="com.mahinurbulanikoglu.emotimate.ui.testler.AsrsFragment"
         android:label="Yetişkin Dikkat Eksikliği ve Hiperaktivite Bozukluğu (ASRS)"
         tools:layout="@layout/fragment_asrs" />
+
+
+    <fragment
+        android:id="@+id/tssbFragment"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.testler.TssbFragment"
+        android:label="TSSB Testi"
+        tools:layout="@layout/fragment_tssb" />
 
 </navigation>

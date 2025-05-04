@@ -9,7 +9,7 @@
         android:id="@+id/asrsInstructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Aşağıda, son 6 ay içinde sizi ne sıklıkla rahatsız eden bazı durumlar yer almaktadır. Her maddeyi dikkatlice okuyun ve belirtilen durumun sizin için ne sıklıkla geçerli olduğunu işaretleyin."
+        android:text="Aşağıdaki sorular, son 6 ayda ne sıklıkta belirli durumlarla karşılaştığınızı sormaktadır. Lütfen her maddeyi dikkatle okuyarak sizi en iyi şekilde yansıtan seçeneği işaretleyiniz."
         android:textSize="15sp"
         android:textColor="@android:color/black"
         android:paddingBottom="12dp"/>

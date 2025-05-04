@@ -7,6 +7,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
+import com.mahinurbulanikoglu.emotimate.model.AsrsQuestion
 
 class AsrsAdapter(
     private val questionList: List<AsrsQuestion>
