@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.model
 
 data class PanasQuestion(
     val questionText: String,

@@ -48,8 +48,8 @@ android {
 dependencies {
 
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
-    // Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+
 
     // Firebase Authentication KTX
     implementation("com.google.firebase:firebase-auth-ktx")
@@ -80,7 +80,12 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.androidx.fragment.ktx)
 
-
+    // Firebase Realtime Database
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation("com.google.firebase:firebase-database-ktx")
+    
+    // Coroutines for Firebase
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
     // Test Bağımlılıkları
     testImplementation(libs.junit)

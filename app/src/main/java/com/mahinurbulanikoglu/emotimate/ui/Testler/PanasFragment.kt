@@ -1,5 +1,7 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.model
 
+import com.mahinurbulanikoglu.emotimate.ui.model.PanasQuestion
+import com.mahinurbulanikoglu.emotimate.ui.model.PanasAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
+
 
 class PanasFragment : Fragment() {
 

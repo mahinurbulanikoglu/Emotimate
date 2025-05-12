@@ -262,4 +262,10 @@
         android:label="Beş Faktör Kişilik Envanteri"
         tools:layout="@layout/fragment_kisilik_testi" />
 
+    <fragment
+        android:id="@+id/navigation_shame_test"
+        android:name="com.mahinurbulanikoglu.emotimate.ui.test.ShameTestFragment"
+        android:label="Kusurluluk Testi"
+        tools:layout="@layout/fragment_shame_test" />
+
 </navigation>
