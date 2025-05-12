@@ -31,7 +31,9 @@ class ArticleAdapter(private val onClick: (Article) -> Unit) : RecyclerView.Adap
     class ArticleViewHolder(private val binding: ItemArticleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
             binding.tvArticleTitle.text = article.title
-            binding.tvArticleAuthors.text = article.authors?.joinToString(", ") ?: "Yazar bilgisi yok"
+            binding.tvArticleAuthors.text = article.authors?.let { authors ->
+                if (authors.isEmpty()) "Yazar bilgisi yok" else authors.joinToString(", ")
+            } ?: "Yazar bilgisi yok"
             binding.tvArticleJournal.text = article.journal ?: "Dergi bilgisi yok"
             binding.tvArticleAbstract.text = article.abstract ?: "Özet bilgisi yok"
         }

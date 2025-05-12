@@ -94,12 +94,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         db = FirebaseFirestore.getInstance()
 
-        val bookAdapter = BookAdapter { selectedBook ->
-            val action = HomeFragmentDirections.actionHomeToBookDetail(selectedBook)
-            findNavController().navigate(action)
-        }
-        binding.recyclerViewBooks.adapter = bookAdapter
-
         return binding.root
     }
     private fun setupRecyclerView() {
@@ -262,13 +256,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToDetail(selectedItem: ContentItem) {
-        val action = HomeFragmentDirections.actionHomeToMeditationDetail(
-            meditationItem = selectedItem,
-            title = selectedItem.title,
-            audioResId = selectedItem.audioResId ?: -1,
-            imageResId = selectedItem.imageResId
-        )
-        findNavController().navigate(action)
+        try {
+            val action = HomeFragmentDirections.actionHomeToMeditationDetail(
+                meditationItem = selectedItem,
+                title = selectedItem.title,
+                audioResId = selectedItem.audioResId ?: -1,
+                imageResId = selectedItem.imageResId
+            )
+            findNavController().navigate(action)
+        } catch (e: Exception) {
+            Log.e("HomeFragment", "Navigation hatası: ${e.message}")
+            Toast.makeText(requireContext(), "Bir hata oluştu", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

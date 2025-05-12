@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.databinding.ItemMeditationBinding
 import com.mahinurbulanikoglu.emotimate.model.ContentItem
+import com.mahinurbulanikoglu.emotimate.model.ContentType
 
 class MeditationAdapter(
     private val items: List<ContentItem>,
@@ -29,7 +30,12 @@ class MeditationAdapter(
         fun bind(item: ContentItem) {
             binding.textTitle.text = item.title
             binding.imageContent.setImageResource(item.imageResId)
-            binding.textDescription.text = "Meditasyon"
+            binding.textDescription.text = when(item.contentType) {
+                ContentType.MEDITATION -> "Meditasyon"
+                ContentType.BREATHING -> "Nefes Egzersizi"
+                ContentType.RELAXING_MUSIC -> "Rahatlatıcı Müzik"
+                else -> ""
+            }
         }
     }
 }

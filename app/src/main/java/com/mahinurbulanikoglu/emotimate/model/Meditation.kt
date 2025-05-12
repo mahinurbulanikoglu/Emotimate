@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 enum class ContentType {
     MEDITATION,
-    BREATHİNG,
+    BREATHING,
     RELAXING_MUSIC
 }
 
@@ -59,26 +59,26 @@ val breathingItems = listOf(
         title = "Nefes Meditasyonu 5 Dakika",
         imageResId = R.drawable.resim,
         audioResId = R.raw.meditasyon_1nefes_meditasyonu_5_dakika,
-        contentType = ContentType.BREATHİNG
+        contentType = ContentType.BREATHING
     ),
     ContentItem(
         title = "Nefes Meditasyonu 20 Dakika",
         imageResId = R.drawable.mindfulness,
         audioResId = R.raw.meditasyon_2nefes_meditasyonu_20_dakika,
-        contentType = ContentType.BREATHİNG
+        contentType = ContentType.BREATHING
     ),
 
     ContentItem(
         title = "Nefes Meditasyonu 20 Dakika(Yönlendirmesiz)",
         imageResId = R.drawable.rain,
         audioResId = R.raw.meditasyon_3nefes_meditasyonu_20_dakika_yonlendirmesiz,
-        contentType = ContentType.BREATHİNG
+        contentType = ContentType.BREATHING
     ),
     ContentItem(
         title = "Beden Tarama",
         imageResId = R.drawable.meditation,
         audioResId = R.raw.meditasyon_4beden_tarama,
-        contentType = ContentType.BREATHİNG
+        contentType = ContentType.BREATHING
     ),
 )
 
