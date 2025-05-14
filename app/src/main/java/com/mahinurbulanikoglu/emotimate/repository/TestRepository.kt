@@ -6,18 +6,17 @@ import com.google.firebase.database.ktx.getValue
 import com.mahinurbulanikoglu.emotimate.model.AbandonmentTestResult
 import com.mahinurbulanikoglu.emotimate.model.DependencyTestResult
 import com.mahinurbulanikoglu.emotimate.model.EmotionalDeprivationTestResult
+import com.mahinurbulanikoglu.emotimate.model.EmotionalSuppressionTestResult
 import com.mahinurbulanikoglu.emotimate.model.ShameTestResult
 import com.mahinurbulanikoglu.emotimate.model.SocialIsolationTestResult
 import com.mahinurbulanikoglu.emotimate.model.SelfSacrificeTestResult
 import com.mahinurbulanikoglu.emotimate.model.SubjugationTestResult
+import com.mahinurbulanikoglu.emotimate.model.PessimismTestResult
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.mahinurbulanikoglu.emotimate.model.FailureTestResult
+import com.mahinurbulanikoglu.emotimate.model.HaklilikTestResult
 
 class TestRepository {
     private val database = FirebaseDatabase.getInstance()
@@ -330,4 +329,173 @@ class TestRepository {
             Result.failure(e)
         }
     }
+
+    suspend fun saveEmotionalSuppressionTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val interpretation = EmotionalSuppressionTestResult.getInterpretation(totalScore)
+
+            val testResult = EmotionalSuppressionTestResult(
+                userId = userId,
+                date = date,
+                totalScore = totalScore,
+                interpretation = interpretation,
+                answers = answers
+            )
+
+            val testRef = database.getReference("users/$userId/test_results/emotional_suppression_test")
+            testRef.push().setValue(testResult).await()
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getEmotionalSuppressionTestResults(): Result<List<EmotionalSuppressionTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val testRef = database.getReference("users/$userId/test_results/emotional_suppression_test")
+            val snapshot = testRef.get().await()
+
+            val results = mutableListOf<EmotionalSuppressionTestResult>()
+            snapshot.children.forEach { child ->
+                child.getValue<EmotionalSuppressionTestResult>()?.let { result ->
+                    results.add(result)
+                }
+            }
+
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun savePessimismTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val interpretation = PessimismTestResult.getInterpretation(totalScore)
+
+            val testResult = PessimismTestResult(
+                userId = userId,
+                date = date,
+                totalScore = totalScore,
+                interpretation = interpretation,
+                answers = answers
+            )
+
+            val testRef = database.getReference("users/$userId/test_results/pessimism_test")
+            testRef.push().setValue(testResult).await()
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getPessimismTestResults(): Result<List<PessimismTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val testRef = database.getReference("users/$userId/test_results/pessimism_test")
+            val snapshot = testRef.get().await()
+
+            val results = mutableListOf<PessimismTestResult>()
+            snapshot.children.forEach { child ->
+                child.getValue<PessimismTestResult>()?.let { result ->
+                    results.add(result)
+                }
+            }
+
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun saveFailureTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val interpretation = FailureTestResult.getInterpretation(totalScore)
+
+            val testResult = FailureTestResult(
+                userId = userId,
+                date = date,
+                totalScore = totalScore,
+                interpretation = interpretation,
+                answers = answers
+            )
+
+            val testRef = database.getReference("users/$userId/test_results/failure_test")
+            testRef.push().setValue(testResult).await()
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getFailureTestResults(): Result<List<FailureTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val testRef = database.getReference("users/$userId/test_results/failure_test")
+            val snapshot = testRef.get().await()
+
+            val results = mutableListOf<FailureTestResult>()
+            snapshot.children.forEach { child ->
+                child.getValue<FailureTestResult>()?.let { result ->
+                    results.add(result)
+                }
+            }
+
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    suspend fun saveHaklilikTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val interpretation = HaklilikTestResult.getInterpretation(totalScore)
+            val testResult = HaklilikTestResult(
+                userId = userId,
+                date = date,
+                totalScore = totalScore,
+                interpretation = interpretation,
+                answers = answers
+            )
+            val testRef = database.getReference("users/$userId/test_results/haklilik_test")
+            testRef.push().setValue(testResult).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getHaklilikTestResults(): Result<List<HaklilikTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val testRef = database.getReference("users/$userId/test_results/haklilik_test")
+            val snapshot = testRef.get().await()
+            val results = mutableListOf<HaklilikTestResult>()
+            snapshot.children.forEach { child ->
+                child.getValue<HaklilikTestResult>()?.let { result ->
+                    results.add(result)
+                }
+            }
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }

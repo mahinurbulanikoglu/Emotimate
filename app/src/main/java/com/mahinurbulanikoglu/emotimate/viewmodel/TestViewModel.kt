@@ -11,7 +11,11 @@ import com.mahinurbulanikoglu.emotimate.model.EmotionalDeprivationTestResult
 import com.mahinurbulanikoglu.emotimate.model.SocialIsolationTestResult
 import com.mahinurbulanikoglu.emotimate.model.SelfSacrificeTestResult
 import com.mahinurbulanikoglu.emotimate.model.SubjugationTestResult
+import com.mahinurbulanikoglu.emotimate.model.EmotionalSuppressionTestResult
+import com.mahinurbulanikoglu.emotimate.model.PessimismTestResult
+import com.mahinurbulanikoglu.emotimate.model.FailureTestResult
 import com.mahinurbulanikoglu.emotimate.repository.TestRepository
+import com.mahinurbulanikoglu.emotimate.model.HaklilikTestResult
 import kotlinx.coroutines.launch
 
 class TestViewModel : ViewModel() {
@@ -42,6 +46,15 @@ class TestViewModel : ViewModel() {
 
     private val _subjugationTestResults = MutableLiveData<List<SubjugationTestResult>>()
     val subjugationTestResults: LiveData<List<SubjugationTestResult>> = _subjugationTestResults
+
+    private val _emotionalSuppressionTestResults = MutableLiveData<List<EmotionalSuppressionTestResult>>()
+    val emotionalSuppressionTestResults: LiveData<List<EmotionalSuppressionTestResult>> = _emotionalSuppressionTestResults
+
+    private val _pessimismTestResults = MutableLiveData<List<PessimismTestResult>>()
+    val pessimismTestResults: LiveData<List<PessimismTestResult>> = _pessimismTestResults
+
+    private val _failureTestResults = MutableLiveData<List<FailureTestResult>>()
+    val failureTestResults: LiveData<List<FailureTestResult>> = _failureTestResults
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -264,6 +277,136 @@ class TestViewModel : ViewModel() {
                 repository.getSubjugationTestResults().fold(
                     onSuccess = { results ->
                         _subjugationTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun saveEmotionalSuppressionTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveEmotionalSuppressionTestResult(answers, totalScore)
+                loadEmotionalSuppressionTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadEmotionalSuppressionTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getEmotionalSuppressionTestResults().fold(
+                    onSuccess = { results ->
+                        _emotionalSuppressionTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun savePessimismTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.savePessimismTestResult(answers, totalScore)
+                loadPessimismTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadPessimismTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getPessimismTestResults().fold(
+                    onSuccess = { results ->
+                        _pessimismTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun saveFailureTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                repository.saveFailureTestResult(answers, totalScore)
+                loadFailureTestResults()
+            } catch (e: Exception) {
+                _error.value = e.message
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadFailureTestResults() {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                repository.getFailureTestResults().fold(
+                    onSuccess = { resultList ->
+                        _failureTestResults.value = resultList
+                    },
+                    onFailure = { error ->
+                        _error.value = error.message
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+    private val _haklilikTestResults = MutableLiveData<List<HaklilikTestResult>>()
+    val haklilikTestResults: LiveData<List<HaklilikTestResult>> = _haklilikTestResults
+
+    fun saveHaklilikTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveHaklilikTestResult(answers, totalScore)
+                loadHaklilikTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadHaklilikTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getHaklilikTestResults().fold(
+                    onSuccess = { results ->
+                        _haklilikTestResults.value = results
                     },
                     onFailure = { error ->
                         _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"

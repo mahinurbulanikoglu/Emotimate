@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
 import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
 import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
+import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
 class BasarisizlikTestiFragment : Fragment() {
-
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: SchemaTestAdapter
+    private val viewModel: TestViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +30,24 @@ class BasarisizlikTestiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupObservers()
+        setupUI(view)
+    }
+
+    private fun setupObservers() {
+        // Hata durumunu dinle
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        }
+
+        // Yükleme durumunu dinle
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            // Eğer layout'ta bir progress bar varsa burada gösterebilirsiniz
+            // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun setupUI(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
@@ -51,11 +71,22 @@ class BasarisizlikTestiFragment : Fragment() {
 
         submitButton.setOnClickListener {
             val totalScore = questionList.sumOf { it.selectedScore }
+
+            // Cevapları Map'e dönüştür
+            val answers = questionList.associate {
+                "soru${it.id}" to it.selectedScore
+            }
+
+            // Firebase'e kaydet
+            viewModel.saveFailureTestResult(answers, totalScore)
+
+            // Sonucu göster
             val message = when {
                 totalScore >= 40 -> "Yüksek düzeyde Başarısızlık Şeması"
                 totalScore in 25..39 -> "Orta düzeyde Başarısızlık Şeması"
                 else -> "Düşük düzeyde Başarısızlık Şeması"
             }
+
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()
         }
     }
