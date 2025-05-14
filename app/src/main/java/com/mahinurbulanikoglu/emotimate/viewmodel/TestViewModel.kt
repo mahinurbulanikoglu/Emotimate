@@ -5,21 +5,51 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mahinurbulanikoglu.emotimate.model.ShameTestResult
+import com.mahinurbulanikoglu.emotimate.model.AbandonmentTestResult
+import com.mahinurbulanikoglu.emotimate.model.DependencyTestResult
+import com.mahinurbulanikoglu.emotimate.model.EmotionalDeprivationTestResult
+import com.mahinurbulanikoglu.emotimate.model.SocialIsolationTestResult
+import com.mahinurbulanikoglu.emotimate.model.SelfSacrificeTestResult
+import com.mahinurbulanikoglu.emotimate.model.SubjugationTestResult
 import com.mahinurbulanikoglu.emotimate.repository.TestRepository
 import kotlinx.coroutines.launch
 
 class TestViewModel : ViewModel() {
     private val repository = TestRepository()
-    
-    private val _testResults = MutableLiveData<List<ShameTestResult>>()
-    val testResults: LiveData<List<ShameTestResult>> = _testResults
-    
+
+    // Shame Test için
+    private val _shameTestResults = MutableLiveData<List<ShameTestResult>>()
+    val shameTestResults: LiveData<List<ShameTestResult>> = _shameTestResults
+
+    // Abandonment Test için
+    private val _abandonmentTestResults = MutableLiveData<List<AbandonmentTestResult>>()
+    val abandonmentTestResults: LiveData<List<AbandonmentTestResult>> = _abandonmentTestResults
+
+    // Dependency Test için
+    private val _dependencyTestResults = MutableLiveData<List<DependencyTestResult>>()
+    val dependencyTestResults: LiveData<List<DependencyTestResult>> = _dependencyTestResults
+
+    // Emotional Deprivation Test için
+    private val _emotionalDeprivationTestResults = MutableLiveData<List<EmotionalDeprivationTestResult>>()
+    val emotionalDeprivationTestResults: LiveData<List<EmotionalDeprivationTestResult>> = _emotionalDeprivationTestResults
+
+    // Social Isolation Test için
+    private val _socialIsolationTestResults = MutableLiveData<List<SocialIsolationTestResult>>()
+    val socialIsolationTestResults: LiveData<List<SocialIsolationTestResult>> = _socialIsolationTestResults
+
+    private val _selfSacrificeTestResults = MutableLiveData<List<SelfSacrificeTestResult>>()
+    val selfSacrificeTestResults: LiveData<List<SelfSacrificeTestResult>> = _selfSacrificeTestResults
+
+    private val _subjugationTestResults = MutableLiveData<List<SubjugationTestResult>>()
+    val subjugationTestResults: LiveData<List<SubjugationTestResult>> = _subjugationTestResults
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
-    
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    // Shame Test fonksiyonları
     fun saveShameTestResult(answers: Map<String, Int>, totalScore: Int) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -40,7 +70,7 @@ class TestViewModel : ViewModel() {
             try {
                 repository.getShameTestResults().fold(
                     onSuccess = { results ->
-                        _testResults.value = results
+                        _shameTestResults.value = results
                     },
                     onFailure = { error ->
                         _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
@@ -51,4 +81,197 @@ class TestViewModel : ViewModel() {
             }
         }
     }
-} 
+
+    // Abandonment Test fonksiyonları
+    fun saveAbandonmentTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveAbandonmentTestResult(answers, totalScore)
+                loadAbandonmentTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadAbandonmentTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getAbandonmentTestResults().fold(
+                    onSuccess = { results ->
+                        _abandonmentTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun saveDependencyTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveDependencyTestResult(answers, totalScore)
+                loadDependencyTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadDependencyTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getDependencyTestResults().fold(
+                    onSuccess = { results ->
+                        _dependencyTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun saveEmotionalDeprivationTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveEmotionalDeprivationTestResult(answers, totalScore)
+                loadEmotionalDeprivationTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadEmotionalDeprivationTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getEmotionalDeprivationTestResults().fold(
+                    onSuccess = { results ->
+                        _emotionalDeprivationTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun saveSocialIsolationTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveSocialIsolationTestResult(answers, totalScore)
+                loadSocialIsolationTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadSocialIsolationTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getSocialIsolationTestResults().fold(
+                    onSuccess = { results ->
+                        _socialIsolationTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun saveSelfSacrificeTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveSelfSacrificeTestResult(answers, totalScore)
+                loadSelfSacrificeTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadSelfSacrificeTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getSelfSacrificeTestResults().fold(
+                    onSuccess = { results ->
+                        _selfSacrificeTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun saveSubjugationTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveSubjugationTestResult(answers, totalScore)
+                loadSubjugationTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadSubjugationTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getSubjugationTestResults().fold(
+                    onSuccess = { results ->
+                        _subjugationTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+}
