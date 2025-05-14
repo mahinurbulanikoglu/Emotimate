@@ -1,6 +1,6 @@
-package com.mahinurbulanikoglu.emotimate.ui.model
+package com.mahinurbulanikoglu.emotimate.model
 
 data class PanasQuestion(
-    val questionText: String,
+    val question: String,
     var selectedScore: Int = 0
 )

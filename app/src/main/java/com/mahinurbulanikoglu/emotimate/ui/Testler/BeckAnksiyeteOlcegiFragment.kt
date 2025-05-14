@@ -7,15 +7,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
+import com.mahinurbulanikoglu.emotimate.model.BeckDepresyonAdapter
 import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
+import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
 class BeckAnksiyeteOlcegiFragment : Fragment() {
 
     private lateinit var questionList: List<SchemaQuestion>
-    private lateinit var adapter: BeckDepresyonAdapter // 4 seçenekli adapterı tekrar kullanıyoruz
+    private lateinit var adapter: BeckDepresyonAdapter
+    private val viewModel: TestViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +31,24 @@ class BeckAnksiyeteOlcegiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupObservers()
+        setupUI(view)
+    }
+
+    private fun setupObservers() {
+        // Hata durumunu dinle
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        }
+
+        // Yükleme durumunu dinle
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            // Eğer layout'ta bir progress bar varsa burada gösterebilirsiniz
+            // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun setupUI(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
@@ -55,12 +77,23 @@ class BeckAnksiyeteOlcegiFragment : Fragment() {
             SchemaQuestion(21, "Yüzümde kızarma ya da sıcaklık artışı hissettim.")
         )
 
-        adapter = BeckDepresyonAdapter(questionList) // 4 seçenekli adapterı kullanıyoruz
+        adapter = BeckDepresyonAdapter(questionList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
         submitButton.setOnClickListener {
             val totalScore = questionList.sumOf { it.selectedScore }
+
+            // Cevapları Map'e dönüştür
+            val answers = questionList.associate {
+                "soru${it.id}" to it.selectedScore
+            }
+
+            // Firebase'e kaydet
+            viewModel.saveBeckAnksiyeteTestResult(answers, totalScore)
+            Toast.makeText(requireContext(), "Test sonuçları kaydedildi", Toast.LENGTH_SHORT).show()
+
+            // Sonucu göster
             val message = when (totalScore) {
                 in 0..7 -> "Minimal anksiyete"
                 in 8..15 -> "Hafif anksiyete"
@@ -68,6 +101,7 @@ class BeckAnksiyeteOlcegiFragment : Fragment() {
                 in 26..63 -> "Şiddetli anksiyete"
                 else -> "Geçersiz puan"
             }
+
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()
         }
     }

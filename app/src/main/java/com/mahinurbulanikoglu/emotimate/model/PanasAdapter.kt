@@ -7,13 +7,14 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
+import com.mahinurbulanikoglu.emotimate.model.PanasQuestion
 
 class PanasAdapter(
     private val questionList: List<PanasQuestion>
 ) : RecyclerView.Adapter<PanasAdapter.QuestionViewHolder>() {
 
     inner class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val questionText: TextView = itemView.findViewById(R.id.questionText)
+        val questionTextView: TextView = itemView.findViewById(R.id.questionText)
         val radioGroup: RadioGroup = itemView.findViewById(R.id.radioGroup)
     }
 
@@ -25,7 +26,7 @@ class PanasAdapter(
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val question = questionList[position]
-        holder.questionText.text = question.questionText
+        holder.questionTextView.text = question.question
 
         holder.radioGroup.setOnCheckedChangeListener(null)
         when (question.selectedScore) {

@@ -81,13 +81,14 @@ class HaklilikTestiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.saveShameTestResult(answers, totalScore)
+            viewModel.saveHaklilikTestResult(answers, totalScore)
+            Toast.makeText(requireContext(), "Test sonuçları kaydedildi", Toast.LENGTH_SHORT).show()
 
             // Sonucu göster
             val message = when {
-                totalScore >= 55 -> "Yüksek düzeyde Kusurluluk / Utanç"
-                totalScore in 35..54 -> "Orta düzeyde Kusurluluk / Utanç"
-                else -> "Düşük düzeyde Kusurluluk / Utanç"
+                totalScore >= 55 -> "Yüksek düzeyde Haklılık"
+                totalScore in 35..54 -> "Orta düzeyde Haklılık"
+                else -> "Düşük düzeyde Haklılık"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()

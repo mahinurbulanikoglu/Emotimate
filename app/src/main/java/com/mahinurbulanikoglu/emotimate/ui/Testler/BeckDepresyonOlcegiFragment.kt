@@ -7,15 +7,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
+import com.mahinurbulanikoglu.emotimate.model.BeckDepresyonAdapter
 import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
+import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
 class BeckDepresyonOlcegiFragment : Fragment() {
 
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: BeckDepresyonAdapter
+    private val viewModel: TestViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +31,24 @@ class BeckDepresyonOlcegiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupObservers()
+        setupUI(view)
+    }
+
+    private fun setupObservers() {
+        // Hata durumunu dinle
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        }
+
+        // Yükleme durumunu dinle
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            // Eğer layout'ta bir progress bar varsa burada gösterebilirsiniz
+            // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun setupUI(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
@@ -61,6 +83,17 @@ class BeckDepresyonOlcegiFragment : Fragment() {
 
         submitButton.setOnClickListener {
             val totalScore = questionList.sumOf { it.selectedScore }
+
+            // Cevapları Map'e dönüştür
+            val answers = questionList.associate {
+                "soru${it.id}" to it.selectedScore
+            }
+
+            // Firebase'e kaydet
+            viewModel.saveBeckDepresyonTestResult(answers, totalScore)
+            Toast.makeText(requireContext(), "Test sonuçları kaydedildi", Toast.LENGTH_SHORT).show()
+
+            // Sonucu göster
             val message = when (totalScore) {
                 in 0..9 -> "Minimal depresyon"
                 in 10..16 -> "Hafif depresyon"
@@ -68,6 +101,7 @@ class BeckDepresyonOlcegiFragment : Fragment() {
                 in 30..63 -> "Şiddetli depresyon"
                 else -> "Geçersiz puan"
             }
+
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()
         }
     }

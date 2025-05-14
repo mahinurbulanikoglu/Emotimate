@@ -1,5 +1,6 @@
 package com.mahinurbulanikoglu.emotimate.repository
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.getValue
@@ -17,10 +18,28 @@ import java.text.SimpleDateFormat
 import java.util.*
 import com.mahinurbulanikoglu.emotimate.model.FailureTestResult
 import com.mahinurbulanikoglu.emotimate.model.HaklilikTestResult
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import com.mahinurbulanikoglu.emotimate.model.BeckDepresyonTestResult
+import com.mahinurbulanikoglu.emotimate.model.BeckAnksiyeteTestResult
+import com.mahinurbulanikoglu.emotimate.model.PanasTestResult
+import com.mahinurbulanikoglu.emotimate.model.PomsTestResult
 
 class TestRepository {
     private val database = FirebaseDatabase.getInstance()
     private val auth = FirebaseAuth.getInstance()
+
+    private val _beckDepresyonTestResults = MutableLiveData<List<BeckDepresyonTestResult>>()
+    val beckDepresyonTestResults: LiveData<List<BeckDepresyonTestResult>> = _beckDepresyonTestResults
+
+    private val _beckAnksiyeteTestResults = MutableLiveData<List<BeckAnksiyeteTestResult>>()
+    val beckAnksiyeteTestResults: LiveData<List<BeckAnksiyeteTestResult>> = _beckAnksiyeteTestResults
+
+    private val _panasTestResults = MutableLiveData<List<PanasTestResult>>()
+    val panasTestResults: LiveData<List<PanasTestResult>> = _panasTestResults
+
+    private val _pomsTestResults = MutableLiveData<List<PomsTestResult>>()
+    val pomsTestResults: LiveData<List<PomsTestResult>> = _pomsTestResults
 
     suspend fun saveShameTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
         return try {
@@ -492,6 +511,176 @@ class TestRepository {
                     results.add(result)
                 }
             }
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun saveBeckDepresyonTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val interpretation = BeckDepresyonTestResult.getInterpretation(totalScore)
+            val testResult = BeckDepresyonTestResult(
+                userId = userId,
+                date = date,
+                totalScore = totalScore,
+                interpretation = interpretation,
+                answers = answers
+            )
+            val testRef = database.getReference("users/$userId/test_results/beck_depresyon_test")
+            testRef.push().setValue(testResult).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getBeckDepresyonTestResults(): Result<List<BeckDepresyonTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val testRef = database.getReference("users/$userId/test_results/beck_depresyon_test")
+            val snapshot = testRef.get().await()
+            val results = mutableListOf<BeckDepresyonTestResult>()
+            snapshot.children.forEach { child ->
+                child.getValue<BeckDepresyonTestResult>()?.let { result ->
+                    results.add(result)
+                }
+            }
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun saveBeckAnksiyeteTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val interpretation = BeckAnksiyeteTestResult.getInterpretation(totalScore)
+            val testResult = BeckAnksiyeteTestResult(
+                userId = userId,
+                date = date,
+                totalScore = totalScore,
+                interpretation = interpretation,
+                answers = answers
+            )
+            val testRef = database.getReference("users/$userId/test_results/beck_anksiyete_test")
+            testRef.push().setValue(testResult).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getBeckAnksiyeteTestResults(): Result<List<BeckAnksiyeteTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val testRef = database.getReference("users/$userId/test_results/beck_anksiyete_test")
+            val snapshot = testRef.get().await()
+            val results = mutableListOf<BeckAnksiyeteTestResult>()
+            snapshot.children.forEach { child ->
+                child.getValue<BeckAnksiyeteTestResult>()?.let { result ->
+                    results.add(result)
+                }
+            }
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun savePanasTestResult(answers: Map<String, Int>, positiveScore: Int, negativeScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val positiveInterpretation = PanasTestResult.getPositiveInterpretation(positiveScore)
+            val negativeInterpretation = PanasTestResult.getNegativeInterpretation(negativeScore)
+            val testResult = PanasTestResult(
+                userId = userId,
+                date = date,
+                positiveScore = positiveScore,
+                negativeScore = negativeScore,
+                positiveInterpretation = positiveInterpretation,
+                negativeInterpretation = negativeInterpretation,
+                answers = answers
+            )
+            val testRef = database.getReference("users/$userId/test_results/panas_test")
+            testRef.setValue(testResult)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getPanasTestResults(): Result<List<PanasTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val testRef = database.getReference("users/$userId/test_results/panas_test")
+            val snapshot = testRef.get().await()
+            val results = snapshot.children.mapNotNull { it.getValue(PanasTestResult::class.java) }
+            _panasTestResults.postValue(results)
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun savePomsTestResult(
+        answers: Map<String, Int>,
+        tensionScore: Int,
+        depressionScore: Int,
+        angerScore: Int,
+        fatigueScore: Int,
+        confusionScore: Int,
+        vigorScore: Int
+    ): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            Log.d("TestRepository", "Kullanıcı ID: $userId")
+            
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            Log.d("TestRepository", "Tarih: $date")
+
+            // TMD hesaplama
+            val totalMoodDisturbance = tensionScore + depressionScore + angerScore +
+                                     fatigueScore + confusionScore - vigorScore
+            Log.d("TestRepository", "TMD: $totalMoodDisturbance")
+
+            val testResult = PomsTestResult(
+                userId = userId,
+                date = date,
+                tensionScore = tensionScore,
+                depressionScore = depressionScore,
+                angerScore = angerScore,
+                fatigueScore = fatigueScore,
+                confusionScore = confusionScore,
+                vigorScore = vigorScore,
+                totalMoodDisturbance = totalMoodDisturbance,
+                answers = answers
+            )
+
+            val testRef = database.getReference("users/$userId/test_results/poms_test")
+            Log.d("TestRepository", "Veritabanı yolu: users/$userId/test_results/poms_test")
+            
+            testRef.push().setValue(testResult).await()
+            Log.d("TestRepository", "Test sonucu başarıyla kaydedildi")
+            
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Log.e("TestRepository", "Test sonucu kaydedilirken hata oluştu", e)
+            Result.failure(e)
+        }
+    }
+
+    suspend fun loadPomsTestResults(): Result<List<PomsTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+            val testRef = database.getReference("users/$userId/test_results/poms_test")
+
+            val results = testRef.get().await().children.mapNotNull { it.getValue(PomsTestResult::class.java) }
+            _pomsTestResults.postValue(results)
             Result.success(results)
         } catch (e: Exception) {
             Result.failure(e)
