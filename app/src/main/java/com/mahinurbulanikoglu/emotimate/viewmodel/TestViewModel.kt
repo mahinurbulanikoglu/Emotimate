@@ -20,6 +20,8 @@ import com.mahinurbulanikoglu.emotimate.model.BeckDepresyonTestResult
 import com.mahinurbulanikoglu.emotimate.model.BeckAnksiyeteTestResult
 import com.mahinurbulanikoglu.emotimate.model.PanasTestResult
 import com.mahinurbulanikoglu.emotimate.model.PomsTestResult
+import com.mahinurbulanikoglu.emotimate.model.AsrsTestResult
+import com.mahinurbulanikoglu.emotimate.model.TssbTestResult
 import kotlinx.coroutines.launch
 
 class TestViewModel : ViewModel() {
@@ -77,6 +79,13 @@ class TestViewModel : ViewModel() {
 
     private val _pomsTestResults = MutableLiveData<List<PomsTestResult>>()
     val pomsTestResults: LiveData<List<PomsTestResult>> = _pomsTestResults
+
+    private val _asrsTestResults = MutableLiveData<List<AsrsTestResult>>()
+    val asrsTestResults: LiveData<List<AsrsTestResult>> = _asrsTestResults
+
+    private val _tssbTestResults = MutableLiveData<List<TssbTestResult>>()
+    val tssbTestResults: LiveData<List<TssbTestResult>> = _tssbTestResults
+
 
     // Shame Test fonksiyonları
     fun saveShameTestResult(answers: Map<String, Int>, totalScore: Int) {
@@ -581,4 +590,69 @@ class TestViewModel : ViewModel() {
             }
         }
     }
+
+    fun saveAsrsTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveAsrsTestResult(answers, totalScore)
+                loadAsrsTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadAsrsTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getAsrsTestResults().fold(
+                    onSuccess = { results ->
+                        _asrsTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun saveTssbTestResult(answers: Map<String, Int>, totalScore: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.saveTssbTestResult(answers, totalScore)
+                loadTssbTestResults()
+            } catch (e: Exception) {
+                _error.value = "Test sonucu kaydedilirken hata oluştu: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadTssbTestResults() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                repository.getTssbTestResults().fold(
+                    onSuccess = { results ->
+                        _tssbTestResults.value = results
+                    },
+                    onFailure = { error ->
+                        _error.value = "Test sonuçları yüklenirken hata oluştu: ${error.message}"
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
 }

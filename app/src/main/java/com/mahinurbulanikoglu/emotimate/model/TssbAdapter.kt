@@ -3,35 +3,43 @@ package com.mahinurbulanikoglu.emotimate.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mahinurbulanikoglu.emotimate.model.TssbQuestion
 import com.mahinurbulanikoglu.emotimate.databinding.ItemTssbQuestionBinding
+import com.mahinurbulanikoglu.emotimate.model.TssbQuestion
 
 class TssbAdapter(
     private val questions: List<TssbQuestion>,
     private val onAnswerSelected: (Int, Int) -> Unit
-) : RecyclerView.Adapter<TssbAdapter.TssbViewHolder>() {
+) : RecyclerView.Adapter<TssbAdapter.QuestionViewHolder>() {
 
-    inner class TssbViewHolder(val binding: ItemTssbQuestionBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class QuestionViewHolder(val binding: ItemTssbQuestionBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TssbViewHolder {
-        val binding = ItemTssbQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TssbViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
+        val binding = ItemTssbQuestionBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return QuestionViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TssbViewHolder, position: Int) {
-        val question = questions[position]
-        holder.binding.questionText.text = question.question
+    override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
+        val currentQuestion = questions[position]
+        holder.binding.questionText.text = currentQuestion.questionText
 
+        // Önceki seçimi temizle
         holder.binding.radioGroup.setOnCheckedChangeListener(null)
-        holder.binding.radioGroup.clearCheck()
-        when (question.answer) {
+
+        // Mevcut cevabı göster
+        when (currentQuestion.answer) {
             0 -> holder.binding.radio0.isChecked = true
             1 -> holder.binding.radio1.isChecked = true
             2 -> holder.binding.radio2.isChecked = true
             3 -> holder.binding.radio3.isChecked = true
             4 -> holder.binding.radio4.isChecked = true
+            else -> holder.binding.radioGroup.clearCheck()
         }
 
+        // Yeni cevap seçimini dinle
         holder.binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val answer = when (checkedId) {
                 holder.binding.radio0.id -> 0
@@ -41,9 +49,9 @@ class TssbAdapter(
                 holder.binding.radio4.id -> 4
                 else -> -1
             }
-            if (answer != -1) onAnswerSelected(position, answer)
+            onAnswerSelected(position, answer)
         }
     }
 
-    override fun getItemCount() = questions.size
+    override fun getItemCount(): Int = questions.size
 }

@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,8 +38,6 @@ class TestlerFragment : Fragment() {
         view.findViewById<Button>(R.id.btnTravma).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_testler_to_travmaFragment)
         }
-        view.findViewById<Button>(R.id.btnKisilikTestleri).setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_testler_to_kisilikTestleriFragment)
-        }
+
     }
 }

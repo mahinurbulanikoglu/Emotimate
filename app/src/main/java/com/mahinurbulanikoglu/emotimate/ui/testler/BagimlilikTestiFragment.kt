@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,21 +11,20 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
-import com.mahinurbulanikoglu.emotimate.model.BeckDepresyonAdapter
 import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
+import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class BeckDepresyonOlcegiFragment : Fragment() {
-
+class BagimlilikTestiFragment : Fragment() {
     private lateinit var questionList: List<SchemaQuestion>
-    private lateinit var adapter: BeckDepresyonAdapter
+    private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_beck_depresyon_olcegi, container, false)
+        return inflater.inflate(R.layout.fragment_bagimlilik_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,35 +51,26 @@ class BeckDepresyonOlcegiFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-        // BDÖ soruları (her biri 0-3 arası puan alacak şekilde)
+        // Bağımlılık şeması için tüm sorular
         questionList = listOf(
-            SchemaQuestion(1, "Üzüntü"),
-            SchemaQuestion(2, "Gelecekten ümitsizlik"),
-            SchemaQuestion(3, "Kendini başarısız hissetme"),
-            SchemaQuestion(4, "Kendinden hoşnut olmama"),
-            SchemaQuestion(5, "Kendini suçlama"),
-            SchemaQuestion(6, "Kendini cezalandırma isteği"),
-            SchemaQuestion(7, "Kendinden hoşlanmama"),
-            SchemaQuestion(8, "İntihar düşünceleri"),
-            SchemaQuestion(9, "Ağlama"),
-            SchemaQuestion(10, "Huzursuzluk"),
-            SchemaQuestion(11, "İnsanlarla ilgisini yitirme"),
-            SchemaQuestion(12, "Karar verme güçlüğü"),
-            SchemaQuestion(13, "Kendini değersiz hissetme"),
-            SchemaQuestion(14, "Enerji kaybı"),
-            SchemaQuestion(15, "Uykusuzluk"),
-            SchemaQuestion(16, "Sinirlilik"),
-            SchemaQuestion(17, "İştah değişikliği"),
-            SchemaQuestion(18, "Kilo kaybı"),
-            SchemaQuestion(19, "Sağlıkla meşgul olma"),
-            SchemaQuestion(20, "Cinsel ilgi kaybı"),
-            SchemaQuestion(21, "Günlük faaliyetlerde azalma")
+            SchemaQuestion(1, "Günlük işlerimi yaparken başkalarından yardım almaya ihtiyaç duyarım."),
+            SchemaQuestion(2, "Önemli kararları kendi başıma vermekte zorlanırım."),
+            SchemaQuestion(3, "Hayatımda bir şeyler ters gittiğinde, başkalarının beni kurtarmasını beklerim."),
+            SchemaQuestion(4, "Kendimi yalnız hissettiğimde, hemen birinin benimle olmasını isterim."),
+            SchemaQuestion(5, "Başkaları olmadan kendimi güvende hissetmem."),
+            SchemaQuestion(6, "Önemli konularda başkalarının fikrini almak zorunda hissederim."),
+            SchemaQuestion(7, "Kendi başıma bir şeyler yapmakta zorlanırım."),
+            SchemaQuestion(8, "Başkalarına bağımlı olmaktan rahatsız olmam."),
+            SchemaQuestion(9, "Kendi başıma karar vermek beni endişelendirir."),
+            SchemaQuestion(10, "Hayatımda bir şeyler ters gittiğinde, kendimi çaresiz hissederim.")
         )
 
-        adapter = BeckDepresyonAdapter(questionList)
+        // Adapter ve RecyclerView bağlantılarını kur
+        adapter = SchemaTestAdapter(questionList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        // Butona tıklanınca puanları hesapla ve Firebase'e kaydet
         submitButton.setOnClickListener {
             val totalScore = questionList.sumOf { it.selectedScore }
 
@@ -90,16 +80,13 @@ class BeckDepresyonOlcegiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.saveBeckDepresyonTestResult(answers, totalScore)
-            Toast.makeText(requireContext(), "Test sonuçları kaydedildi", Toast.LENGTH_SHORT).show()
+            viewModel.saveDependencyTestResult(answers, totalScore)
 
             // Sonucu göster
-            val message = when (totalScore) {
-                in 0..9 -> "Minimal depresyon"
-                in 10..16 -> "Hafif depresyon"
-                in 17..29 -> "Orta düzey depresyon"
-                in 30..63 -> "Şiddetli depresyon"
-                else -> "Geçersiz puan"
+            val message = when {
+                totalScore >= 40 -> "Yüksek düzeyde Bağımlılık Şeması"
+                totalScore in 25..39 -> "Orta düzeyde Bağımlılık Şeması"
+                else -> "Düşük düzeyde Bağımlılık Şeması"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()

@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
 import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class BagimlilikTestiFragment : Fragment() {
+class SosyalIzolasyonTestiFragment : Fragment() {
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
@@ -24,7 +24,7 @@ class BagimlilikTestiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_bagimlilik_testi, container, false)
+        return inflater.inflate(R.layout.fragment_sosyal_izolasyon_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,18 +51,18 @@ class BagimlilikTestiFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-        // Bağımlılık şeması için tüm sorular
+        // Sosyal İzolasyon şeması için tüm sorular
         questionList = listOf(
-            SchemaQuestion(1, "Günlük işlerimi yaparken başkalarından yardım almaya ihtiyaç duyarım."),
-            SchemaQuestion(2, "Önemli kararları kendi başıma vermekte zorlanırım."),
-            SchemaQuestion(3, "Hayatımda bir şeyler ters gittiğinde, başkalarının beni kurtarmasını beklerim."),
-            SchemaQuestion(4, "Kendimi yalnız hissettiğimde, hemen birinin benimle olmasını isterim."),
-            SchemaQuestion(5, "Başkaları olmadan kendimi güvende hissetmem."),
-            SchemaQuestion(6, "Önemli konularda başkalarının fikrini almak zorunda hissederim."),
-            SchemaQuestion(7, "Kendi başıma bir şeyler yapmakta zorlanırım."),
-            SchemaQuestion(8, "Başkalarına bağımlı olmaktan rahatsız olmam."),
-            SchemaQuestion(9, "Kendi başıma karar vermek beni endişelendirir."),
-            SchemaQuestion(10, "Hayatımda bir şeyler ters gittiğinde, kendimi çaresiz hissederim.")
+            SchemaQuestion(1, "İnsanların arasında kendimi farklı hissederim."),
+            SchemaQuestion(2, "Sanki dışlanmışım ya da ait değilmişim gibi hissederim."),
+            SchemaQuestion(3, "İnsanlarla kolayca yakınlık kuramam."),
+            SchemaQuestion(4, "Kalabalık bir ortamda yalnız hissederim."),
+            SchemaQuestion(5, "Genellikle arkadaş gruplarına ya da topluluklara ait hissetmem."),
+            SchemaQuestion(6, "Diğer insanlar kolaylıkla kaynaşırken ben uzakta kalırım."),
+            SchemaQuestion(7, "Sanki herkes birlikte, ben ise dışarıda kalmışım gibi gelir."),
+            SchemaQuestion(8, "Beni gerçekten anlayabilecek insan bulmak zordur."),
+            SchemaQuestion(9, "Hayatım boyunca hep biraz 'ayrıksı' oldum."),
+            SchemaQuestion(10, "Sosyal ortamlarda içten içe kendimi güvensiz hissederim.")
         )
 
         // Adapter ve RecyclerView bağlantılarını kur
@@ -80,13 +80,13 @@ class BagimlilikTestiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.saveDependencyTestResult(answers, totalScore)
+            viewModel.saveSocialIsolationTestResult(answers, totalScore)
 
             // Sonucu göster
             val message = when {
-                totalScore >= 40 -> "Yüksek düzeyde Bağımlılık Şeması"
-                totalScore in 25..39 -> "Orta düzeyde Bağımlılık Şeması"
-                else -> "Düşük düzeyde Bağımlılık Şeması"
+                totalScore >= 40 -> "Yüksek düzeyde Sosyal İzolasyon / Yabancılık Şeması"
+                totalScore in 25..39 -> "Orta düzeyde Sosyal İzolasyon / Yabancılık Şeması"
+                else -> "Düşük düzeyde Sosyal İzolasyon / Yabancılık Şeması"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()

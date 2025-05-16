@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,21 +11,21 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
-import com.mahinurbulanikoglu.emotimate.model.BeckDepresyonAdapter
 import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
+import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class BeckAnksiyeteOlcegiFragment : Fragment() {
+class HaklilikTestiFragment : Fragment() {
 
     private lateinit var questionList: List<SchemaQuestion>
-    private lateinit var adapter: BeckDepresyonAdapter
+    private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_beck_anksiyete_olcegi, container, false)
+        return inflater.inflate(R.layout.fragment_haklilik_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,32 +52,23 @@ class BeckAnksiyeteOlcegiFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-        // BAÖ soruları (her biri 0-3 arası puan alacak şekilde)
+
+
+        // Sorularını buraya ekledim:
         questionList = listOf(
-            SchemaQuestion(1, "Vücudumun bazı bölgelerinde uyuşma ya da karıncalanma hissettim."),
-            SchemaQuestion(2, "Sıcak basmaları yaşadım."),
-            SchemaQuestion(3, "Bacaklarımda zayıflık ya da titreme hissettim."),
-            SchemaQuestion(4, "Kendimi rahatlatmakta zorlandım."),
-            SchemaQuestion(5, "Aniden ya da mantıksız şekilde korkuya kapıldım."),
-            SchemaQuestion(6, "Başım döndü ya da kendimi sersemlemiş hissettim."),
-            SchemaQuestion(7, "Kalbim hızla attı ya da çarpıntı hissettim."),
-            SchemaQuestion(8, "Dengemi kaybediyor gibi hissettim."),
-            SchemaQuestion(9, "Panik haline kapıldım."),
-            SchemaQuestion(10, "Bayılacakmış gibi oldum."),
-            SchemaQuestion(11, "Nefes almakta zorlandım."),
-            SchemaQuestion(12, "Boğuluyormuş gibi hissettim."),
-            SchemaQuestion(13, "Ellerde veya vücutta titreme yaşadım."),
-            SchemaQuestion(14, "Kontrolümü kaybedecekmişim gibi hissettim."),
-            SchemaQuestion(15, "Ölüm korkusu yaşadım."),
-            SchemaQuestion(16, "Mide bulantısı ya da karın ağrısı hissettim."),
-            SchemaQuestion(17, "Soğuk ter döktüm."),
-            SchemaQuestion(18, "Yutma güçlüğü yaşadım."),
-            SchemaQuestion(19, "İçsel bir titreme hissi yaşadım (vücudumun içinde)."),
-            SchemaQuestion(20, "Kendimi tuhaf ya da gerçek dışı hissettim (sanki kendimden kopmuş gibi)."),
-            SchemaQuestion(21, "Yüzümde kızarma ya da sıcaklık artışı hissettim.")
+            SchemaQuestion(1, "Kurallar bana göre değilmiş gibi hissederim."),
+            SchemaQuestion(2, "İstediğim şey hemen olsun isterim."),
+            SchemaQuestion(3, "Başkalarının ihtiyaçlarını çok da önemsemem."),
+            SchemaQuestion(4, "Benden daha az başarılı insanların görüşlerini dikkate almam."),
+            SchemaQuestion(5, "Eleştirilmek beni öfkelendirir, çünkü hep haklı olduğumu düşünürüm."),
+            SchemaQuestion(6, "Beklentilerim karşılanmadığında kolayca öfkelenirim."),
+            SchemaQuestion(7, "İnsanların bana ayrıcalık tanıması gerektiğine inanırım."),
+            SchemaQuestion(8, "Hızlı sonuç almayı hak ettiğimi düşünürüm."),
+            SchemaQuestion(9, "İlişkilerde benim dediklerimin olması gerektiğine inanırım."),
+            SchemaQuestion(10, "Çocukken her istediğim karşılandığında kendimi özel hissederdim.")
         )
 
-        adapter = BeckDepresyonAdapter(questionList)
+        adapter = SchemaTestAdapter(questionList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
@@ -90,19 +81,17 @@ class BeckAnksiyeteOlcegiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.saveBeckAnksiyeteTestResult(answers, totalScore)
+            viewModel.saveHaklilikTestResult(answers, totalScore)
             Toast.makeText(requireContext(), "Test sonuçları kaydedildi", Toast.LENGTH_SHORT).show()
 
             // Sonucu göster
-            val message = when (totalScore) {
-                in 0..7 -> "Minimal anksiyete"
-                in 8..15 -> "Hafif anksiyete"
-                in 16..25 -> "Orta düzey anksiyete"
-                in 26..63 -> "Şiddetli anksiyete"
-                else -> "Geçersiz puan"
+            val message = when {
+                totalScore >= 55 -> "Yüksek düzeyde Haklılık"
+                totalScore in 35..54 -> "Orta düzeyde Haklılık"
+                else -> "Düşük düzeyde Haklılık"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()
         }
     }
-}
+    }

@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,20 +11,21 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
+import com.mahinurbulanikoglu.emotimate.model.BeckDepresyonAdapter
 import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
-import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class TerkedilmeTestiFragment : Fragment() {
+class BeckDepresyonOlcegiFragment : Fragment() {
+
     private lateinit var questionList: List<SchemaQuestion>
-    private lateinit var adapter: SchemaTestAdapter
+    private lateinit var adapter: BeckDepresyonAdapter
     private val viewModel: TestViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_terkedilme_testi, container, false)
+        return inflater.inflate(R.layout.fragment_beck_depresyon_olcegi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,30 +47,40 @@ class TerkedilmeTestiFragment : Fragment() {
             // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
+
     private fun setupUI(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-
+        // BDÖ soruları (her biri 0-3 arası puan alacak şekilde)
         questionList = listOf(
-            SchemaQuestion(1, "Sevdiğim kişilerin beni terk edeceğinden korkarım."),
-            SchemaQuestion(2, "Partnerimden veya çok yakın olduğum birinden ayrıldığımda kendimi aşırı derecede kaybolmuş ve boşlukta hissederim."),
-            SchemaQuestion(3, "Sevdiğim insanların bir gün ortadan kaybolacağına, hastalanacağına, beni terk edeceğine veya öleceğine inanırım."),
-            SchemaQuestion(4, "İnsanlarla bağ kurduğumda, o bağı kaybetme korkusu yüzünden ilişkiyi sabote edebilirim."),
-            SchemaQuestion(5, "Biriyle çok yakınlaştığımda, aramızda mutlaka bir şeylerin ters gideceğinden korkarım."),
-            SchemaQuestion(6, "İlişkilerimde sürekli, partnerimin benden daha iyi birini bulup gideceğinden endişe duyarım."),
-            SchemaQuestion(7, "Sevdiğim kişilerin değişken veya güvenilmez olduğunu düşünürüm; bir gün var, bir gün yoklardır."),
-            SchemaQuestion(8, "Hayatımdaki insanlara tamamen güvenemem, çünkü eninde sonunda yalnız kalırım."),
-            SchemaQuestion(9, "Kendimi sık sık çaresiz, yalnız ve korunmasız hissederim."),
-            SchemaQuestion(10, "İlişkilerimde, diğer kişinin her zaman yanımda olmasını sağlamak için çok fazla fedakârlık yaparım.")
+            SchemaQuestion(1, "Üzüntü"),
+            SchemaQuestion(2, "Gelecekten ümitsizlik"),
+            SchemaQuestion(3, "Kendini başarısız hissetme"),
+            SchemaQuestion(4, "Kendinden hoşnut olmama"),
+            SchemaQuestion(5, "Kendini suçlama"),
+            SchemaQuestion(6, "Kendini cezalandırma isteği"),
+            SchemaQuestion(7, "Kendinden hoşlanmama"),
+            SchemaQuestion(8, "İntihar düşünceleri"),
+            SchemaQuestion(9, "Ağlama"),
+            SchemaQuestion(10, "Huzursuzluk"),
+            SchemaQuestion(11, "İnsanlarla ilgisini yitirme"),
+            SchemaQuestion(12, "Karar verme güçlüğü"),
+            SchemaQuestion(13, "Kendini değersiz hissetme"),
+            SchemaQuestion(14, "Enerji kaybı"),
+            SchemaQuestion(15, "Uykusuzluk"),
+            SchemaQuestion(16, "Sinirlilik"),
+            SchemaQuestion(17, "İştah değişikliği"),
+            SchemaQuestion(18, "Kilo kaybı"),
+            SchemaQuestion(19, "Sağlıkla meşgul olma"),
+            SchemaQuestion(20, "Cinsel ilgi kaybı"),
+            SchemaQuestion(21, "Günlük faaliyetlerde azalma")
         )
 
-        // Adapter ve RecyclerView bağlantılarını kur
-        adapter = SchemaTestAdapter(questionList)
+        adapter = BeckDepresyonAdapter(questionList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        // Butona tıklanınca puanları hesapla ve Firebase'e kaydet
         submitButton.setOnClickListener {
             val totalScore = questionList.sumOf { it.selectedScore }
 
@@ -79,13 +90,16 @@ class TerkedilmeTestiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.saveAbandonmentTestResult(answers, totalScore)
+            viewModel.saveBeckDepresyonTestResult(answers, totalScore)
+            Toast.makeText(requireContext(), "Test sonuçları kaydedildi", Toast.LENGTH_SHORT).show()
 
             // Sonucu göster
-            val message = when {
-                totalScore >= 55 -> "Yüksek düzeyde Terk Edilme / İstikrarsızlık Şeması"
-                totalScore in 25..39 -> "Orta düzeyde Terk Edilme / İstikrarsızlık Şeması"
-                else -> "Düşük düzeyde Terk Edilme / İstikrarsızlık Şeması"
+            val message = when (totalScore) {
+                in 0..9 -> "Minimal depresyon"
+                in 10..16 -> "Hafif depresyon"
+                in 17..29 -> "Orta düzey depresyon"
+                in 30..63 -> "Şiddetli depresyon"
+                else -> "Geçersiz puan"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()

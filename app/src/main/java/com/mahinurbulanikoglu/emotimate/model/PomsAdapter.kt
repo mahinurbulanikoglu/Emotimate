@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.testler
+package com.mahinurbulanikoglu.emotimate.model
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mahinurbulanikoglu.emotimate.R
+import com.mahinurbulanikoglu.emotimate.model.PomsQuestion
 
 class PomsAdapter(
     private val questionList: List<PomsQuestion>

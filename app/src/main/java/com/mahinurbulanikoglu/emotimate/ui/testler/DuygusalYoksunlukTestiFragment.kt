@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
 import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class KendiniFedaTestiFragment : Fragment() {
+class DuygusalYoksunlukTestiFragment : Fragment() {
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
@@ -24,7 +24,7 @@ class KendiniFedaTestiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_kendini_feda_testi, container, false)
+        return inflater.inflate(R.layout.fragment_duygusal_yoksunluk_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,7 +34,6 @@ class KendiniFedaTestiFragment : Fragment() {
         setupUI(view)
     }
 
-
     private fun setupObservers() {
         // Hata durumunu dinle
         viewModel.error.observe(viewLifecycleOwner) { error ->
@@ -43,6 +42,8 @@ class KendiniFedaTestiFragment : Fragment() {
 
         // Yükleme durumunu dinle
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            // Eğer layout'ta bir progress bar varsa burada gösterebilirsiniz
+            // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
 
@@ -50,18 +51,18 @@ class KendiniFedaTestiFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-        // Kendini Feda şeması için tüm sorular
+        // Duygusal Yoksunluk şeması için tüm sorular
         questionList = listOf(
-            SchemaQuestion(1, "Başkalarının ihtiyaçlarını kendi ihtiyaçlarımın önüne koyarım."),
-            SchemaQuestion(2, "Kendi isteklerimi ifade ettiğimde suçluluk duyarım."),
-            SchemaQuestion(3, "İnsanlara yardım etmekte kendimi sorumlu hissederim, sınır koyamam."),
-            SchemaQuestion(4, "Kendi ihtiyaçlarımı bastırmayı alışkanlık haline getirdim."),
-            SchemaQuestion(5, "İnsanların beni sevmesi için fedakârlık yapmalıyım diye düşünürüm."),
-            SchemaQuestion(6, "Hayır demekte zorlanırım, çünkü karşımdaki üzülmesin isterim."),
-            SchemaQuestion(7, "Sürekli başkaları için koştururken tükenmiş hissederim."),
-            SchemaQuestion(8, "Kendim için bir şey yapmak 'bencilce' gelir."),
-            SchemaQuestion(9, "Kendi ihtiyaçlarım görmezden geliniyor ama bunu sorun etmiyorum."),
-            SchemaQuestion(10, "Çevremdeki insanların mutsuzluğu, benim suçummuş gibi hissederim.")
+            SchemaQuestion(1, "Kimse benim duygusal ihtiyaçlarımı gerçekten karşılamadı."),
+            SchemaQuestion(2, "Kimse beni gerçekten anlamıyor."),
+            SchemaQuestion(3, "Bana içtenlikle ilgi gösteren biri yok."),
+            SchemaQuestion(4, "Duygusal desteğe ihtiyacım olduğunda yanımda kimse olmaz."),
+            SchemaQuestion(5, "Sevgi ve şefkat görmek konusunda hep bir eksiklik hissederim."),
+            SchemaQuestion(6, "İnsanlara ne kadar yakın olursam olayım, yine de bir boşluk hissederim."),
+            SchemaQuestion(7, "Biriyle ne kadar konuşursam konuşayım, tam olarak anlaşılamam."),
+            SchemaQuestion(8, "İlişkilerimde derin bir duygusal bağ kurmakta zorlanırım."),
+            SchemaQuestion(9, "İçimde kronik bir yalnızlık duygusu vardır."),
+            SchemaQuestion(10, "Hep eksik bir şeyler varmış gibi hissederim ama ne olduğunu bilemem.")
         )
 
         // Adapter ve RecyclerView bağlantılarını kur
@@ -78,20 +79,17 @@ class KendiniFedaTestiFragment : Fragment() {
                 "soru${it.id}" to it.selectedScore
             }
 
-                // Firebase'e kaydet
-                viewModel.saveSelfSacrificeTestResult(answers, totalScore)
+            // Firebase'e kaydet
+            viewModel.saveEmotionalDeprivationTestResult(answers, totalScore)
 
-                // Sonucu göster
-                val message = when {
-                    totalScore >= 40 -> "Yüksek düzeyde Kendini Feda Şeması"
-                    totalScore in 25..39 -> "Orta düzeyde Kendini Feda Şeması"
-                    else -> "Düşük düzeyde Kendini Feda Şeması"
-                }
-
-                Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()
-
+            // Sonucu göster
+            val message = when {
+                totalScore >= 40 -> "Yüksek düzeyde Duygusal Yoksunluk Şeması"
+                totalScore in 25..39 -> "Orta düzeyde Duygusal Yoksunluk Şeması"
+                else -> "Düşük düzeyde Duygusal Yoksunluk Şeması"
             }
+
+            Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()
         }
     }
-
-
+}

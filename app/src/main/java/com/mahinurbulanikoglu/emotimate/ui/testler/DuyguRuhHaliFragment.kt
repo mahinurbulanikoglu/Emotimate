@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
 import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class KaramsarlikTestiFragment : Fragment() {
+class BasarisizlikTestiFragment : Fragment() {
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
@@ -24,7 +24,7 @@ class KaramsarlikTestiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_karamsarlik_testi, container, false)
+        return inflater.inflate(R.layout.fragment_basarisizlik_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,16 +53,16 @@ class KaramsarlikTestiFragment : Fragment() {
 
         // Sorularını buraya ekledim:
         questionList = listOf(
-            SchemaQuestion(1, "İyi şeyler olduğunda bile kötü bir şey olacakmış gibi hissederim."),
-            SchemaQuestion(2, "Geleceğe dair hep olumsuz düşüncelerim vardır."),
-            SchemaQuestion(3, "Sorunları büyütme eğilimindeyim."),
-            SchemaQuestion(4, "Kötü senaryolar üretmekten kendimi alıkoyamam."),
-            SchemaQuestion(5, "Hayatın hep zorlayıcı ve tehditkâr yanlarına odaklanırım."),
-            SchemaQuestion(6, "Umutlu olmak bana safça geliyor."),
-            SchemaQuestion(7, "Bir şeyin kötü gitmesi beni şaşırtmaz, zaten öyle olur."),
-            SchemaQuestion(8, "İyi şeylerin uzun sürmeyeceğini düşünürüm."),
-            SchemaQuestion(9, "Kendimi güvence altına almak için hep en kötü ihtimale göre plan yaparım."),
-            SchemaQuestion(10, "İçsel olarak hep bir tehlike ya da felaket beklentisi taşırım.")
+            SchemaQuestion(1, "Kendimi çoğu zaman yetersiz hissederim."),
+            SchemaQuestion(2, "Diğer insanlara göre daha az başarılıyım."),
+            SchemaQuestion(3, "Hangi alana girersem gireyim sonunda başarısız olacağımı düşünürüm."),
+            SchemaQuestion(4, "Zeki ya da yetenekli biri olduğuma inanmam."),
+            SchemaQuestion(5, "İnsanlar benden beklenti içine girdiklerinde kaygılanırım."),
+            SchemaQuestion(6, "Yeni bir işe başlarken genellikle başarısız olacağıma inanırım."),
+            SchemaQuestion(7, "Akademik ya da mesleki başarılarımı küçümserim."),
+            SchemaQuestion(8, "Çocukken başarısızlıklarım sürekli eleştirilirdi."),
+            SchemaQuestion(9, "Kendimi sürekli başkalarıyla kıyaslarım ve yetersiz bulurum."),
+            SchemaQuestion(10, "Bir işi hakkıyla yapamayacağımı düşündüğüm için başlamam.")
         )
 
         adapter = SchemaTestAdapter(questionList)
@@ -78,13 +78,13 @@ class KaramsarlikTestiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.savePessimismTestResult(answers, totalScore)
+            viewModel.saveFailureTestResult(answers, totalScore)
 
             // Sonucu göster
             val message = when {
-                totalScore >= 40 -> "Yüksek düzeyde Karamsarlık / Felaketçilik Şeması"
-                totalScore in 25..39 -> "Orta düzeyde Karamsarlık / Felaketçilik Şeması"
-                else -> "Düşük düzeyde Karamsarlık / Felaketçilik Şeması"
+                totalScore >= 40 -> "Yüksek düzeyde Başarısızlık Şeması"
+                totalScore in 25..39 -> "Orta düzeyde Başarısızlık Şeması"
+                else -> "Düşük düzeyde Başarısızlık Şeması"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()

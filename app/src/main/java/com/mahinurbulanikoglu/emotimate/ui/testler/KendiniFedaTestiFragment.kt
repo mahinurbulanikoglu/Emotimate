@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
 import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class DuygusalBastirmaTestiFragment : Fragment() {
+class KendiniFedaTestiFragment : Fragment() {
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
@@ -24,7 +24,7 @@ class DuygusalBastirmaTestiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_duygusal_bastirma_testi, container, false)
+        return inflater.inflate(R.layout.fragment_kendini_feda_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,6 +34,7 @@ class DuygusalBastirmaTestiFragment : Fragment() {
         setupUI(view)
     }
 
+
     private fun setupObservers() {
         // Hata durumunu dinle
         viewModel.error.observe(viewLifecycleOwner) { error ->
@@ -42,8 +43,6 @@ class DuygusalBastirmaTestiFragment : Fragment() {
 
         // Yükleme durumunu dinle
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            // Eğer layout'ta bir progress bar varsa burada gösterebilirsiniz
-            // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
 
@@ -51,24 +50,26 @@ class DuygusalBastirmaTestiFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-        // Sorularını buraya ekledim:
+        // Kendini Feda şeması için tüm sorular
         questionList = listOf(
-            SchemaQuestion(1, "Duygularımı açıkça göstermekten çekinirim."),
-            SchemaQuestion(2, "İnsanların önünde ağlamaktan ya da heyecanlanmaktan utanırım."),
-            SchemaQuestion(3, "Hissettiklerimi belli edersem zayıf görüneceğimi düşünürüm."),
-            SchemaQuestion(4, "Çocukken duygularımı göstermem hoş karşılanmazdı."),
-            SchemaQuestion(5, "Duygularımı bastırmam gerektiğini düşünürüm."),
-            SchemaQuestion(6, "Kendimi ifade etmek bana zor gelir."),
-            SchemaQuestion(7, "Kontrolü kaybetmekten korkarım."),
-            SchemaQuestion(8, "İnsanların beni duygusal görmesini istemem."),
-            SchemaQuestion(9, "İçimde yoğun duygular olsa da bunları dışarıya belli etmem."),
-            SchemaQuestion(10, "Hissettiklerimi sadece kendi içimde yaşarım.")
+            SchemaQuestion(1, "Başkalarının ihtiyaçlarını kendi ihtiyaçlarımın önüne koyarım."),
+            SchemaQuestion(2, "Kendi isteklerimi ifade ettiğimde suçluluk duyarım."),
+            SchemaQuestion(3, "İnsanlara yardım etmekte kendimi sorumlu hissederim, sınır koyamam."),
+            SchemaQuestion(4, "Kendi ihtiyaçlarımı bastırmayı alışkanlık haline getirdim."),
+            SchemaQuestion(5, "İnsanların beni sevmesi için fedakârlık yapmalıyım diye düşünürüm."),
+            SchemaQuestion(6, "Hayır demekte zorlanırım, çünkü karşımdaki üzülmesin isterim."),
+            SchemaQuestion(7, "Sürekli başkaları için koştururken tükenmiş hissederim."),
+            SchemaQuestion(8, "Kendim için bir şey yapmak 'bencilce' gelir."),
+            SchemaQuestion(9, "Kendi ihtiyaçlarım görmezden geliniyor ama bunu sorun etmiyorum."),
+            SchemaQuestion(10, "Çevremdeki insanların mutsuzluğu, benim suçummuş gibi hissederim.")
         )
 
+        // Adapter ve RecyclerView bağlantılarını kur
         adapter = SchemaTestAdapter(questionList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        // Butona tıklanınca puanları hesapla ve Firebase'e kaydet
         submitButton.setOnClickListener {
             val totalScore = questionList.sumOf { it.selectedScore }
 
@@ -77,17 +78,20 @@ class DuygusalBastirmaTestiFragment : Fragment() {
                 "soru${it.id}" to it.selectedScore
             }
 
-            // Firebase'e kaydet
-            viewModel.saveEmotionalSuppressionTestResult(answers, totalScore)
+                // Firebase'e kaydet
+                viewModel.saveSelfSacrificeTestResult(answers, totalScore)
 
-            // Sonucu göster
-            val message = when {
-                totalScore >= 40 -> "Yüksek düzeyde Duygusal Bastırma Şeması"
-                totalScore in 25..39 -> "Orta düzeyde Duygusal Bastırma Şeması"
-                else -> "Düşük düzeyde Duygusal Bastırma Şeması"
+                // Sonucu göster
+                val message = when {
+                    totalScore >= 40 -> "Yüksek düzeyde Kendini Feda Şeması"
+                    totalScore in 25..39 -> "Orta düzeyde Kendini Feda Şeması"
+                    else -> "Düşük düzeyde Kendini Feda Şeması"
+                }
+
+                Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()
+
             }
-
-            Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()
         }
     }
-}
+
+

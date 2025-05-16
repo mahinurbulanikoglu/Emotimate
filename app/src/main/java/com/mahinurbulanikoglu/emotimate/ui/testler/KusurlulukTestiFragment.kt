@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
 import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class DuygusalYoksunlukTestiFragment : Fragment() {
+class KusurlulukTestiFragment : Fragment() {
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
@@ -24,7 +24,7 @@ class DuygusalYoksunlukTestiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_duygusal_yoksunluk_testi, container, false)
+        return inflater.inflate(R.layout.fragment_kusurluluk_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,18 +51,20 @@ class DuygusalYoksunlukTestiFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-        // Duygusal Yoksunluk şeması için tüm sorular
+        // Kusurluluk / Utanç şeması için tüm sorular
         questionList = listOf(
-            SchemaQuestion(1, "Kimse benim duygusal ihtiyaçlarımı gerçekten karşılamadı."),
-            SchemaQuestion(2, "Kimse beni gerçekten anlamıyor."),
-            SchemaQuestion(3, "Bana içtenlikle ilgi gösteren biri yok."),
-            SchemaQuestion(4, "Duygusal desteğe ihtiyacım olduğunda yanımda kimse olmaz."),
-            SchemaQuestion(5, "Sevgi ve şefkat görmek konusunda hep bir eksiklik hissederim."),
-            SchemaQuestion(6, "İnsanlara ne kadar yakın olursam olayım, yine de bir boşluk hissederim."),
-            SchemaQuestion(7, "Biriyle ne kadar konuşursam konuşayım, tam olarak anlaşılamam."),
-            SchemaQuestion(8, "İlişkilerimde derin bir duygusal bağ kurmakta zorlanırım."),
-            SchemaQuestion(9, "İçimde kronik bir yalnızlık duygusu vardır."),
-            SchemaQuestion(10, "Hep eksik bir şeyler varmış gibi hissederim ama ne olduğunu bilemem.")
+            SchemaQuestion(1, "Gerçek benliğimi tanısalardı, insanlar beni sevmezdi."),
+            SchemaQuestion(2, "Benimle ilgili bir şeylerin derinlemesine yanlış olduğunu hissediyorum."),
+            SchemaQuestion(3, "Kendimde utanılacak çok şey olduğunu hissediyorum."),
+            SchemaQuestion(4, "Kusurlarımı saklamadığım sürece insanlar beni kabul etmez."),
+            SchemaQuestion(5, "Yetersiz, değersiz veya kötü biri olduğumu sık sık hissediyorum."),
+            SchemaQuestion(6, "Kendimi diğerlerinden daha aşağı hissederim."),
+            SchemaQuestion(7, "İnsanlar bana yaklaşırsa, içimdeki kusurları göreceklerinden korkarım."),
+            SchemaQuestion(8, "Çocukken sık sık kusurlu olduğumu hissederdim."),
+            SchemaQuestion(9, "Bir ilişki içinde, sonunda gerçek benliğimi görüp beni reddedeceklerinden korkarım."),
+            SchemaQuestion(10, "Değersizliğim yüzünden başkalarının sevgisini hak etmediğimi düşünürüm."),
+            SchemaQuestion(11, "Hatalarım beni kötü bir insan yapar."),
+            SchemaQuestion(12, "İnsanlarla yakın ilişkilerde kendimi yetersiz hissederim.")
         )
 
         // Adapter ve RecyclerView bağlantılarını kur
@@ -80,13 +82,13 @@ class DuygusalYoksunlukTestiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.saveEmotionalDeprivationTestResult(answers, totalScore)
+            viewModel.saveShameTestResult(answers, totalScore)
 
             // Sonucu göster
             val message = when {
-                totalScore >= 40 -> "Yüksek düzeyde Duygusal Yoksunluk Şeması"
-                totalScore in 25..39 -> "Orta düzeyde Duygusal Yoksunluk Şeması"
-                else -> "Düşük düzeyde Duygusal Yoksunluk Şeması"
+                totalScore >= 55 -> "Yüksek düzeyde Kusurluluk / Utanç"
+                totalScore in 35..54 -> "Orta düzeyde Kusurluluk / Utanç"
+                else -> "Düşük düzeyde Kusurluluk / Utanç"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()

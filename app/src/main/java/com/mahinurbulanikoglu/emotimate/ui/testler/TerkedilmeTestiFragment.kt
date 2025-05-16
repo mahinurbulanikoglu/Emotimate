@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
 import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class BoyunEgicilikTestiFragment : Fragment() {
+class TerkedilmeTestiFragment : Fragment() {
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
@@ -24,7 +24,7 @@ class BoyunEgicilikTestiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_boyun_egicilik_testi, container, false)
+        return inflater.inflate(R.layout.fragment_terkedilme_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,29 +46,30 @@ class BoyunEgicilikTestiFragment : Fragment() {
             // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
-
     private fun setupUI(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-        // Sorularını buraya ekledim:
+
         questionList = listOf(
-            SchemaQuestion(1, "İnsanlarla çatışmaktan kaçınmak için isteklerimden vazgeçerim."),
-            SchemaQuestion(2, "Kendi fikirlerimi ifade etmekten çekinirim."),
-            SchemaQuestion(3, "Başkalarının kontrolü altında hissederim."),
-            SchemaQuestion(4, "Sürekli başkalarının kurallarına uymak zorundaymışım gibi hissederim."),
-            SchemaQuestion(5, "Haklı olsam bile itiraz etmem, alttan alırım."),
-            SchemaQuestion(6, "İçimde öfke hissederim ama bastırırım."),
-            SchemaQuestion(7, "Başkaları beni yönlendirirse işler daha kolay yürür gibi gelir."),
-            SchemaQuestion(8, "Çocukluğumda da kurallara uymak zorundaydım, yoksa cezalandırılırdım."),
-            SchemaQuestion(9, "Bir otorite figürü karşısında boyun eğmeye meyilliyim."),
-            SchemaQuestion(10, "Hayatımı başkalarının kurallarına göre yaşarım.")
+            SchemaQuestion(1, "Sevdiğim kişilerin beni terk edeceğinden korkarım."),
+            SchemaQuestion(2, "Partnerimden veya çok yakın olduğum birinden ayrıldığımda kendimi aşırı derecede kaybolmuş ve boşlukta hissederim."),
+            SchemaQuestion(3, "Sevdiğim insanların bir gün ortadan kaybolacağına, hastalanacağına, beni terk edeceğine veya öleceğine inanırım."),
+            SchemaQuestion(4, "İnsanlarla bağ kurduğumda, o bağı kaybetme korkusu yüzünden ilişkiyi sabote edebilirim."),
+            SchemaQuestion(5, "Biriyle çok yakınlaştığımda, aramızda mutlaka bir şeylerin ters gideceğinden korkarım."),
+            SchemaQuestion(6, "İlişkilerimde sürekli, partnerimin benden daha iyi birini bulup gideceğinden endişe duyarım."),
+            SchemaQuestion(7, "Sevdiğim kişilerin değişken veya güvenilmez olduğunu düşünürüm; bir gün var, bir gün yoklardır."),
+            SchemaQuestion(8, "Hayatımdaki insanlara tamamen güvenemem, çünkü eninde sonunda yalnız kalırım."),
+            SchemaQuestion(9, "Kendimi sık sık çaresiz, yalnız ve korunmasız hissederim."),
+            SchemaQuestion(10, "İlişkilerimde, diğer kişinin her zaman yanımda olmasını sağlamak için çok fazla fedakârlık yaparım.")
         )
 
+        // Adapter ve RecyclerView bağlantılarını kur
         adapter = SchemaTestAdapter(questionList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        // Butona tıklanınca puanları hesapla ve Firebase'e kaydet
         submitButton.setOnClickListener {
             val totalScore = questionList.sumOf { it.selectedScore }
 
@@ -78,13 +79,13 @@ class BoyunEgicilikTestiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.saveSubjugationTestResult(answers, totalScore)
+            viewModel.saveAbandonmentTestResult(answers, totalScore)
 
             // Sonucu göster
             val message = when {
-                totalScore >= 40 -> "Yüksek düzeyde Boyun Eğicilik Şeması"
-                totalScore in 25..39 -> "Orta düzeyde Boyun Eğicilik Şeması"
-                else -> "Düşük düzeyde Boyun Eğicilik Şeması"
+                totalScore >= 55 -> "Yüksek düzeyde Terk Edilme / İstikrarsızlık Şeması"
+                totalScore in 25..39 -> "Orta düzeyde Terk Edilme / İstikrarsızlık Şeması"
+                else -> "Düşük düzeyde Terk Edilme / İstikrarsızlık Şeması"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()

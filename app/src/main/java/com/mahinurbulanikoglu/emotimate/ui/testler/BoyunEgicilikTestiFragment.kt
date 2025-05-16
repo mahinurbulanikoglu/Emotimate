@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import com.mahinurbulanikoglu.emotimate.model.SchemaQuestion
 import com.mahinurbulanikoglu.emotimate.model.SchemaTestAdapter
 import com.mahinurbulanikoglu.emotimate.viewmodel.TestViewModel
 
-class SosyalIzolasyonTestiFragment : Fragment() {
+class BoyunEgicilikTestiFragment : Fragment() {
     private lateinit var questionList: List<SchemaQuestion>
     private lateinit var adapter: SchemaTestAdapter
     private val viewModel: TestViewModel by viewModels()
@@ -24,7 +24,7 @@ class SosyalIzolasyonTestiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_sosyal_izolasyon_testi, container, false)
+        return inflater.inflate(R.layout.fragment_boyun_egicilik_testi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,26 +51,24 @@ class SosyalIzolasyonTestiFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionsRecyclerView)
         val submitButton = view.findViewById<Button>(R.id.submitTestButton)
 
-        // Sosyal İzolasyon şeması için tüm sorular
+        // Sorularını buraya ekledim:
         questionList = listOf(
-            SchemaQuestion(1, "İnsanların arasında kendimi farklı hissederim."),
-            SchemaQuestion(2, "Sanki dışlanmışım ya da ait değilmişim gibi hissederim."),
-            SchemaQuestion(3, "İnsanlarla kolayca yakınlık kuramam."),
-            SchemaQuestion(4, "Kalabalık bir ortamda yalnız hissederim."),
-            SchemaQuestion(5, "Genellikle arkadaş gruplarına ya da topluluklara ait hissetmem."),
-            SchemaQuestion(6, "Diğer insanlar kolaylıkla kaynaşırken ben uzakta kalırım."),
-            SchemaQuestion(7, "Sanki herkes birlikte, ben ise dışarıda kalmışım gibi gelir."),
-            SchemaQuestion(8, "Beni gerçekten anlayabilecek insan bulmak zordur."),
-            SchemaQuestion(9, "Hayatım boyunca hep biraz 'ayrıksı' oldum."),
-            SchemaQuestion(10, "Sosyal ortamlarda içten içe kendimi güvensiz hissederim.")
+            SchemaQuestion(1, "İnsanlarla çatışmaktan kaçınmak için isteklerimden vazgeçerim."),
+            SchemaQuestion(2, "Kendi fikirlerimi ifade etmekten çekinirim."),
+            SchemaQuestion(3, "Başkalarının kontrolü altında hissederim."),
+            SchemaQuestion(4, "Sürekli başkalarının kurallarına uymak zorundaymışım gibi hissederim."),
+            SchemaQuestion(5, "Haklı olsam bile itiraz etmem, alttan alırım."),
+            SchemaQuestion(6, "İçimde öfke hissederim ama bastırırım."),
+            SchemaQuestion(7, "Başkaları beni yönlendirirse işler daha kolay yürür gibi gelir."),
+            SchemaQuestion(8, "Çocukluğumda da kurallara uymak zorundaydım, yoksa cezalandırılırdım."),
+            SchemaQuestion(9, "Bir otorite figürü karşısında boyun eğmeye meyilliyim."),
+            SchemaQuestion(10, "Hayatımı başkalarının kurallarına göre yaşarım.")
         )
 
-        // Adapter ve RecyclerView bağlantılarını kur
         adapter = SchemaTestAdapter(questionList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        // Butona tıklanınca puanları hesapla ve Firebase'e kaydet
         submitButton.setOnClickListener {
             val totalScore = questionList.sumOf { it.selectedScore }
 
@@ -80,13 +78,13 @@ class SosyalIzolasyonTestiFragment : Fragment() {
             }
 
             // Firebase'e kaydet
-            viewModel.saveSocialIsolationTestResult(answers, totalScore)
+            viewModel.saveSubjugationTestResult(answers, totalScore)
 
             // Sonucu göster
             val message = when {
-                totalScore >= 40 -> "Yüksek düzeyde Sosyal İzolasyon / Yabancılık Şeması"
-                totalScore in 25..39 -> "Orta düzeyde Sosyal İzolasyon / Yabancılık Şeması"
-                else -> "Düşük düzeyde Sosyal İzolasyon / Yabancılık Şeması"
+                totalScore >= 40 -> "Yüksek düzeyde Boyun Eğicilik Şeması"
+                totalScore in 25..39 -> "Orta düzeyde Boyun Eğicilik Şeması"
+                else -> "Düşük düzeyde Boyun Eğicilik Şeması"
             }
 
             Toast.makeText(requireContext(), "$message\nToplam Puan: $totalScore", Toast.LENGTH_LONG).show()

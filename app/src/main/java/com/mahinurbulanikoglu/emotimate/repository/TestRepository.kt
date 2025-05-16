@@ -24,6 +24,8 @@ import com.mahinurbulanikoglu.emotimate.model.BeckDepresyonTestResult
 import com.mahinurbulanikoglu.emotimate.model.BeckAnksiyeteTestResult
 import com.mahinurbulanikoglu.emotimate.model.PanasTestResult
 import com.mahinurbulanikoglu.emotimate.model.PomsTestResult
+import com.mahinurbulanikoglu.emotimate.model.AsrsTestResult
+import com.mahinurbulanikoglu.emotimate.model.TssbTestResult
 
 class TestRepository {
     private val database = FirebaseDatabase.getInstance()
@@ -40,6 +42,9 @@ class TestRepository {
 
     private val _pomsTestResults = MutableLiveData<List<PomsTestResult>>()
     val pomsTestResults: LiveData<List<PomsTestResult>> = _pomsTestResults
+
+    private val _asrsTestResults = MutableLiveData<List<AsrsTestResult>>()
+    val asrsTestResults: LiveData<List<AsrsTestResult>> = _asrsTestResults
 
     suspend fun saveShameTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
         return try {
@@ -661,13 +666,24 @@ class TestRepository {
                 answers = answers
             )
 
+            Log.d("TestRepository", "Test sonucu oluşturuldu: $testResult")
+
             val testRef = database.getReference("users/$userId/test_results/poms_test")
             Log.d("TestRepository", "Veritabanı yolu: users/$userId/test_results/poms_test")
             
-            testRef.push().setValue(testResult).await()
-            Log.d("TestRepository", "Test sonucu başarıyla kaydedildi")
-            
-            Result.success(Unit)
+            try {
+                testRef.push().setValue(testResult).await()
+                Log.d("TestRepository", "Test sonucu başarıyla kaydedildi")
+                
+                // Kaydedilen veriyi doğrula
+                val savedData = testRef.get().await()
+                Log.d("TestRepository", "Kaydedilen veri doğrulandı: $savedData")
+                
+                Result.success(Unit)
+            } catch (e: Exception) {
+                Log.e("TestRepository", "Firebase kaydetme hatası", e)
+                Result.failure(e)
+            }
         } catch (e: Exception) {
             Log.e("TestRepository", "Test sonucu kaydedilirken hata oluştu", e)
             Result.failure(e)
@@ -681,6 +697,98 @@ class TestRepository {
 
             val results = testRef.get().await().children.mapNotNull { it.getValue(PomsTestResult::class.java) }
             _pomsTestResults.postValue(results)
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun saveAsrsTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val interpretation = when {
+                totalScore <= 16 -> "Yetişkinlerde DEHB olasılığı düşüktür."
+                totalScore in 17..23 -> "Yetişkinlerde DEHB olasılığı vardır; daha fazla değerlendirme önerilir."
+                else -> "Yetişkinlerde DEHB olasılığı yüksektir; kapsamlı klinik değerlendirme gereklidir."
+            }
+
+            val testResult = AsrsTestResult(
+                userId = userId,
+                timestamp = System.currentTimeMillis(),
+                totalScore = totalScore,
+                answers = answers
+            )
+
+            val testRef = database.getReference("users/$userId/test_results/asrs_test")
+            testRef.push().setValue(testResult).await()
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getAsrsTestResults(): Result<List<AsrsTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val testRef = database.getReference("users/$userId/test_results/asrs_test")
+            val snapshot = testRef.get().await()
+
+            val results = mutableListOf<AsrsTestResult>()
+            snapshot.children.forEach { child ->
+                child.getValue<AsrsTestResult>()?.let { result ->
+                    results.add(result)
+                }
+            }
+
+            Result.success(results)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun saveTssbTestResult(answers: Map<String, Int>, totalScore: Int): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val interpretation = when {
+                totalScore <= 10 -> "Belirti yok veya klinik açıdan anlamlı değil"
+                totalScore in 11..32 -> "Hafif belirtiler; izleme önerilir"
+                totalScore in 33..49 -> "Orta düzeyde TSSB olasılığı; psikolojik destek önerilir"
+                else -> "Yüksek TSSB riski; profesyonel yardım şiddetle önerilir"
+            }
+
+            val testResult = TssbTestResult(
+                userId = userId,
+                timestamp = System.currentTimeMillis(),
+                totalScore = totalScore,
+                answers = answers
+            )
+
+            val testRef = database.getReference("users/$userId/test_results/tssb_test")
+            testRef.push().setValue(testResult).await()
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getTssbTestResults(): Result<List<TssbTestResult>> {
+        return try {
+            val userId = auth.currentUser?.uid ?: return Result.failure(Exception("Kullanıcı girişi yapılmamış"))
+
+            val testRef = database.getReference("users/$userId/test_results/tssb_test")
+            val snapshot = testRef.get().await()
+
+            val results = snapshot.children.mapNotNull { child ->
+                child.getValue(TssbTestResult::class.java)
+            }.sortedByDescending { it.timestamp }
+
             Result.success(results)
         } catch (e: Exception) {
             Result.failure(e)
