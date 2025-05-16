@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 class TestViewModel : ViewModel() {
     private val repository = TestRepository()
 
-    // Shame Test için
+    // Shame Test içinn
     private val _shameTestResults = MutableLiveData<List<ShameTestResult>>()
     val shameTestResults: LiveData<List<ShameTestResult>> = _shameTestResults
 
