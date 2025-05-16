@@ -20,6 +20,53 @@
             android:textStyle="bold"
             android:paddingBottom="8dp" />
 
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_corners_bg">
+
+            <ImageView
+                android:id="@+id/imgTalkTherapist"
+                android:layout_width="428dp"
+                android:layout_height="248dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/bg_ai_message"
+                android:contentDescription="Talk to Therapist"
+                android:scaleType="fitXY"
+                android:src="@drawable/talktherapist" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStartConversation"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Start a Conversation"
+                android:textColor="#222222"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:background="@drawable/rounded_white_button"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:elevation="2dp"
+                app:cornerRadius="32dp"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                app:backgroundTint="@android:color/white"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                />
+        </FrameLayout>
+
+
         <TextView
             android:id="@+id/tvMotivation"
             android:layout_width="match_parent"

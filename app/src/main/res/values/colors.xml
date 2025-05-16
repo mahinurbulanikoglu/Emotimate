@@ -13,6 +13,8 @@
     <color name="gray">#FF0000</color>
     <color name="darker_gray">#555555</color>
     <color name="lightBlue">#E6F0FA</color> <!-- istediğin tonu değiştirebilirsin -->
+    <color name="primaryColor">#4A90E2</color> <!-- Mavi ton örneği -->
+
 
 
 </resources>

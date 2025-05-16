@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -190,6 +191,11 @@ class HomeFragment : Fragment() {
                 val comment = binding.editNote.text.toString()
                 saveMoodToFirestore(mood, comment)
             }
+        }
+        // Start a Conversation butonuna tıklanınca AI sekmesine geç
+        binding.btnStartConversation.setOnClickListener {
+            val navView = requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)
+            navView.selectedItemId = R.id.navigation_ai
         }
     }
 
