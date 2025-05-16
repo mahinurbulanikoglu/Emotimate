@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/panasInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aşağıda size çeşitli duygu ve hisleri anlatan kelimeler sunulmuştur. Bu duyguları son bir hafta içinde ne kadar sıklıkla hissettiğinizi belirtiniz.\n\n1 = Hiçbir zaman\n2 = Nadiren\n3 = Bazen\n4 = Sık sık\n5 = Çok sık"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:paddingBottom="12dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/panasRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="12dp"
+        android:contentDescription="PANAS soruları listesi" />
+
+    <Button
+        android:id="@+id/btnPanasSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Testi Gönder"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="72dp"/>
+</LinearLayout>

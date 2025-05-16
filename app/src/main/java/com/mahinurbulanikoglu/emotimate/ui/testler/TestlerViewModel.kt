@@ -1,4 +1,4 @@
-package com.mahinurbulanikoglu.emotimate.ui.Testler
+package com.mahinurbulanikoglu.emotimate.ui.testler
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
