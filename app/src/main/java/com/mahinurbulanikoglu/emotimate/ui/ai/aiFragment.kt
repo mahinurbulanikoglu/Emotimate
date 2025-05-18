@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.WindowManager
 import android.widget.ImageButton
+import android.widget.ProgressBar
 
 class aiFragment : Fragment() {
 
@@ -36,6 +37,7 @@ class aiFragment : Fragment() {
         val rvChat = view.findViewById<RecyclerView>(R.id.rvChat)
         val etMessage = view.findViewById<EditText>(R.id.etMessage)
         val btnSend = view.findViewById<ImageButton>(R.id.btnSend)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
 
         chatAdapter = ChatAdapter(emptyList())
         rvChat.adapter = chatAdapter
@@ -46,6 +48,12 @@ class aiFragment : Fragment() {
             rvChat.adapter = chatAdapter
             rvChat.scrollToPosition(messages.size - 1)
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            btnSend.isEnabled = !isLoading
+            etMessage.isEnabled = !isLoading
+        }
 
         btnSend.setOnClickListener {
             val userText = etMessage.text.toString().trim()
